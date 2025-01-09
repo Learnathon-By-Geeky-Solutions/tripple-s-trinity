@@ -10,7 +10,7 @@
 
 ## Project Description
 Game Overview
-Game Title: MechaMorph
+Game Title: MechaMorph <br>
 Genre: Action, Survival, Strategy
 Platform:  PC, Console
 Game Summary:
