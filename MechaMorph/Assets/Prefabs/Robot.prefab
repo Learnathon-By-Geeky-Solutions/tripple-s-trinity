@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 7130069094913957009}
   - component: {fileID: 5526563305305035028}
   m_Layer: 0
-  m_Name: robot
+  m_Name: Robot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -119,7 +119,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5373993913881270072}
   serializedVersion: 4
-  m_Mass: 2
+  m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -150,12 +150,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b1f6cb0652906e4a8fd4cfeb23d235b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 6
+  moveSpeed: 10
   rotationSpeed: 10
-  jumpForce: 14
+  jumpForce: 7
   groundLayer:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 8
   groundCheck: {fileID: 9208809207520315304}
   groundCheckRadius: 0.2
 --- !u!1 &5519371745318547118
