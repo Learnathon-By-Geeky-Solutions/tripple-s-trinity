@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BallFormPlayerControl: MonoBehaviour
+public class BallController: MonoBehaviour
 {
     public float movementSpeed=10f;
 
