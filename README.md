@@ -28,6 +28,6 @@ Platform:  PC, Console<br>
 4. Create pull requests for review
 
 ## Resources
-- [Project Documentation](docs/)
+- [Project Documentation](https://docs.google.com/document/d/1zDG_dLLOFlVIz11s2l01omfLwDgxqnx4Fx2XefpvLps/edit?usp=sharing)
 - [Development Setup](docs/setup.md)
 - [Contributing Guidelines](CONTRIBUTING.md)
