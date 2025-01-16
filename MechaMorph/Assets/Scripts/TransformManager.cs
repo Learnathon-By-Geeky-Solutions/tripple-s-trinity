@@ -8,7 +8,6 @@ public class TransformManager : MonoBehaviour
     public static GameObject currentForm;  // The currently active form
     private bool isBallForm = true;  // Tracks if the active form is the ball
 
- 
     void Start()
     {
         SpawnBallForm(); // Start with the ball form
