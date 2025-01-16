@@ -10,15 +10,14 @@ namespace TrippleTrinity.MechaMorph.Enemy
     public class EnemyAi : MonoBehaviour
     {
         [SerializeField] private GameObject player;
-        public Rigidbody rb;
+        [SerializeField] private Rigidbody rb;
         protected NavMeshAgent agent;
-        int health;
-        public Transform targetPosition;
-        public GameObject Bullet => _bullet;
+        [SerializeField] private int health;
+        [SerializeField] private Transform targetPosition;
+        [SerializeField] private GameObject Bullet => _bullet;
         [SerializeField] GameObject _bullet;
-        public float ProjectileLaunchVelocity = 5f;
-        public float MoveRotationSpeed = 45f;
-        public Vector3 direction;
+        [SerializeField] private float MoveRotationSpeed = 45f;
+        [SerializeField] private Vector3 direction;
 
 
         // Start is called before the first frame update

@@ -2,18 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MeleeEnemyAi : EnemyAi
+namespace TrippleTrinity.MechaMorph.Enemy
 {
-    public float Damage = 1f;
-    // Start is called before the first frame update
-
-
-    // Update is called once per frame
-    protected override void Update()
+    public class MeleeEnemyAi : EnemyAi
     {
-        base.Update();
-        
-        //check if within attack range
-        
+
+        // Update is called once per frame
+        protected override void Update()
+        {
+            base.Update(); // Call the base class Update logic
+        }
     }
 }
