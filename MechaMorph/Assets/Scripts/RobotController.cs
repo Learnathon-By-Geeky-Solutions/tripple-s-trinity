@@ -3,23 +3,23 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class RobotController : MonoBehaviour
 {
-    public float moveSpeed = 5f;                 // Movement speed
-    public float rotationSpeed = 10f;           // Speed of rotation
-    public float jumpForce = 7f;                // Force for jumping
-    public LayerMask groundLayer;               // Layer for ground detection
-    public Transform groundCheck;               // Ground check position
-    public float groundCheckRadius = 0.3f;      // Ground check radius
+    [SerializeField] private float moveSpeed = 5f;                 // Movement speed
+    [SerializeField] private float rotationSpeed = 10f;           // Speed of rotation
+    [SerializeField] private float jumpForce = 7f;                // Force for jumping
+    [SerializeField] LayerMask groundLayer;               // Layer for ground detection
+    [SerializeField] Transform groundCheck;               // Ground check position
+    [SerializeField] float groundCheckRadius = 0.3f;      // Ground check radius
 
-    private Rigidbody rb;
-    private bool isGrounded;
-    private Vector3 movementInput;
+    private Rigidbody _rb;
+    private bool _isGrounded;
+    private Vector3 _movementInput;
 
     void Start()
     {
-        rb = GetComponent<Rigidbody>();
-        rb.freezeRotation = true;               // Prevent unintended rotations
-        rb.interpolation = RigidbodyInterpolation.Interpolate; // Smooth motion updates
-        rb.collisionDetectionMode = CollisionDetectionMode.Continuous; // Precise collision detection
+        _rb = GetComponent<Rigidbody>();
+        _rb.freezeRotation = true;               // Prevent unintended rotations
+        _rb.interpolation = RigidbodyInterpolation.Interpolate; // Smooth motion updates
+        _rb.collisionDetectionMode = CollisionDetectionMode.Continuous; // Precise collision detection
     }
 
     void Update()
@@ -27,10 +27,10 @@ public class RobotController : MonoBehaviour
         // Handle player input
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
-        movementInput = new Vector3(horizontalInput, 0, verticalInput).normalized;
+        _movementInput = new Vector3(horizontalInput, 0, verticalInput).normalized;
 
         // Handle jump input
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+        if (Input.GetKeyDown(KeyCode.Space) && _isGrounded)
         {
             Jump();
         }
@@ -48,25 +48,25 @@ public class RobotController : MonoBehaviour
         if (groundCheck != null)
         {
             // Use a smooth ground check to prevent rapid toggling
-            isGrounded = Physics.CheckSphere(groundCheck.position, groundCheckRadius, groundLayer);
+            _isGrounded = Physics.CheckSphere(groundCheck.position, groundCheckRadius, groundLayer);
         }
     }
 
     private void Move()
     {
-        if (movementInput.magnitude >= 0.1f)
+        if (_movementInput.magnitude >= 0.1f)
         {
             // Calculate target velocity
-            Vector3 targetVelocity = movementInput * moveSpeed;
+            Vector3 targetVelocity = _movementInput * moveSpeed;
 
             // Smoothly change velocity while preserving vertical motion
-            Vector3 velocityChange = targetVelocity - new Vector3(rb.velocity.x, 0, rb.velocity.z);
-            rb.AddForce(velocityChange, ForceMode.VelocityChange);
+            Vector3 velocityChange = targetVelocity - new Vector3(_rb.velocity.x, 0, _rb.velocity.z);
+            _rb.AddForce(velocityChange, ForceMode.VelocityChange);
         }
-        else if (isGrounded)
+        else if (_isGrounded)
         {
             // Stop horizontal movement when grounded and no input
-            rb.velocity = new Vector3(0, rb.velocity.y, 0);
+            _rb.velocity = new Vector3(0, _rb.velocity.y, 0);
         }
     }
 
@@ -85,15 +85,15 @@ public class RobotController : MonoBehaviour
             if (targetDirection.sqrMagnitude > 0.1f)
             {
                 Quaternion targetRotation = Quaternion.LookRotation(targetDirection);
-                rb.rotation = Quaternion.Slerp(rb.rotation, targetRotation, rotationSpeed * Time.fixedDeltaTime);
+                _rb.rotation = Quaternion.Slerp(_rb.rotation, targetRotation, rotationSpeed * Time.fixedDeltaTime);
             }
         }
     }
 
     private void Jump()
     {
-        rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z); // Reset vertical velocity
-        rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);      // Apply jump force
+        _rb.velocity = new Vector3(_rb.velocity.x, 0f, _rb.velocity.z); // Reset vertical velocity
+        _rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);      // Apply jump force
     }
 
     void OnDrawGizmosSelected()

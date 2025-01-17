@@ -1,29 +1,32 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class BallController: MonoBehaviour
+public class BallController : MonoBehaviour
 {
-    public float movementSpeed=10f;
+    public float movementSpeed = 10f;
+    private Rigidbody rb;
 
-    public Rigidbody rb;
-    
-    
+    private float _cachedHorizontal;
+    private float _cachedVertical;
+
     // Start is called before the first frame update
     void Start()
     {
-        rb = GetComponent<Rigidbody>();   
+        rb = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
-        float horizontal = Input.GetAxis("Horizontal");
-        float vertical = Input.GetAxis("Vertical");
-
-        Vector3 movement = new Vector3(horizontal, 0, vertical);
-
-        rb.AddForce(movement * movementSpeed);
+        // Cache input values in Update()
+        _cachedHorizontal = Input.GetAxis("Horizontal");
+        _cachedVertical = Input.GetAxis("Vertical");
     }
 
+    // FixedUpdate is called at a fixed time step
+    void FixedUpdate()
+    {
+        // Use cached input values for physics
+        Vector3 movement = new Vector3(_cachedHorizontal, 0, _cachedVertical);
+        rb.AddForce(movement * movementSpeed);
+    }
 }

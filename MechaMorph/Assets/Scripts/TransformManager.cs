@@ -2,12 +2,12 @@ using UnityEngine;
 
 public class TransformManager : MonoBehaviour
 {
-    public GameObject ballPrefab;    // Prefab for the ball form
-    public GameObject robotPrefab;   // Prefab for the robot form
-    public CameraController cameraController; // Reference to the CameraController script
+    [SerializeField] GameObject ballPrefab;    // Prefab for the ball form
+    [SerializeField] GameObject robotPrefab;   // Prefab for the robot form
+    [SerializeField] CameraController cameraController; // Reference to the CameraController script
 
-    private GameObject currentForm;  // The currently active form
-    private bool isBallForm = true;  // Tracks if the active form is the ball
+    private GameObject _currentForm;  // The currently active form
+    private bool _isBallForm = true;  // Tracks if the active form is the ball
 
     void Start()
     {
@@ -18,7 +18,7 @@ public class TransformManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.T)) // Press 'T' to transform
         {
-            if (isBallForm)
+            if (_isBallForm)
             {
                 SpawnRobotForm();
             }
@@ -34,21 +34,21 @@ public class TransformManager : MonoBehaviour
         Vector3 spawnPosition = transform.position; 
         Quaternion spawnRotation = Quaternion.identity;
 
-        if (currentForm != null)
+        if (_currentForm != null)
         {
-            spawnPosition = currentForm.transform.position;
-            spawnRotation = currentForm.transform.rotation;
-            Destroy(currentForm); // Destroy the previous form
+            spawnPosition = _currentForm.transform.position;
+            spawnRotation = _currentForm.transform.rotation;
+            Destroy(_currentForm); // Destroy the previous form
         }
 
-        currentForm = Instantiate(ballPrefab, spawnPosition, spawnRotation);
+        _currentForm = Instantiate(ballPrefab, spawnPosition, spawnRotation);
 
         if (cameraController != null)
         {
-            cameraController.target = currentForm.transform; // Set the camera to follow the ball
+            cameraController.target = _currentForm.transform; // Set the camera to follow the ball
         }
 
-        isBallForm = true;
+        _isBallForm = true;
     }
 
     private void SpawnRobotForm()
@@ -56,20 +56,20 @@ public class TransformManager : MonoBehaviour
         Vector3 spawnPosition = transform.position; 
         Quaternion spawnRotation = Quaternion.identity;
 
-        if (currentForm != null)
+        if (_currentForm != null)
         {
-            spawnPosition = currentForm.transform.position;
-            spawnRotation = currentForm.transform.rotation;
-            Destroy(currentForm); // Destroy the previous form
+            spawnPosition = _currentForm.transform.position;
+            spawnRotation = _currentForm.transform.rotation;
+            Destroy(_currentForm); // Destroy the previous form
         }
 
-        currentForm = Instantiate(robotPrefab, spawnPosition, spawnRotation);
+        _currentForm = Instantiate(robotPrefab, spawnPosition, spawnRotation);
 
         if (cameraController != null)
         {
-            cameraController.target = currentForm.transform; // Set the camera to follow the robot
+            cameraController.target = _currentForm.transform; // Set the camera to follow the robot
         }
 
-        isBallForm = false;
+        _isBallForm = false;
     }
 }
