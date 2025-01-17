@@ -5,8 +5,7 @@ public class TransformManager : MonoBehaviour
     public GameObject ballPrefab;    // Prefab for the ball form
     public GameObject robotPrefab;   // Prefab for the robot form
     public CameraController cameraController; // Reference to the CameraController script
-
-    private GameObject currentForm;  // The currently active form
+    public static GameObject currentForm;  // The currently active form
     private bool isBallForm = true;  // Tracks if the active form is the ball
 
     void Start()
@@ -21,10 +20,13 @@ public class TransformManager : MonoBehaviour
             if (isBallForm)
             {
                 SpawnRobotForm();
+              
             }
             else
             {
                 SpawnBallForm();
+                
+
             }
         }
     }
@@ -42,6 +44,7 @@ public class TransformManager : MonoBehaviour
         }
 
         currentForm = Instantiate(ballPrefab, spawnPosition, spawnRotation);
+       
 
         if (cameraController != null)
         {
@@ -64,6 +67,7 @@ public class TransformManager : MonoBehaviour
         }
 
         currentForm = Instantiate(robotPrefab, spawnPosition, spawnRotation);
+       
 
         if (cameraController != null)
         {
