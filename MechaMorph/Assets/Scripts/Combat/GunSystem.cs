@@ -1,13 +1,13 @@
 using UnityEngine;
 
-namespace Combat
+namespace TrippleTrinity.MechaMorph.Combat
 {
     public class GunSystem : MonoBehaviour
     {
-        public float damage = 10f;
-        public float range = 20f;
-        public float fireRate = 15f;
-        public float impactForce = 50f;
+        [SerializeField] private float damage = 10f;
+        [SerializeField] private float range = 20f;
+        [SerializeField] private float fireRate = 15f;
+        [SerializeField] private float impactForce = 50f;
 
         private float _nextTimeToFire;
 

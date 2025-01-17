@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Combat
+namespace TrippleTrinity.MechaMorph.Combat
 {
     public abstract class BaseGun : MonoBehaviour
     {
