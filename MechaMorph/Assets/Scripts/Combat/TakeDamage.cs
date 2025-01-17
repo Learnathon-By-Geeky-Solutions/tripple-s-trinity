@@ -1,20 +1,24 @@
 using UnityEngine;
 
-public class TakeDamage : MonoBehaviour
+namespace Combat
 {
-    public float enemyHealth = 50f;
-
-    public void Damage(float amount)
+    public class TakeDamage : MonoBehaviour
     {
-        enemyHealth -= amount;
-        if (enemyHealth <= 0f)
+        [SerializeField] private float enemyHealth = 50f;
+        
+
+        public void Damage(float amount)
         {
-            Die();
+            enemyHealth -= amount;
+            if (enemyHealth <= 0f)
+            {
+                Die(gameObject);
+            }
         }
-    }
 
-    void Die()
-    {
-        Destroy(gameObject);
+        static void Die(GameObject obj)
+        {
+            Destroy(obj);
+        }
     }
 }
