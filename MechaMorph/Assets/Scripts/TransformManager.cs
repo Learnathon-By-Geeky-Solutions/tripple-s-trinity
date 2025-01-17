@@ -5,7 +5,7 @@ public class TransformManager : MonoBehaviour
     public GameObject ballPrefab;    // Prefab for the ball form
     public GameObject robotPrefab;   // Prefab for the robot form
     public CameraController cameraController; // Reference to the CameraController script
-    public static GameObject currentForm;  // The currently active form
+    public  GameObject currentForm;  // The currently active form
     private bool isBallForm = true;  // Tracks if the active form is the ball
 
     void Start()

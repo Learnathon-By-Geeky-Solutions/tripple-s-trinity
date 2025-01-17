@@ -1,16 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
-using UnityEngine.AI;
+
 
 namespace TrippleTrinity.MechaMorph.Enemy
 {
     public class ExplosiveEnemyAi : EnemyAi
     {
 
-
-        private bool hasExploded = false;
-
+        private bool hasExploded;
         // Update is called once per frame
         protected override void Update()
         {
@@ -33,7 +30,7 @@ namespace TrippleTrinity.MechaMorph.Enemy
         }
         void Explode()
         {
-            ////ExplosionSound();
+            //ExplosionSound();
             Debug.Log("Death");
             GameObject.Destroy(this.gameObject);
         }
