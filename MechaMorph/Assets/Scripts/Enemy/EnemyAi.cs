@@ -1,24 +1,18 @@
 
-
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
-//com.company.subject
-//com.TrippleTrinity.MechaMorph.Ai
-namespace TrippleTrinity.MechaMorph.Ai
+namespace TrippleTrinity.MechaMorph.Enemy
 {
-    public class EnemyAi : MonoBehaviour
+    public  class EnemyAi : MonoBehaviour
     {
         [SerializeField] private GameObject player;
-        public Rigidbody rb;
-        protected NavMeshAgent agent;
-        int health;
-        public Transform targetPosition;
-        public GameObject Bullet => _bullet;
-        [SerializeField] GameObject _bullet;
-        public float ProjectileLaunchVelocity = 5f;
-        public float MoveRotationSpeed = 45f;
-        public Vector3 direction;
+        [SerializeField] private Rigidbody rb;
+        public NavMeshAgent agent;
+        [SerializeField] private int health;
+        [SerializeField] private Transform targetPosition;
+        [SerializeField] private GameObject bullet;
+        [SerializeField] private float moveRotationSpeed = 45f;
+        [SerializeField] private Vector3 direction;
 
 
         // Start is called before the first frame update
@@ -61,7 +55,7 @@ namespace TrippleTrinity.MechaMorph.Ai
             transform.rotation = Quaternion.Slerp(
                 transform.rotation,
                 targetRotation,
-                Time.deltaTime * MoveRotationSpeed
+                Time.deltaTime * moveRotationSpeed
                 );
         }
         //EnemyAi Death
