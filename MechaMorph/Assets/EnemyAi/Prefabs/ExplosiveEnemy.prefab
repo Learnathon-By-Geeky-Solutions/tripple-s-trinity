@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2248327244043071737}
   - component: {fileID: 1003790467664697904}
   - component: {fileID: 3201954146574192600}
-  - component: {fileID: 1857316749095213292}
+  - component: {fileID: -2283225980316836534}
   m_Layer: 0
   m_Name: ExplosiveEnemy
   m_TagString: Untagged
@@ -159,7 +159,7 @@ NavMeshAgent:
   m_BaseOffset: 1
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &1857316749095213292
+--- !u!114 &-2283225980316836534
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -171,8 +171,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d91428bbcfa1104bb6bdc0822e7ff32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 0}
   rb: {fileID: 0}
+  agent: {fileID: 0}
+  health: 0
   targetPosition: {fileID: 0}
-  Bullet: {fileID: 1688195106580583820, guid: 6f8d9d59846bc8446b0e464b41ac706b, type: 3}
-  ProjectileLaunchVelocity: 40
-  MoveRotationSpeed: 45
+  bullet: {fileID: 0}
+  moveRotationSpeed: 45
+  direction: {x: 0, y: 0, z: 0}
