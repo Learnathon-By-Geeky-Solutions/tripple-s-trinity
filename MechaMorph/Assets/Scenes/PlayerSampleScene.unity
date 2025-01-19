@@ -277,7 +277,7 @@ GameObject:
   - component: {fileID: 297851900}
   - component: {fileID: 297851899}
   - component: {fileID: 297851904}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: DemoEnemy (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -942,7 +942,7 @@ GameObject:
   - component: {fileID: 1150307468}
   - component: {fileID: 1150307467}
   - component: {fileID: 1150307472}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: DemoEnemy (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1089,7 +1089,7 @@ GameObject:
   - component: {fileID: 1234301372}
   - component: {fileID: 1234301371}
   - component: {fileID: 1234301376}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: DemoEnemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
