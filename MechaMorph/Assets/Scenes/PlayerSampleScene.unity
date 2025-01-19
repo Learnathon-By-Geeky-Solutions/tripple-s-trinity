@@ -563,6 +563,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5693971541612250817, guid: cfa4c5b7860a614468256fcfd83029a2, type: 3}
+      propertyPath: countDown
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5693971541612250817, guid: cfa4c5b7860a614468256fcfd83029a2, type: 3}
+      propertyPath: enemyAi.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5693971541612250817, guid: cfa4c5b7860a614468256fcfd83029a2, type: 3}
+      propertyPath: enemyAi.Array.data[0]
+      value: 
+      objectReference: {fileID: 6376213158033550541, guid: 4a376697e47317d47874ff76df76c936, type: 3}
+    - target: {fileID: 5693971541612250817, guid: cfa4c5b7860a614468256fcfd83029a2, type: 3}
+      propertyPath: enemyAi.Array.data[1]
+      value: 
+      objectReference: {fileID: 4980032239789531758, guid: ae2ffbccf3c135649b98efea3a824667, type: 3}
     - target: {fileID: 8725680209447731275, guid: cfa4c5b7860a614468256fcfd83029a2, type: 3}
       propertyPath: m_Name
       value: EnemySpawnManager
@@ -1035,7 +1051,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.16666667
   m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 0}
+  m_NavMeshData: {fileID: 23800000, guid: e0bb067d42caeff48bb655e2e70accfb, type: 2}
   m_BuildHeightMesh: 0
 --- !u!4 &1026347819
 Transform:
@@ -1314,6 +1330,7 @@ MonoBehaviour:
   ballPrefab: {fileID: 4200522066654881006, guid: 90c3087a30165be468cdce124cff5b30, type: 3}
   robotPrefab: {fileID: 5373993913881270072, guid: b7076bdbb2b35ba458635deefeeb7856, type: 3}
   cameraController: {fileID: 963194229}
+  currentForm: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

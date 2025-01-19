@@ -32,7 +32,7 @@ namespace TrippleTrinity.MechaMorph.Enemy
         {
             //ExplosionSound();
             Debug.Log("Death");
-            GameObject.Destroy(this.gameObject);
+            Destroy(this.gameObject);
         }
 
     }
