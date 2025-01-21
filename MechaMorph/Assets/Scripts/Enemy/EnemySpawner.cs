@@ -12,7 +12,7 @@ namespace TrippleTrinity.MechaMorph.Enemy
         [SerializeField] private float spawnDelay = 10f;
         private readonly float xMinVal = -13f, xMaxVal = 13f, zMinVal = -20f, zMaxVal = 20f;
         private float xVal, zVal;
-        private readonly float spawnHeight = 5f;
+        private readonly float spawnHeight = 1f;
         [SerializeField] private float countDown = 10f;
         private List<GameObject> gameObjects;
         void Start()

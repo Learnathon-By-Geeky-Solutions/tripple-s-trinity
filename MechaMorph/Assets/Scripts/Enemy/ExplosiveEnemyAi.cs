@@ -21,7 +21,7 @@ namespace TrippleTrinity.MechaMorph.Enemy
         }
         bool AutoBreak()
         {
-            if (agent.remainingDistance <= 5f && agent.velocity.magnitude > 0.1f)
+            if (agent.isOnNavMesh && agent.remainingDistance <= 5f && agent.velocity.magnitude > 0.1f)
             {
                 agent.autoBraking = true;
                 return true;
@@ -32,7 +32,7 @@ namespace TrippleTrinity.MechaMorph.Enemy
         {
             //ExplosionSound();
             Debug.Log("Death");
-            GameObject.Destroy(this.gameObject);
+            Destroy(this.gameObject);
         }
 
     }
