@@ -1,69 +1,76 @@
-
 using UnityEngine;
 using UnityEngine.AI;
+
 namespace TrippleTrinity.MechaMorph.Enemy
 {
-    public  class EnemyAi : MonoBehaviour
+    public class EnemyAi : MonoBehaviour
     {
-        [SerializeField] private GameObject player;
         [SerializeField] private Rigidbody rb;
         public NavMeshAgent agent;
         [SerializeField] private int health;
-        [SerializeField] private Transform targetPosition;
+        private Transform targetPosition;
         [SerializeField] private GameObject bullet;
         [SerializeField] private float moveRotationSpeed = 45f;
-        [SerializeField] private Vector3 direction;
-
+        public  Vector3 direction;
 
         // Start is called before the first frame update
         protected virtual void Start()
         {
-            //player = TransformManager.currentForm;
-            player = GameObject.FindGameObjectWithTag("Player");
-            if (player != null)
-            {
-                Debug.Log($"player.name)");
-            }
             agent = GetComponent<NavMeshAgent>();
-            agent.autoBraking = false;
 
+            GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
+            if (playerObject != null)
+            {
+                targetPosition = playerObject.transform;
+                Debug.Log($"Player found: {targetPosition.name}");
+            }
+            else
+            {
+                Debug.Log("Player not found! Make sure the Player object is tagged correctly.");
+            }
+
+            agent.autoBraking = false;
         }
 
         // Update is called once per frame
         protected virtual void Update()
         {
-
             if (targetPosition != null)
             {
                 RotateTowardsTarget();
-                //EnemyAI will move towards the enemy
                 MoveTowardsTarget();
             }
         }
 
-        //Move towards the player
+        // Move towards the target
         protected virtual void MoveTowardsTarget()
         {
-            agent.SetDestination(player.transform.position);
+            if (targetPosition == null) return;
+            if (agent.isOnNavMesh)
+            {
+                agent.SetDestination(targetPosition.position);
+            }
         }
 
-        //Rotate towards the Player
+        // Rotate towards the target
         protected virtual void RotateTowardsTarget()
         {
-            direction = (player.transform.position - transform.position).normalized;
+            if (targetPosition == null) return;
+
+            direction = (targetPosition.position - transform.position).normalized;
             Quaternion targetRotation = Quaternion.LookRotation(direction);
             transform.rotation = Quaternion.Slerp(
                 transform.rotation,
                 targetRotation,
                 Time.deltaTime * moveRotationSpeed
-                );
+            );
         }
-        //EnemyAi Death
+
+        // Enemy death logic
         protected virtual void Die()
         {
-            Debug.Log("Is dead");
+            Debug.Log("Enemy is dead.");
             Destroy(gameObject);
         }
     }
-
 }
