@@ -11,7 +11,7 @@ namespace TrippleTrinity.MechaMorph.Enemy
         private Transform targetPosition;
         [SerializeField] private GameObject bullet;
         [SerializeField] private float moveRotationSpeed = 45f;
-        [SerializeField] private Vector3 direction;
+        public  Vector3 direction;
 
         // Start is called before the first frame update
         protected virtual void Start()
@@ -26,7 +26,7 @@ namespace TrippleTrinity.MechaMorph.Enemy
             }
             else
             {
-                Debug.LogError("Player not found! Make sure the Player object is tagged correctly.");
+                Debug.Log("Player not found! Make sure the Player object is tagged correctly.");
             }
 
             agent.autoBraking = false;
@@ -46,7 +46,10 @@ namespace TrippleTrinity.MechaMorph.Enemy
         protected virtual void MoveTowardsTarget()
         {
             if (targetPosition == null) return;
-            agent.SetDestination(targetPosition.position);
+            if (agent.isOnNavMesh)
+            {
+                agent.SetDestination(targetPosition.position);
+            }
         }
 
         // Rotate towards the target
