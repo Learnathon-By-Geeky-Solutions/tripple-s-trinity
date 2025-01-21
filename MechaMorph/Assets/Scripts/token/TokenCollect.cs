@@ -1,7 +1,7 @@
-using Ability;
+using TrippleTrinity.MechaMorph.Ability;
 using UnityEngine;
 
-namespace token
+namespace TrippleTrinity.MechaMorph.token
 {
     public class TokenCollect : MonoBehaviour
     {

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Control
+namespace TrippleTrinity.MechaMorph.Control
 {
     public class CameraController : MonoBehaviour
     {

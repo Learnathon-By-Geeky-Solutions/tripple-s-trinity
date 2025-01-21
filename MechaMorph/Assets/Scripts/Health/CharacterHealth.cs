@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Health
+namespace TrippleTrinity.MechaMorph.Health
 {
     
 public class CharacterHealth : MonoBehaviour

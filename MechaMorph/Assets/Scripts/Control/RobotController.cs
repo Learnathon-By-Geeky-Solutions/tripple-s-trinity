@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Control
+namespace TrippleTrinity.MechaMorph.Control
 {
     [RequireComponent(typeof(Rigidbody))]
     public class RobotController : MonoBehaviour

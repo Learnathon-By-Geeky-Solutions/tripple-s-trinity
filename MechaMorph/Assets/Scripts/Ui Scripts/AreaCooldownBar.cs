@@ -1,8 +1,8 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
-using System.Collections;
 
-namespace Ui_Scripts
+namespace TrippleTrinity.MechaMorph.Ui_Scripts
 {
     public class AreaCooldownBar : MonoBehaviour
     {

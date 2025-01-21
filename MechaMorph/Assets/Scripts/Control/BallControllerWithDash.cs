@@ -1,8 +1,8 @@
 using System.Collections;
-using Ui_Scripts;
+using TrippleTrinity.MechaMorph.Ui_Scripts;
 using UnityEngine;
 
-namespace Control
+namespace TrippleTrinity.MechaMorph.Control
 {
 public class BallControllerWithDash : MonoBehaviour
 {
@@ -18,7 +18,7 @@ public class BallControllerWithDash : MonoBehaviour
     [SerializeField] private ParticleSystem dashParticleEffect;
     [SerializeField] private AudioClip dashSound;
 
-    private Rigidbody rb;
+    private Rigidbody _rb;
     private AudioSource _audioSource;
 
     private float _cachedHorizontal;
@@ -46,7 +46,7 @@ public class BallControllerWithDash : MonoBehaviour
     void FixedUpdate()
     {
         Vector3 movement = new Vector3(_cachedHorizontal, 0, _cachedVertical);
-        rb.AddForce(movement * movementSpeed);
+        _rb.AddForce(movement * movementSpeed);
     }
 
     private IEnumerator PerformDash()
@@ -92,8 +92,8 @@ public class BallControllerWithDash : MonoBehaviour
 
     private void InitializeComponents()
     {
-        rb = GetComponent<Rigidbody>();
-        if (rb == null)
+        _rb = GetComponent<Rigidbody>();
+        if (_rb == null)
         {
             Debug.LogError("Rigidbody not found on Ball GameObject.");
         }

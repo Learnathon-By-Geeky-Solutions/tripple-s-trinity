@@ -1,8 +1,8 @@
-using Health;
-using Ui_Scripts;
+using TrippleTrinity.MechaMorph.Health;
+using TrippleTrinity.MechaMorph.Ui_Scripts;
 using UnityEngine;
 
-namespace Ability
+namespace TrippleTrinity.MechaMorph.Ability
 {
     public class AreaDamageAbility : MonoBehaviour
     {
@@ -17,16 +17,19 @@ namespace Ability
         [Header("Area Damage Settings")]
         [SerializeField] private float damageRadius = 5f;  // Radius of the area damage
         [SerializeField] private float damageAmount = 50f; // Damage dealt by the ability
+        [SerializeField] private int maxTargets = 10; // Maximum number of targets that can be hit
 
         [Header("Form Settings")]
         public bool isRobotForm; // Set to true when in robot form
 
         private AreaCooldownBar _cooldownBar; // Reference to the cooldown bar script
+        private Collider[] _hitResults; // Pre-allocated array for storing hit results
 
         private void Start()
         {
             _currentCooldown = 0f; // Start with an empty cooldown bar
             _cooldownBar = FindObjectOfType<AreaCooldownBar>(); // Automatically find the cooldown bar in the scene
+            _hitResults = new Collider[maxTargets]; // Pre-allocate the array for hit results
             UpdateCooldownUI();
         }
 
@@ -50,7 +53,7 @@ namespace Ability
         public void RegisterEnemyKill()
         {
             // Add cooldown value from an enemy kill
-            _currentCooldown = Mathf.Clamp(_currentCooldown + +_killValue, 0f, _maxCooldown);
+            _currentCooldown = Mathf.Clamp(_currentCooldown + _killValue, 0f, _maxCooldown);
             UpdateCooldownUI();
             Debug.Log("Enemy killed! Cooldown: " + _currentCooldown);
         }
@@ -66,11 +69,11 @@ namespace Ability
             _currentCooldown = 0f; // Reset cooldown
             UpdateCooldownUI();
 
-            // Deal damage to all enemies within the radius
-            Collider[] hits = Physics.OverlapSphere(transform.position, damageRadius);
-            foreach (Collider hit in hits)
+            // Use Physics.OverlapSphereNonAlloc for efficiency
+            int hitCount = Physics.OverlapSphereNonAlloc(transform.position, damageRadius, _hitResults);
+            for (int i = 0; i < hitCount; i++)
             {
-                CharacterHealth targetHealth = hit.GetComponent<CharacterHealth>();
+                CharacterHealth targetHealth = _hitResults[i].GetComponent<CharacterHealth>();
                 if (targetHealth != null)
                 {
                     targetHealth.TakeDamage(damageAmount);

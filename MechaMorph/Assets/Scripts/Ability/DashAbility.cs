@@ -1,9 +1,9 @@
 using System.Collections;
-using Control;
-using Ui_Scripts;
+using TrippleTrinity.MechaMorph.Control;
+using TrippleTrinity.MechaMorph.Ui_Scripts;
 using UnityEngine;
 
-namespace Ability
+namespace TrippleTrinity.MechaMorph.Ability
 {
     
 public class DashAbility : MonoBehaviour

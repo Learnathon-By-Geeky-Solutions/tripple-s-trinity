@@ -378,13 +378,13 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_Sprite: {fileID: 21300000, guid: 3e331fe2cd275024894c4369c4d33aa1, type: 3}
-  m_Type: 0
+  m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
-  m_FillMethod: 4
+  m_FillMethod: 0
   m_FillAmount: 1
   m_FillClockwise: 1
-  m_FillOrigin: 0
+  m_FillOrigin: 1
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
 --- !u!222 &322240776
@@ -634,7 +634,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_Sprite: {fileID: 21300000, guid: 3e331fe2cd275024894c4369c4d33aa1, type: 3}
-  m_Type: 3
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 0
@@ -680,8 +680,8 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 322240774}
   - {fileID: 577266030}
+  - {fileID: 322240774}
   m_Father: {fileID: 1175041210}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
@@ -701,8 +701,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4485db96d5c199a49ac745b297bb9503, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cooldownBarImage: {fileID: 577266031}
-  smoothDuration: 0.5
+  cooldownBarImage: {fileID: 322240775}
+  smoothDuration: 1
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
