@@ -9,10 +9,10 @@ namespace TrippleTrinity.MechaMorph.Weapons
         public RobotController robotController;
         //public Transform cameraController;
 
-        [SerializeField] private float currentAmmo = 0f;
-        [SerializeField] private float nextTimeToFire = 0f;
+        [SerializeField] private float currentAmmo;
+        [SerializeField] private float nextTimeToFire;
 
-        private bool isReloading = false;
+        private bool _isReloading;
 
         private void Start()
         {
@@ -28,9 +28,9 @@ namespace TrippleTrinity.MechaMorph.Weapons
 
         }
 
-        public void tryReloading()
+        public void TryReloading()
         {
-            if (!isReloading && currentAmmo < gunData.magazineSize)
+            if (!_isReloading && currentAmmo < gunData.magazineSize)
             {
                 StartCoroutine(Reload());
             }
@@ -38,21 +38,21 @@ namespace TrippleTrinity.MechaMorph.Weapons
 
         private IEnumerator Reload()
         {
-            isReloading = true;
+            _isReloading = true;
 
             Debug.Log(gunData.gunName + " is reloading....");
 
             yield return new WaitForSeconds(gunData.realoadTime);
 
             currentAmmo = gunData.magazineSize;
-            isReloading = false;
+            _isReloading = false;
 
             Debug.Log(gunData.gunName + " is reloaded.");
         }
 
-        public void tryShoot()
+        public void TryShoot()
         {
-            if (isReloading)
+            if (_isReloading)
             {
                 Debug.Log(gunData.gunName + " is realoading...");
                 return;
