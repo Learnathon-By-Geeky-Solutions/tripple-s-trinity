@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace TrippleTrinity.MechaMorph.Combat
+namespace TrippleTrinity.MechaMorph.Weapons
 {
     public class GunSystem : MonoBehaviour
     {

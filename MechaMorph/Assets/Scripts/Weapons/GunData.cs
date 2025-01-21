@@ -1,16 +1,21 @@
 using UnityEngine;
 
-[CreateAssetMenu (fileName = "NewGunData", menuName = "Gun/GunData")]
-public class GunData : ScriptableObject
+
+namespace TrippleTrinity.MechaMorph.Weapons
 {
-    public string gunName;
-    public LayerMask layerMask;
+    [CreateAssetMenu (fileName = "NewGunData", menuName = "Gun/GunData")]
+    public class GunData : ScriptableObject
+    {
+        public string gunName;
+        public LayerMask layerMask;
 
-    [Header("Fire Config")]
-    public float shootingRange;
-    public float fireRate;
+        [Header("Fire Config")]
+        public float shootingRange;
+        public float fireRate;
 
-    [Header("Reload Config")]
-    public float magazineSize;
-    public float realoadTime;
+        [Header("Reload Config")]
+        public float magazineSize;
+        public float realoadTime;
+    }
 }
+

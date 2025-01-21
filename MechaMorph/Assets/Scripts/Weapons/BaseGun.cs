@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-namespace TrippleTrinity.MechaMorph.Combat
+namespace TrippleTrinity.MechaMorph.Weapons
 {
     public abstract class BaseGun : MonoBehaviour
     {

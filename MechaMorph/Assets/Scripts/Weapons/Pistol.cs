@@ -1,11 +1,10 @@
-using TrippleTrinity.MechaMorph.Combat;
-using UnityEditor.PackageManager;
+using TrippleTrinity.MechaMorph.Weapons;
 using UnityEngine;
 
 public class Pistol : BaseGun
 {
     public float damage;
-    private float impactForce = 50f;
+    private float _impactForce = 50f;
     public override void Update()
     {
         base.Update();
@@ -34,7 +33,7 @@ public class Pistol : BaseGun
 
             if (hit.rigidbody != null)
             {
-                hit.rigidbody.AddForce(-hit.normal * impactForce);
+                hit.rigidbody.AddForce(-hit.normal * _impactForce);
             }
         }
     }
