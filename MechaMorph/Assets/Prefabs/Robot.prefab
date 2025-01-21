@@ -14,9 +14,10 @@ GameObject:
   - component: {fileID: 3833603773394308382}
   - component: {fileID: 7130069094913957009}
   - component: {fileID: 5526563305305035028}
+  - component: {fileID: -22891052138006417}
   m_Layer: 0
   m_Name: Robot
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -107,10 +108,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.57525396
   m_Height: 2
   m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 0, z: -0.015315533}
 --- !u!54 &7130069094913957009
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -158,6 +159,24 @@ MonoBehaviour:
     m_Bits: 8
   groundCheck: {fileID: 9208809207520315304}
   groundCheckRadius: 0.2
+--- !u!114 &-22891052138006417
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5373993913881270072}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5c78b7eb8d719a4d9d3f8c5354f12fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxCooldown: 100
+  tokenValue: 34
+  killValue: 15
+  damageRadius: 5
+  damageAmount: 100
+  isRobotForm: 1
 --- !u!1 &5519371745318547118
 GameObject:
   m_ObjectHideFlags: 0

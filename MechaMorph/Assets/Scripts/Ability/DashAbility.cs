@@ -1,8 +1,11 @@
 using System.Collections;
+using Control;
 using Ui_Scripts;
 using UnityEngine;
 
-
+namespace Ability
+{
+    
 public class DashAbility : MonoBehaviour
 {
     [Header("Dash Settings")]
@@ -15,13 +18,13 @@ public class DashAbility : MonoBehaviour
     [SerializeField] private AudioClip dashSound; // Sound effect for the dash
     private AudioSource _audioSource;
 
-    private BallController _ballController;
+    private BallControllerWithDash _ballController;
     private bool _isDashing ;
     private bool _isCooldownActive;
 
     private void Start()
     {
-        _ballController = GetComponent<BallController>();
+        _ballController = GetComponent<BallControllerWithDash>();
         if (_ballController == null)
         {
             Debug.LogError("BallController script not found on this GameObject.");
@@ -79,4 +82,5 @@ public class DashAbility : MonoBehaviour
         yield return new WaitForSeconds(dashCooldown);
         _isCooldownActive = false;
     }
+}
 }
