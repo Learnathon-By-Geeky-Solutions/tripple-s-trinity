@@ -6,8 +6,8 @@ namespace TrippleTrinity.MechaMorph.Weapons
     public abstract class BaseGun : MonoBehaviour
     {
         public GunData gunData;
-        public RobotController robotController;
-        //public Transform cameraController;
+        [SerializeField] private RobotController robotController;
+        
 
         [SerializeField] private float currentAmmo;
         [SerializeField] private float nextTimeToFire;
@@ -19,7 +19,6 @@ namespace TrippleTrinity.MechaMorph.Weapons
             currentAmmo = gunData.magazineSize;
 
             robotController = transform.root.GetComponent<RobotController>();
-            //cameraTransform = robotController.virtualCaremra.transform;
 
         }
 
