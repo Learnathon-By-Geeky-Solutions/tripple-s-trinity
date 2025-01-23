@@ -1,88 +1,80 @@
-using TrippleTrinity.MechaMorph.Control;
 using UnityEngine;
 
-namespace TrippleTrinity.MechaMorph
+
+public class TransformManager : MonoBehaviour
 {
-    public class TransformManager : MonoBehaviour
+    public GameObject ballPrefab;    // Prefab for the ball form
+    public GameObject robotPrefab;   // Prefab for the robot form
+    public CameraController cameraController; // Reference to the CameraController script
+    public  GameObject currentForm;  // The currently active form
+    private bool isBallForm = true;  // Tracks if the active form is the ball
+
+    void Start()
     {
-        [Header("Form Settings")]
-        [SerializeField] private GameObject ballVisual;    // Child object for the ball visuals
-        [SerializeField] private GameObject robotVisual;   // Child object for the robot visuals
-        [SerializeField] private BallControllerWithDash ballController; // Ball movement script
-        [SerializeField] private RobotController robotController; // Robot movement script
+        SpawnBallForm(); // Start with the ball form
+    }
 
-        [Header("Camera Settings")]
-        [SerializeField] private CameraController cameraController; // Reference to the CameraController script
-
-        private bool _isBallForm = true; // Track the current form
-
-        private void Start()
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.T)) // Press 'T' to transform
         {
-            SetBallForm(); // Start in ball form
-        }
-
-        private void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.T)) // Switch form on 'T'
+            if (isBallForm)
             {
-                if (_isBallForm)
-                {
-                    SetRobotForm();
-                }
-                else
-                {
-                    SetBallForm();
-                }
+                SpawnRobotForm();
+              
+            }
+            else
+            {
+                SpawnBallForm();
+                
+
             }
         }
+    }
 
-        private void SetBallForm()
+    private void SpawnBallForm()
+    {
+        Vector3 spawnPosition = transform.position; 
+        Quaternion spawnRotation = Quaternion.identity;
+
+        if (currentForm != null)
         {
-            // Transfer position and rotation to Ball Form
-            ballVisual.transform.position = robotVisual.transform.position;
-            ballVisual.transform.rotation = robotVisual.transform.rotation;
-
-            ballVisual.SetActive(true);
-            robotVisual.SetActive(false);
-            ballController.enabled = true;
-            robotController.enabled = false;
-
-            // Call OnTransformToBall to reset dash-related variables
-            if (ballController != null)
-            {
-                ballController.OnTransformToBall();
-            }
-
-            if (cameraController != null)
-            {
-                cameraController.target = ballVisual.transform; // Set the camera to follow the ball
-            }
-
-            _isBallForm = true;
+            spawnPosition = currentForm.transform.position;
+            spawnRotation = currentForm.transform.rotation;
+            Destroy(currentForm); // Destroy the previous form
         }
 
-        private void SetRobotForm()
+        currentForm = Instantiate(ballPrefab, spawnPosition, spawnRotation);
+       
+
+        if (cameraController != null)
         {
-            // Transfer position and rotation to Robot Form
-            robotVisual.transform.position = ballVisual.transform.position;
-            robotVisual.transform.rotation = ballVisual.transform.rotation;
-
-            ballVisual.SetActive(false);
-            robotVisual.SetActive(true);
-            ballController.enabled = false;
-            robotController.enabled = true;
-
-            if (cameraController != null)
-            {
-                cameraController.target = robotVisual.transform; // Set the camera to follow the robot
-            }
-
-            _isBallForm = false;
+            cameraController.target = currentForm.transform; // Set the camera to follow the ball
         }
 
-        public bool IsBallForm()
+        isBallForm = true;
+    }
+
+    private void SpawnRobotForm()
+    {
+        Vector3 spawnPosition = transform.position; 
+        Quaternion spawnRotation = Quaternion.identity;
+
+        if (currentForm != null)
         {
-            return _isBallForm;
+            spawnPosition = currentForm.transform.position;
+            spawnRotation = currentForm.transform.rotation;
+            Destroy(currentForm); // Destroy the previous form
         }
+
+        currentForm = Instantiate(robotPrefab, spawnPosition, spawnRotation);
+       
+
+        if (cameraController != null)
+        {
+            cameraController.target = currentForm.transform; // Set the camera to follow the robot
+        }
+
+        isBallForm = false;
     }
 }
