@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace TrippleTrinity.MechaMorph.Weapons
 {
-    public class Pistol : BaseGun
+    public class GunAbility : BaseGun
     {
         public float damage;
         private float _impactForce = 50f;
