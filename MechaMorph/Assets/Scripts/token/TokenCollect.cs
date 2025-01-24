@@ -1,11 +1,16 @@
 using TrippleTrinity.MechaMorph.Ability;
 using UnityEngine;
 
-namespace TrippleTrinity.MechaMorph.token
+namespace TrippleTrinity.MechaMorph.Token
 {
     public class TokenCollect : MonoBehaviour
     {
         private void OnTriggerEnter(Collider other)
+        {
+            HandleTokenCollection(this, other);
+        }
+
+        private static void HandleTokenCollection(TokenCollect token, Collider other)
         {
             if (other.CompareTag("Player"))
             {
@@ -22,7 +27,7 @@ namespace TrippleTrinity.MechaMorph.token
                 }
 
                 // Destroy the token
-                Destroy(gameObject);
+                Destroy(token.gameObject);
             }
         }
     }

@@ -11,7 +11,7 @@ namespace TrippleTrinity.MechaMorph.Control
 
         private Vector3 _velocity = Vector3.zero;
 
-        [SerializeField] public Transform target; // Backing field for the property
+        [SerializeField] private Transform target; // Backing field for the property
 
         public Transform Target
         {

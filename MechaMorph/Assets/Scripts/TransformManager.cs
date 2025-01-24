@@ -55,7 +55,7 @@ namespace TrippleTrinity.MechaMorph
 
             if (cameraController != null)
             {
-                cameraController.target = ballVisual.transform; // Set the camera to follow the ball
+                cameraController.Target = ballVisual.transform; // Set the camera to follow the ball
             }
 
             _isBallForm = true;
@@ -74,7 +74,7 @@ namespace TrippleTrinity.MechaMorph
 
             if (cameraController != null)
             {
-                cameraController.target = robotVisual.transform; // Set the camera to follow the robot
+                cameraController.Target = robotVisual.transform; // Set the camera to follow the robot
             }
 
             _isBallForm = false;

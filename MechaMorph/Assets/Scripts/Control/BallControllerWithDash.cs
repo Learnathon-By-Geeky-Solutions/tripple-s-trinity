@@ -7,7 +7,12 @@ namespace TrippleTrinity.MechaMorph.Control
 public class BallControllerWithDash : MonoBehaviour
 {
     [Header("Movement Settings")]
-    public float movementSpeed = 10f;
+    [SerializeField] private float movementSpeed = 10f;
+    public float MovementSpeed
+    {
+        get => movementSpeed;
+        set => movementSpeed = Mathf.Max(0, value); // Ensure speed is not negative
+    }
 
     [Header("Dash Settings")]
     [SerializeField] private float dashMultiplier = 2f;

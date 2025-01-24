@@ -50,8 +50,8 @@ public class DashAbility : MonoBehaviour
         _isDashing = true;
 
         // Temporarily increase movement speed
-        float originalSpeed = _ballController.movementSpeed;
-        _ballController.movementSpeed *= dashMultiplier;
+        float originalSpeed = _ballController.MovementSpeed;
+        _ballController.MovementSpeed *= dashMultiplier;
 
         // Play particle effect if assigned
         if (dashParticleEffect != null)
@@ -74,7 +74,7 @@ public class DashAbility : MonoBehaviour
         yield return new WaitForSeconds(dashDuration);
 
         // Reset movement speed
-        _ballController.movementSpeed = originalSpeed;
+        _ballController.MovementSpeed = originalSpeed;
         _isDashing = false;
 
         // Start cooldown

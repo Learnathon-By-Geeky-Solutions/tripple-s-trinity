@@ -2,23 +2,22 @@ using UnityEngine;
 
 namespace TrippleTrinity.MechaMorph.Health
 {
-    
-public class CharacterHealth : MonoBehaviour
-{
-   [SerializeField] private float health = 100f;
-
-    public void TakeDamage(float amount)
+    public class CharacterHealth : MonoBehaviour
     {
-        health -= amount;
-        if (health <= 0)
+        [SerializeField] private float health = 100f;
+
+        public void TakeDamage(float amount)
         {
-            Die();
+            health -= amount;
+            if (health <= 0)
+            {
+                Die(gameObject);
+            }
+        }
+
+        private static void Die(GameObject target)
+        {
+            Destroy(target);
         }
     }
-
-    private void Die()
-    {
-        Destroy(gameObject);
-    }
-}
 }
