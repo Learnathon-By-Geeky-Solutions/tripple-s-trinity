@@ -6,8 +6,7 @@ namespace TrippleTrinity.MechaMorph.Weapons
     public abstract class BaseGun : MonoBehaviour
     {
         public GunData gunData;
-        [SerializeField] private RobotController robotController;
-        
+
 
         [SerializeField] private float currentAmmo;
         [SerializeField] private float nextTimeToFire;
@@ -18,7 +17,7 @@ namespace TrippleTrinity.MechaMorph.Weapons
         {
             currentAmmo = gunData.magazineSize;
 
-            robotController = transform.root.GetComponent<RobotController>();
+            transform.root.GetComponent<RobotController>();
 
         }
 
@@ -27,7 +26,7 @@ namespace TrippleTrinity.MechaMorph.Weapons
 
         }
 
-        public void TryReloading()
+        protected void TryReloading()
         {
             if (!_isReloading && currentAmmo < gunData.magazineSize)
             {
@@ -49,7 +48,7 @@ namespace TrippleTrinity.MechaMorph.Weapons
             Debug.Log(gunData.gunName + " is reloaded.");
         }
 
-        public void TryShoot()
+        protected void TryShoot()
         {
             if (_isReloading)
             {
@@ -75,7 +74,7 @@ namespace TrippleTrinity.MechaMorph.Weapons
             Shoot();
         }
 
-        public abstract void Shoot();
+        protected abstract void Shoot();
 
 
     }
