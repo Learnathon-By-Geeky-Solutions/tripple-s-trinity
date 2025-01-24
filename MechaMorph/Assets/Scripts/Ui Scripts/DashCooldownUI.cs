@@ -6,7 +6,9 @@ namespace TrippleTrinity.MechaMorph.Ui_Scripts
 {
     public class DashCooldownUI : MonoBehaviour
     {
-        public static DashCooldownUI Instance;
+        private static DashCooldownUI _instance; // Private backing field for the singleton instance
+
+        public static DashCooldownUI Instance { get; private set; }
 
         [Header("Cooldown UI")]
         [SerializeField] private Image cooldownBar; // Reference to the cooldown bar UI

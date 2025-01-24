@@ -20,7 +20,9 @@ namespace TrippleTrinity.MechaMorph.Ability
         [SerializeField] private int maxTargets = 10; // Maximum number of targets that can be hit
 
         [Header("Form Settings")]
-        public bool isRobotForm; // Set to true when in robot form
+        [SerializeField] 
+        private bool isRobotForm; // Backing field for the property
+    
 
         private AreaCooldownBar _cooldownBar; // Reference to the cooldown bar script
         private Collider[] _hitResults; // Pre-allocated array for storing hit results

@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Ball
   - Robot
+  - Token
   layers:
   - Default
   - TransparentFX
