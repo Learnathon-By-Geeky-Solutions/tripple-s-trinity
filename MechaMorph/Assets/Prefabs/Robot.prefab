@@ -507,7 +507,8 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: -7849465080907893265, guid: fde69184b78b0ee429393f068b2a3190, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
@@ -537,11 +538,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e333bd947a5a23240b2c16f3d9508e0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gunData: {fileID: 0}
-  robotController: {fileID: 0}
-  currentAmmo: 0
-  nextTimeToFire: 0
-  damage: 0
+  gunData: {fileID: 11400000, guid: d79e5cdc911715a4fa36360183d14fcb, type: 2}
+  robotController: {fileID: 5526563305305035028}
+  currentAmmo: 200
+  nextTimeToFire: 10
+  damage: 50
 --- !u!1001 &3420581816933955398
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -606,6 +607,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5040716567068284473, guid: fde69184b78b0ee429393f068b2a3190, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 818d4ed43d5eb134d9911e9067f1fef8, type: 2}
     - target: {fileID: 6450036794256980827, guid: fde69184b78b0ee429393f068b2a3190, type: 3}
       propertyPath: m_Name
       value: Shotgun
@@ -614,13 +619,39 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: -7849465080907893265, guid: fde69184b78b0ee429393f068b2a3190, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6450036794256980827, guid: fde69184b78b0ee429393f068b2a3190, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6927506483815736361}
   m_SourcePrefab: {fileID: 100100000, guid: fde69184b78b0ee429393f068b2a3190, type: 3}
 --- !u!4 &986344312574934768 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2506371833364957622, guid: fde69184b78b0ee429393f068b2a3190, type: 3}
   m_PrefabInstance: {fileID: 3420581816933955398}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &8573581832558267421 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6450036794256980827, guid: fde69184b78b0ee429393f068b2a3190, type: 3}
+  m_PrefabInstance: {fileID: 3420581816933955398}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &6927506483815736361
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8573581832558267421}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e333bd947a5a23240b2c16f3d9508e0b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gunData: {fileID: 11400000, guid: a3224c70a052a9d4aa78530453283ff5, type: 2}
+  robotController: {fileID: 5526563305305035028}
+  currentAmmo: 80
+  nextTimeToFire: 5
+  damage: 20
