@@ -5,7 +5,8 @@ namespace TrippleTrinity.MechaMorph.Weapons
     public class GunAbility : BaseGun
     {
         public float damage;
-        private float _impactForce = 50f;
+        private const float ImpactForce = 50f;
+
         public override void Update()
         {
             base.Update();
@@ -19,11 +20,10 @@ namespace TrippleTrinity.MechaMorph.Weapons
                 TryReloading();
             }
         }
-        public override void Shoot()
-        {
-            RaycastHit hit;
 
-            if(Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, gunData.shootingRange, gunData.layerMask))
+        protected override void Shoot()
+        {
+            if(Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out var hit, gunData.shootingRange, gunData.layerMask))
             {
                 Debug.Log(gunData.gunName + " hit" + hit.collider.name);
                 TakeDamage takedamage = hit.transform.GetComponent<TakeDamage>();
@@ -34,7 +34,7 @@ namespace TrippleTrinity.MechaMorph.Weapons
 
                 if (hit.rigidbody != null)
                 {
-                    hit.rigidbody.AddForce(-hit.normal * _impactForce);
+                    hit.rigidbody.AddForce(-hit.normal * ImpactForce);
                 }
             }
         }
