@@ -18,6 +18,5 @@ MonoBehaviour:
     m_Bits: 64
   shootingRange: 100
   fireRate: 4
-  damage: 10
   magazineSize: 10
   realoadTime: 2

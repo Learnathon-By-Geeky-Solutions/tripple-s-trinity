@@ -1133,55 +1133,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Robot
       objectReference: {fileID: 0}
-    - target: {fileID: 5408769272997752132, guid: b7076bdbb2b35ba458635deefeeb7856, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7677617055759737215, guid: b7076bdbb2b35ba458635deefeeb7856, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 818d4ed43d5eb134d9911e9067f1fef8, type: 2}
-    - target: {fileID: 7851866995699218347, guid: b7076bdbb2b35ba458635deefeeb7856, type: 3}
-      propertyPath: damage
-      value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: 7851866995699218347, guid: b7076bdbb2b35ba458635deefeeb7856, type: 3}
-      propertyPath: gunData
-      value: 
-      objectReference: {fileID: 11400000, guid: d79e5cdc911715a4fa36360183d14fcb, type: 2}
-    - target: {fileID: 7851866995699218347, guid: b7076bdbb2b35ba458635deefeeb7856, type: 3}
-      propertyPath: currentAmmo
-      value: 200
-      objectReference: {fileID: 0}
-    - target: {fileID: 7851866995699218347, guid: b7076bdbb2b35ba458635deefeeb7856, type: 3}
-      propertyPath: nextTimeToFire
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 7851866995699218347, guid: b7076bdbb2b35ba458635deefeeb7856, type: 3}
-      propertyPath: robotController
-      value: 
-      objectReference: {fileID: 1684496671}
-    - target: {fileID: 8347851655187375229, guid: b7076bdbb2b35ba458635deefeeb7856, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8573581832558267421, guid: b7076bdbb2b35ba458635deefeeb7856, type: 3}
-      propertyPath: m_Layer
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8573581832558267421, guid: b7076bdbb2b35ba458635deefeeb7856, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 4353080964174627497, guid: b7076bdbb2b35ba458635deefeeb7856, type: 3}
-    - {fileID: 4128601878371871433, guid: b7076bdbb2b35ba458635deefeeb7856, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 8573581832558267421, guid: b7076bdbb2b35ba458635deefeeb7856, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1609855932}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b7076bdbb2b35ba458635deefeeb7856, type: 3}
 --- !u!1 &1026347817
 GameObject:
@@ -1400,39 +1355,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1609855926 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8573581832558267421, guid: b7076bdbb2b35ba458635deefeeb7856, type: 3}
-  m_PrefabInstance: {fileID: 1003349963}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1609855932
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1609855926}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e333bd947a5a23240b2c16f3d9508e0b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gunData: {fileID: 11400000, guid: a3224c70a052a9d4aa78530453283ff5, type: 2}
-  robotController: {fileID: 1684496671}
-  currentAmmo: 80
-  nextTimeToFire: 5
-  damage: 20
---- !u!114 &1684496671 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5526563305305035028, guid: b7076bdbb2b35ba458635deefeeb7856, type: 3}
-  m_PrefabInstance: {fileID: 1003349963}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1b1f6cb0652906e4a8fd4cfeb23d235b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1778981047
 PrefabInstance:
   m_ObjectHideFlags: 0

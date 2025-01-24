@@ -427,7 +427,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gunData: {fileID: 11400000, guid: 1649f00f44363ae4e89b21239aae448a, type: 2}
-  robotController: {fileID: 5526563305305035028}
   currentAmmo: 50
   nextTimeToFire: 2
   damage: 10
@@ -539,7 +538,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gunData: {fileID: 11400000, guid: d79e5cdc911715a4fa36360183d14fcb, type: 2}
-  robotController: {fileID: 5526563305305035028}
   currentAmmo: 200
   nextTimeToFire: 10
   damage: 50
@@ -627,6 +625,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6450036794256980827, guid: fde69184b78b0ee429393f068b2a3190, type: 3}
       insertIndex: -1
       addedObject: {fileID: 6927506483815736361}
+    - targetCorrespondingSourceObject: {fileID: 6450036794256980827, guid: fde69184b78b0ee429393f068b2a3190, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5816728858699877545}
   m_SourcePrefab: {fileID: 100100000, guid: fde69184b78b0ee429393f068b2a3190, type: 3}
 --- !u!4 &986344312574934768 stripped
 Transform:
@@ -651,7 +652,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gunData: {fileID: 11400000, guid: a3224c70a052a9d4aa78530453283ff5, type: 2}
-  robotController: {fileID: 5526563305305035028}
+  currentAmmo: 80
+  nextTimeToFire: 5
+  damage: 20
+--- !u!114 &5816728858699877545
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8573581832558267421}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e333bd947a5a23240b2c16f3d9508e0b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gunData: {fileID: 11400000, guid: a3224c70a052a9d4aa78530453283ff5, type: 2}
   currentAmmo: 80
   nextTimeToFire: 5
   damage: 20
