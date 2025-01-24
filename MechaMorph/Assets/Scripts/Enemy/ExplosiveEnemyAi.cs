@@ -7,15 +7,15 @@ namespace TrippleTrinity.MechaMorph.Enemy
     public class ExplosiveEnemyAi : EnemyAi
     {
 
-        private bool hasExploded;
+        private bool _hasExploded;
         // Update is called once per frame
         protected override void Update()
         {
             base.Update();
 
-            if (!hasExploded && AutoBreak())
+            if (!_hasExploded && AutoBreak())
             {
-                hasExploded = true;
+                _hasExploded = true;
                 Explode();
             }
         }
