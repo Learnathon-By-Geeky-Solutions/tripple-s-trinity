@@ -19,6 +19,11 @@ namespace TrippleTrinity.MechaMorph.Weapons
             {
                 TryReloading();
             }
+
+            if (CurrentAmmo == 0)
+            {
+                TryReloading();
+            }
         }
 
         protected override void Shoot()

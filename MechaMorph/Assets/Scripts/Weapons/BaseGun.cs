@@ -9,6 +9,11 @@ namespace TrippleTrinity.MechaMorph.Weapons
 
 
         [SerializeField] private float currentAmmo;
+        public float CurrentAmmo
+        {
+            get => currentAmmo;  
+            set => currentAmmo = value;
+        }
         [SerializeField] private float nextTimeToFire;
 
         private bool _isReloading;
