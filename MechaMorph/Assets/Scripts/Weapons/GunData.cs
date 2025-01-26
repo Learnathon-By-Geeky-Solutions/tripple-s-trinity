@@ -6,16 +6,23 @@ namespace TrippleTrinity.MechaMorph.Weapons
     [CreateAssetMenu (fileName = "NewGunData", menuName = "Gun/GunData")]
     public class GunData : ScriptableObject
     {
-        public string gunName;
-        public LayerMask layerMask;
+        [SerializeField] private string gunName;
+        [SerializeField] private LayerMask layerMask;
 
         [Header("Fire Config")]
-        public float shootingRange;
-        public float fireRate;
+        [SerializeField] private float shootingRange;
+        [SerializeField] private float fireRate;
 
         [Header("Reload Config")]
-        public float magazineSize;
-        public float realoadTime;
+        [SerializeField] private float magazineSize;
+        [SerializeField] private float reloadTime;
+
+        public string GunName => gunName;
+        public LayerMask LayerMask => layerMask;
+        public float ShootingRange => shootingRange;
+        public float FireRate => fireRate;
+        public float MagazineSize => magazineSize;
+        public float ReloadTime => reloadTime;
     }
 }
 
