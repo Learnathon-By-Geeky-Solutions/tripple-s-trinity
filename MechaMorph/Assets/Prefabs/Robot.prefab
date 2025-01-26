@@ -61,14 +61,15 @@ GameObject:
   - component: {fileID: 341886276758337018}
   - component: {fileID: 3833603773394308382}
   - component: {fileID: 7130069094913957009}
-  - component: {fileID: 5526563305305035028}
+  - component: {fileID: 9036108999752607808}
+  - component: {fileID: 8805475619258487710}
   m_Layer: 0
   m_Name: Robot
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3960683278813943281
 Transform:
   m_ObjectHideFlags: 0
@@ -187,7 +188,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 80
   m_CollisionDetection: 0
---- !u!114 &5526563305305035028
+--- !u!114 &9036108999752607808
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -196,7 +197,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5373993913881270072}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1b1f6cb0652906e4a8fd4cfeb23d235b, type: 3}
+  m_Script: {fileID: 11500000, guid: 78449605bcc2c5b41b8048661cd8f8c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 10
@@ -205,8 +206,24 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
-  groundCheck: {fileID: 9208809207520315304}
-  groundCheckRadius: 0.2
+  groundCheck: {fileID: 0}
+  groundCheckRadius: 0.3
+--- !u!114 &8805475619258487710
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5373993913881270072}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5c78b7eb8d719a4d9d3f8c5354f12fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageRadius: 5
+  damageAmount: 50
+  maxTargets: 10
+  isRobotForm: 0
 --- !u!1 &5519371745318547118
 GameObject:
   m_ObjectHideFlags: 0
