@@ -1,18 +1,13 @@
 using System.Collections;
-using TrippleTrinity.MechaMorph.Ui_Scripts;
+using TrippleTrinity.MechaMorph.Ui;
 using UnityEngine;
 
 namespace TrippleTrinity.MechaMorph.Control
 {
 public class BallControllerWithDash : MonoBehaviour
 {
-    [Header("Movement Settings")]
-    [SerializeField] private float movementSpeed = 10f;
-    public float MovementSpeed
-    {
-        get => movementSpeed;
-        set => movementSpeed = Mathf.Max(0, value); // Ensure speed is not negative
-    }
+    [Header("Movement Settings")] [SerializeField]
+    private float movementSpeed = 10f;
 
     [Header("Dash Settings")]
     [SerializeField] private float dashMultiplier = 2f;
@@ -109,4 +104,4 @@ public class BallControllerWithDash : MonoBehaviour
         }
     }
 }
-}
+}  

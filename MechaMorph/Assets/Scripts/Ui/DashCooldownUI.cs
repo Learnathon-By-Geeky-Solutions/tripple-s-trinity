@@ -2,13 +2,13 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace TrippleTrinity.MechaMorph.Ui_Scripts
+namespace TrippleTrinity.MechaMorph.Ui
 {
     public class DashCooldownUI : MonoBehaviour
     {
         private static DashCooldownUI _instance; // Private backing field for the singleton instance
 
-        public static DashCooldownUI Instance { get; private set; }
+        public static DashCooldownUI Instance { get; set; }
 
         [Header("Cooldown UI")]
         [SerializeField] private Image cooldownBar; // Reference to the cooldown bar UI
