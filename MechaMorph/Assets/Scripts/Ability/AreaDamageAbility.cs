@@ -1,5 +1,5 @@
 using TrippleTrinity.MechaMorph.Weapons;
-using TrippleTrinity.MechaMorph.Ui_Scripts;
+using TrippleTrinity.MechaMorph.Ui;
 using UnityEngine;
 
 namespace TrippleTrinity.MechaMorph.Ability

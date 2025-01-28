@@ -12,14 +12,10 @@ namespace TrippleTrinity.MechaMorph
         [SerializeField] private BallControllerWithDash ballController; // Ball movement script
         [SerializeField] private RobotController robotController; // Robot movement script
 
-        [Header("Camera Settings")]
-        [SerializeField] private CameraController cameraController; // Reference to the CameraController script
-
         private bool _isBallForm = true; // Track the current form
-        
+
         [Header("Abilities")]
         [SerializeField] private AreaDamageAbility areaDamageAbility;
-
 
         private void Start()
         {
@@ -43,19 +39,16 @@ namespace TrippleTrinity.MechaMorph
 
         private void SetBallForm()
         {
-            // Existing code
+            // Switch to ball visuals
             ballVisual.transform.position = robotVisual.transform.position;
             ballVisual.transform.rotation = robotVisual.transform.rotation;
 
             ballVisual.SetActive(true);
             robotVisual.SetActive(false);
             ballController.enabled = true;
-            robotController.enabled = false;
+            ballController.OnTransformToBall(); // Notify BallController
 
-            if (cameraController != null)
-            {
-                cameraController.Target = ballVisual.transform; // Set the camera to follow the ball
-            }
+            robotController.enabled = false;
 
             _isBallForm = true;
 
@@ -68,7 +61,7 @@ namespace TrippleTrinity.MechaMorph
 
         private void SetRobotForm()
         {
-            // Existing code
+            // Switch to robot visuals
             robotVisual.transform.position = ballVisual.transform.position;
             robotVisual.transform.rotation = ballVisual.transform.rotation;
 
@@ -76,11 +69,6 @@ namespace TrippleTrinity.MechaMorph
             robotVisual.SetActive(true);
             ballController.enabled = false;
             robotController.enabled = true;
-
-            if (cameraController != null)
-            {
-                cameraController.Target = robotVisual.transform; // Set the camera to follow the robot
-            }
 
             _isBallForm = false;
 
@@ -91,10 +79,10 @@ namespace TrippleTrinity.MechaMorph
             }
         }
 
-
         public bool IsBallForm()
         {
             return _isBallForm;
         }
     }
 }
+

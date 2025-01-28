@@ -202,11 +202,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 10
   rotationSpeed: 10
-  jumpForce: 7
+  jumpForce: 10
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
-  groundCheck: {fileID: 0}
+  groundCheck: {fileID: 9208809207520315304}
   groundCheckRadius: 0.3
 --- !u!114 &8805475619258487710
 MonoBehaviour:
@@ -221,7 +221,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damageRadius: 5
-  damageAmount: 50
+  damageAmount: 100
   maxTargets: 10
   isRobotForm: 0
 --- !u!1 &5519371745318547118
