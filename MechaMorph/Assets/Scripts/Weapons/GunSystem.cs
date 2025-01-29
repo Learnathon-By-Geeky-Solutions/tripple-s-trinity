@@ -20,7 +20,7 @@ namespace TrippleTrinity.MechaMorph.Weapons
             }
         }
 
-        void Shoot()
+        public void Shoot()
         {
 
             if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out RaycastHit hitInfo, range))

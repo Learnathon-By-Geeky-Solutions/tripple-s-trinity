@@ -2,72 +2,101 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
 namespace TrippleTrinity.MechaMorph.Enemy
 {
     public class EnemySpawner : MonoBehaviour
     {
         [SerializeField] private GameObject[] enemyAi;
-        private int arrayLength;
-        [SerializeField] private float spawnDelay = 10f;
+        [SerializeField] private GameObject bossPrefab;
+
+        private readonly List<GameObject> activeEnemies = new(); 
+        private int lap, waveIndex; 
+        private bool bossSpawned;
+
+        private readonly int[] waveEnemyCounts = { 5, 15, 20, 30 };
+        private readonly float[] waveDelays = {0, 10f, 15f, 20f, 30f };
+
         private readonly float xMinVal = -13f, xMaxVal = 13f, zMinVal = -20f, zMaxVal = 20f;
-        private float xVal, zVal;
         private readonly float spawnHeight = 1f;
-        [SerializeField] private float countDown = 10f;
-        private List<GameObject> gameObjects;
+
         void Start()
         {
-            arrayLength = enemyAi.Length;
-            gameObjects = new List<GameObject>();
-            StartCoroutine(SpawnEnemiesDelay());
-          
+            // SpawnBoss();
+            StartCoroutine(StartWaveSequence());
         }
 
         void Update()
         {
-            if (countDown > 0)
+            if (!bossSpawned && activeEnemies.Count == 0 && waveIndex >= waveEnemyCounts.Length)
             {
-                   countDown -= Time.deltaTime;
+                SpawnBoss();
             }
-            else if (countDown<=0 && gameObjects.Count > 0)
+            else if (bossSpawned && activeEnemies.Count == 0)
             {
-                ClearGameObjects();
-                Debug.Log("All game objects are cleared");
-            }
-        }
-        private IEnumerator SpawnEnemiesDelay()
-        {
-            while (countDown>=0f)
-            {
-                xVal = Random.Range(xMinVal, xMaxVal);
-                zVal = Random.Range(zMinVal, zMaxVal);
-                EnemySpawn();
-                yield return new WaitForSeconds(spawnDelay);
+                StartNewLap();
             }
         }
 
-        private void EnemySpawn()
+        private IEnumerator StartWaveSequence()
         {
-            if(enemyAi==null || enemyAi.Length ==0)
+            while (!bossSpawned && waveIndex < waveEnemyCounts.Length)
             {
-                Debug.LogError("The Array is empty!");
+                yield return new WaitForSeconds(waveDelays[waveIndex]);
+                SpawnWave(waveEnemyCounts[waveIndex]);
+                waveIndex++;
+            }
+        }
+
+        private void SpawnWave(int numOfEnemies)
+        {
+            if (enemyAi.Length == 0)
+            {
+                Debug.LogError("Enemy array is empty!");
                 return;
             }
-            int randomValue = Random.Range(0, arrayLength);
-            Debug.Log($"Spawning Enemy at Index: {randomValue}");
-            Vector3 spawnPosition = new Vector3(xVal, spawnHeight, zVal);
-           GameObject prefab= Instantiate(enemyAi[randomValue], spawnPosition, Quaternion.identity);
-            gameObjects.Add(prefab);
-            Debug.Log($"GameObjects Count: {gameObjects.Count}");
+
+            Debug.Log($"Wave {waveIndex + 1}: Spawning {numOfEnemies} enemies.");
+            for (int i = 0; i < numOfEnemies; i++)
+            {
+                SpawnEnemy();
+            }
         }
 
-        private void ClearGameObjects()
+        private void SpawnEnemy()
         {
-            foreach (var obj in gameObjects)
+           
+            Vector3 spawnPosition = new(
+                Random.Range(xMinVal, xMaxVal),
+                spawnHeight,
+                Random.Range(zMinVal, zMaxVal)
+            );
+
+            GameObject enemy = Instantiate(enemyAi[Random.Range(0, enemyAi.Length)], spawnPosition, Quaternion.identity);
+           
+            activeEnemies.Add(enemy);
+       
+            
+        }
+
+        private void SpawnBoss()
+        {
+            if (!bossPrefab)
             {
-                Destroy(obj);
+                Debug.LogError("Boss prefab is not assigned!");
+                return;
             }
-            gameObjects.Clear();
+
+            Debug.Log("Spawning Boss...");
+            activeEnemies.Add(Instantiate(bossPrefab, Vector3.up * spawnHeight, Quaternion.identity));
+            bossSpawned = true;
+        }
+
+        private void StartNewLap()
+        {
+            Debug.Log($"Lap {++lap} completed! Starting Lap {lap}...");
+            waveIndex = 0;
+            bossSpawned = false;
+            StartCoroutine(StartWaveSequence());
         }
     }
 }

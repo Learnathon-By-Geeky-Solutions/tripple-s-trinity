@@ -35,6 +35,13 @@ namespace TrippleTrinity.MechaMorph.Enemy
         // Update is called once per frame
         protected virtual void Update()
         {
+            GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
+            if (playerObject != null)
+            {
+                targetPosition = playerObject.transform;
+                Debug.Log($"Player found: {targetPosition.name}");
+            }
+
             if (targetPosition != null)
             {
                 RotateTowardsTarget();
