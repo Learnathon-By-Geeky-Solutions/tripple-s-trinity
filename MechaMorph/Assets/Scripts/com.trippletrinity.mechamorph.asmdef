@@ -1,7 +1,10 @@
 {
     "name": "com.trippletrinity.mechamorph",
     "rootNamespace": "TrippleTrinity.MechaMorph",
-    "references": ["Unity.Cinemachine"],
+    "references": [
+        "Unity.InputSystem",
+        "Cinemachine"
+    ],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
