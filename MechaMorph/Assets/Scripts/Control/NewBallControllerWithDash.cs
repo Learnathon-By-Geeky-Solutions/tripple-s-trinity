@@ -68,7 +68,7 @@ namespace TrippleTrinity.MechaMorph.Control
             _moveInput = ctx.ReadValue<Vector2>(); 
         }
 
-        private void MoveCanceled(InputAction.CallbackContext ctx)
+        private void MoveCanceled(InputAction.CallbackContext _) // Use "_" to avoid unused parameter warning
         {
             _moveInput = Vector2.zero;
         }
@@ -92,7 +92,7 @@ namespace TrippleTrinity.MechaMorph.Control
             _rb.AddForce(movement * movementSpeed);
         }
 
-        private void DashPerformed(InputAction.CallbackContext ctx)
+        private void DashPerformed(InputAction.CallbackContext _) // Use "_" to avoid unused parameter warning
         {
             PerformDash();
         }
