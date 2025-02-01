@@ -54,7 +54,7 @@ namespace TrippleTrinity.MechaMorph.Control
 
             if (_dashAction != null)
             {
-                _dashAction.performed += _ => PerformDash(); 
+                _dashAction.performed += DashPerformed; 
                 _dashAction.Enable();
             }
             else
@@ -65,14 +65,13 @@ namespace TrippleTrinity.MechaMorph.Control
 
         private void MovePerformed(InputAction.CallbackContext ctx)
         {
-            _moveInput = ctx.ReadValue<Vector2>(); // ✅ ctx ব্যবহার করা হয়েছে, Warning দূর হবে
+            _moveInput = ctx.ReadValue<Vector2>(); 
         }
 
         private void MoveCanceled(InputAction.CallbackContext ctx)
         {
             _moveInput = Vector2.zero;
         }
-
 
         void OnDisable()
         {
@@ -91,6 +90,11 @@ namespace TrippleTrinity.MechaMorph.Control
         {
             Vector3 movement = new Vector3(_moveInput.x, 0, _moveInput.y);
             _rb.AddForce(movement * movementSpeed);
+        }
+
+        private void DashPerformed(InputAction.CallbackContext ctx)
+        {
+            PerformDash();
         }
 
         private void PerformDash()

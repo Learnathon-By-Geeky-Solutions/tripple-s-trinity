@@ -20,7 +20,7 @@ namespace TrippleTrinity.MechaMorph.Weapons
         {
             currentAmmo = Gundata.MagazineSize;
 
-            transform.root.GetComponent<RobotController>();
+            transform.root.GetComponent<NewRobotController>();
 
         }
 

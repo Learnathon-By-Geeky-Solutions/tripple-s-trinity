@@ -123,7 +123,6 @@ namespace TrippleTrinity.MechaMorph.Control
             }
         }
 
-
         private void RotateToMouse()
         {
             Camera activeCamera = Camera.main;
