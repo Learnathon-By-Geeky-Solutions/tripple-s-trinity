@@ -9,45 +9,63 @@ namespace TrippleTrinity.MechaMorph.Enemy
         [SerializeField] private GameObject[] enemyAi;
         [SerializeField] private GameObject bossPrefab;
 
-        private readonly List<GameObject> activeEnemies = new(); 
-        private int lap, waveIndex; 
-        private bool bossSpawned;
-
-        private readonly int[] waveEnemyCounts = { 5, 15, 20, 30 };
-        private readonly float[] waveDelays = {0, 10f, 15f, 20f, 30f };
-
+        private readonly List<GameObject> activeEnemies = new();
+        private float spawnDelay = 6f;
+        private float timeCounter;
+        private float counter;
+        
         private readonly float xMinVal = -13f, xMaxVal = 13f, zMinVal = -20f, zMaxVal = 20f;
         private readonly float spawnHeight = 1f;
 
         void Start()
         {
-            // SpawnBoss();
-            StartCoroutine(StartWaveSequence());
+            StartCoroutine(SpawnLoop());
         }
 
         void Update()
         {
-            if (!bossSpawned && activeEnemies.Count == 0 && waveIndex >= waveEnemyCounts.Length)
+            timeCounter += Time.deltaTime;
+            counter += Time.deltaTime;
+
+            // Update lap based on elapsed time
+            if (timeCounter >= 900f) // 15+ minutes
             {
-                SpawnBoss();
+                
+                spawnDelay = 0.5f;
             }
-            else if (bossSpawned && activeEnemies.Count == 0)
+            else if (timeCounter >= 600f) // 10-15 minutes
             {
-                StartNewLap();
+             
+                spawnDelay = 2f;
+            }
+            else if (timeCounter >= 300f) // 5-10 minutes
+            {
+               
+                spawnDelay = 3f;
+            }
+
+            // Spawn enemy if the delay time is met
+            if (counter >= spawnDelay || activeEnemies.Count == 0)
+            {
+                SpawnEnemy();
+                counter = 0f; // Reset counter
             }
         }
 
-        private IEnumerator StartWaveSequence()
+        private IEnumerator SpawnLoop()
         {
-            while (!bossSpawned && waveIndex < waveEnemyCounts.Length)
+            while (true)
             {
-                yield return new WaitForSeconds(waveDelays[waveIndex]);
-                SpawnWave(waveEnemyCounts[waveIndex]);
-                waveIndex++;
+                yield return new WaitForSeconds(spawnDelay);
+
+                if (activeEnemies.Count == 0)
+                {
+                    SpawnEnemy();
+                }
             }
         }
 
-        private void SpawnWave(int numOfEnemies)
+        private void SpawnEnemy()
         {
             if (enemyAi.Length == 0)
             {
@@ -55,16 +73,6 @@ namespace TrippleTrinity.MechaMorph.Enemy
                 return;
             }
 
-            Debug.Log($"Wave {waveIndex + 1}: Spawning {numOfEnemies} enemies.");
-            for (int i = 0; i < numOfEnemies; i++)
-            {
-                SpawnEnemy();
-            }
-        }
-
-        private void SpawnEnemy()
-        {
-           
             Vector3 spawnPosition = new(
                 Random.Range(xMinVal, xMaxVal),
                 spawnHeight,
@@ -72,31 +80,12 @@ namespace TrippleTrinity.MechaMorph.Enemy
             );
 
             GameObject enemy = Instantiate(enemyAi[Random.Range(0, enemyAi.Length)], spawnPosition, Quaternion.identity);
-           
             activeEnemies.Add(enemy);
-       
-            
         }
 
-        private void SpawnBoss()
+        public void RemoveEnemy(GameObject enemy)
         {
-            if (!bossPrefab)
-            {
-                Debug.LogError("Boss prefab is not assigned!");
-                return;
-            }
-
-            Debug.Log("Spawning Boss...");
-            activeEnemies.Add(Instantiate(bossPrefab, Vector3.up * spawnHeight, Quaternion.identity));
-            bossSpawned = true;
-        }
-
-        private void StartNewLap()
-        {
-            Debug.Log($"Lap {++lap} completed! Starting Lap {lap}...");
-            waveIndex = 0;
-            bossSpawned = false;
-            StartCoroutine(StartWaveSequence());
+            activeEnemies.Remove(enemy);
         }
     }
 }
