@@ -297,3 +297,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyHealth: 50
+  scoreValue: 20

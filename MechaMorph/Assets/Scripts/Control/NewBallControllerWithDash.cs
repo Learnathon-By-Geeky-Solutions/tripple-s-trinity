@@ -25,7 +25,6 @@ namespace TrippleTrinity.MechaMorph.Control
         private Rigidbody _rb;
         private AudioSource _audioSource;
         private Vector2 _moveInput;
-
         private bool _isDashing;
         private bool _isCooldownActive;
         private InputAction _moveAction;
@@ -68,7 +67,7 @@ namespace TrippleTrinity.MechaMorph.Control
             _moveInput = ctx.ReadValue<Vector2>(); 
         }
 
-        private void MoveCanceled(InputAction.CallbackContext _) // Use "_" to avoid unused parameter warning
+        private void MoveCanceled(InputAction.CallbackContext _) 
         {
             _moveInput = Vector2.zero;
         }
@@ -92,7 +91,7 @@ namespace TrippleTrinity.MechaMorph.Control
             _rb.AddForce(movement * movementSpeed);
         }
 
-        private void DashPerformed(InputAction.CallbackContext _) // Use "_" to avoid unused parameter warning
+        private void DashPerformed(InputAction.CallbackContext _) 
         {
             PerformDash();
         }
@@ -108,7 +107,6 @@ namespace TrippleTrinity.MechaMorph.Control
         private IEnumerator DashCoroutine()
         {
             _isDashing = true;
-
             float originalSpeed = movementSpeed;
             movementSpeed *= dashMultiplier;
 
@@ -127,11 +125,10 @@ namespace TrippleTrinity.MechaMorph.Control
             DashCooldownUI.Instance?.StartCooldown(dashCooldown);
 
             yield return new WaitForSeconds(dashDuration);
-
             movementSpeed = originalSpeed;
             _isDashing = false;
-
             _isCooldownActive = true;
+
             yield return new WaitForSeconds(dashCooldown);
             _isCooldownActive = false;
         }
@@ -141,7 +138,6 @@ namespace TrippleTrinity.MechaMorph.Control
             // Reset dash-related variables
             _isDashing = false;
             _isCooldownActive = false;
-
             // Re-initialize components
             InitializeComponents();
         }
