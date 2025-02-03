@@ -3,14 +3,17 @@
     "rootNamespace": "TrippleTrinity.MechaMorph",
     "references": [
         "Unity.InputSystem",
-        "Cinemachine"
+        "Cinemachine",
+        "Unity.TextMeshPro"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,
-    "precompiledReferences": [],
-    "autoReferenced": true,
+    "precompiledReferences": [
+        "TextMeshPro"
+    ],
+    "autoReferenced": false,
     "defineConstraints": [],
     "versionDefines": [],
     "noEngineReferences": false
