@@ -27,11 +27,10 @@ namespace TrippleTrinity.MechaMorph.Ui
             if (_instance == null)
             {
                 _instance = this;
-                DontDestroyOnLoad(this.transform.parent.gameObject); // Use the parent Canvas as the root object
             }
             else
             {
-                Destroy(gameObject); // Destroy duplicates of ScoreManager
+                Destroy(gameObject);
             }
         }
 
@@ -47,6 +46,7 @@ namespace TrippleTrinity.MechaMorph.Ui
                 Debug.LogWarning("Cannot add negative points.");
                 return;
             }
+
             _score += points;
             UpdateScoreUI();
         }
@@ -58,6 +58,7 @@ namespace TrippleTrinity.MechaMorph.Ui
                 Debug.LogWarning("Score text UI is not assigned.");
                 return;
             }
+
             scoreText.text = $"Score: {_score}";
         }
     }
