@@ -49,7 +49,7 @@ namespace TrippleTrinity.MechaMorph.Control
 
             if (_jumpAction != null)
             {
-                _jumpAction.performed += JumpPerformed;
+                _jumpAction.performed += JumpPerformed; // Use JumpPerformed with the proper signature
                 _jumpAction.Enable();
             }
             else
@@ -79,12 +79,12 @@ namespace TrippleTrinity.MechaMorph.Control
             _moveInput = ctx.ReadValue<Vector2>();
         }
 
-        private void MoveCanceled(InputAction.CallbackContext _) // Use "_" to avoid unused parameter warning
+        private void MoveCanceled(InputAction.CallbackContext _) 
         {
             _moveInput = Vector2.zero;
         }
 
-        private void JumpPerformed(InputAction.CallbackContext ctx)
+        private void JumpPerformed(InputAction.CallbackContext ctx) // Corrected method signature to match expected one
         {
             _jumpPressed = true;
         }
