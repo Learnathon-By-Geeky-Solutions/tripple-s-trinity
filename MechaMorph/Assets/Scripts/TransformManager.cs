@@ -7,10 +7,10 @@ namespace TrippleTrinity.MechaMorph
     public class TransformManager : MonoBehaviour
     {
         [Header("Form Settings")]
-        [SerializeField] private GameObject ballVisual;    // Child object for the ball visuals
-        [SerializeField] private GameObject robotVisual;   // Child object for the robot visuals
-        [SerializeField] private BallControllerWithDash ballController; // Ball movement script
-        [SerializeField] private RobotController robotController; // Robot movement script
+        [SerializeField] private GameObject ballVisual; // Child object for the ball visuals
+        [SerializeField] private GameObject robotVisual; // Child object for the robot visuals
+        [SerializeField] private NewBallControllerWithDash ballController; // Ball movement script
+        [SerializeField] private NewRobotController robotController; // Robot movement script
 
         private bool _isBallForm = true; // Track the current form
 
@@ -45,18 +45,25 @@ namespace TrippleTrinity.MechaMorph
 
             ballVisual.SetActive(true);
             robotVisual.SetActive(false);
-            ballController.enabled = true;
-            ballController.OnTransformToBall(); // Notify BallController
 
-            robotController.enabled = false;
+            if (ballController != null)
+            {
+                ballController.enabled = true;
+
+                // If the ball controller has a method named "OnTransformToBall", call it
+                var method = ballController.GetType().GetMethod("OnTransformToBall");
+                method?.Invoke(ballController, null);
+            }
+
+            if (robotController != null)
+            {
+                robotController.enabled = false;
+            }
 
             _isBallForm = true;
 
             // Notify the AreaDamageAbility
-            if (areaDamageAbility != null)
-            {
-                areaDamageAbility.SetRobotForm(false);
-            }
+            areaDamageAbility?.SetRobotForm(false);
         }
 
         private void SetRobotForm()
@@ -67,16 +74,21 @@ namespace TrippleTrinity.MechaMorph
 
             ballVisual.SetActive(false);
             robotVisual.SetActive(true);
-            ballController.enabled = false;
-            robotController.enabled = true;
+
+            if (ballController != null)
+            {
+                ballController.enabled = false;
+            }
+
+            if (robotController != null)
+            {
+                robotController.enabled = true;
+            }
 
             _isBallForm = false;
 
             // Notify the AreaDamageAbility
-            if (areaDamageAbility != null)
-            {
-                areaDamageAbility.SetRobotForm(true);
-            }
+            areaDamageAbility?.SetRobotForm(true);
         }
 
         public bool IsBallForm()
@@ -85,4 +97,3 @@ namespace TrippleTrinity.MechaMorph
         }
     }
 }
-

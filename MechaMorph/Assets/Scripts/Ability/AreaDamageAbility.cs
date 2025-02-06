@@ -1,6 +1,7 @@
 using TrippleTrinity.MechaMorph.Weapons;
 using TrippleTrinity.MechaMorph.Ui;
 using UnityEngine;
+using UnityEngine.InputSystem; // Import the new Input System namespace
 
 namespace TrippleTrinity.MechaMorph.Ability
 {
@@ -21,23 +22,51 @@ namespace TrippleTrinity.MechaMorph.Ability
 
         [Header("Form Settings")]
         [SerializeField] private bool isRobotForm; // Backing field for the property
-    
 
         private AreaCooldownBar _cooldownBar; // Reference to the cooldown bar script
         private Collider[] _hitResults; // Pre-allocated array for storing hit results
 
-        private void Start()
+        // Reference to your Input Action Asset
+        [SerializeField] private InputActionAsset inputActions; // Reference to the InputActionAsset
+        private InputAction _activateAbilityAction;
+
+        private void Awake()
         {
             _currentCooldown = 0f; // Start with an empty cooldown bar
             _cooldownBar = FindObjectOfType<AreaCooldownBar>(); // Automatically find the cooldown bar in the scene
             _hitResults = new Collider[maxTargets]; // Pre-allocate the array for hit results
-            UpdateCooldownUI();
+
+            // Check if _inputActions is assigned, else initialize manually (only if not assigned)
+            if (inputActions == null)
+            {
+                Debug.LogError("RobotInputActions Asset not assigned!");
+                return;
+            }
+
+            // Get the 'ActivateAbility' action from your input action map
+            _activateAbilityAction = inputActions.FindActionMap("Abilities")?.FindAction("ActivateAbility");
+            if (_activateAbilityAction == null)
+            {
+                Debug.LogError("ActivateAbility action not found in input action asset!");
+            }
+        }
+
+        private void OnEnable()
+        {
+            // Enable the action when the script is enabled
+            _activateAbilityAction?.Enable();
+        }
+
+        private void OnDisable()
+        {
+            // Disable the action when the script is disabled
+            _activateAbilityAction?.Disable();
         }
 
         private void Update()
         {
-            // Check for ability activation only in robot form
-            if (isRobotForm && Input.GetKeyDown(KeyCode.E) && IsAbilityReady())
+            // Check for ability activation only in robot form and if the ability is ready
+            if (isRobotForm && _activateAbilityAction.triggered && IsAbilityReady())
             {
                 ActivateAbility();
             }
@@ -89,10 +118,10 @@ namespace TrippleTrinity.MechaMorph.Ability
                 _cooldownBar.SetFillAmount(_currentCooldown / _maxCooldown);
             }
         }
+
         public void SetRobotForm(bool isRobot)
         {
             isRobotForm = isRobot;
         }
-
     }
 }
