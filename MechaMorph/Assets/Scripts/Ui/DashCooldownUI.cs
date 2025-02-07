@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace TrippleTrinity.MechaMorph.Ui_Scripts
+namespace TrippleTrinity.MechaMorph.Ui
 {
     public class DashCooldownUI : MonoBehaviour
     {

@@ -1,13 +1,19 @@
 {
     "name": "com.trippletrinity.mechamorph",
     "rootNamespace": "TrippleTrinity.MechaMorph",
-    "references": [],
+    "references": [
+        "Unity.InputSystem",
+        "Cinemachine",
+        "Unity.TextMeshPro"
+    ],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,
-    "precompiledReferences": [],
-    "autoReferenced": true,
+    "precompiledReferences": [
+        "TextMeshPro"
+    ],
+    "autoReferenced": false,
     "defineConstraints": [],
     "versionDefines": [],
     "noEngineReferences": false

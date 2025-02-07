@@ -61,15 +61,15 @@ GameObject:
   - component: {fileID: 341886276758337018}
   - component: {fileID: 3833603773394308382}
   - component: {fileID: 7130069094913957009}
-  - component: {fileID: 9036108999752607808}
   - component: {fileID: 8805475619258487710}
-  m_Layer: 7
+  - component: {fileID: 3207395339312987363}
+  m_Layer: 0
   m_Name: Robot
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3960683278813943281
 Transform:
   m_ObjectHideFlags: 0
@@ -188,26 +188,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 80
   m_CollisionDetection: 0
---- !u!114 &9036108999752607808
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5373993913881270072}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 78449605bcc2c5b41b8048661cd8f8c5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveSpeed: 10
-  rotationSpeed: 10
-  jumpForce: 7
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 8
-  groundCheck: {fileID: 0}
-  groundCheckRadius: 0.3
 --- !u!114 &8805475619258487710
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -221,9 +201,31 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damageRadius: 5
-  damageAmount: 50
+  damageAmount: 100
   maxTargets: 10
   isRobotForm: 0
+  inputActions: {fileID: -944628639613478452, guid: 7c2e3d5878aca784e927369e85786f08, type: 3}
+--- !u!114 &3207395339312987363
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5373993913881270072}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4e44e6a81cd03046a308ede1fcc0cf0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 7
+  rotationSpeed: 10
+  jumpForce: 7
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 8
+  groundCheck: {fileID: 9208809207520315304}
+  groundCheckRadius: 0.3
+  playerInput: {fileID: -944628639613478452, guid: 7c2e3d5878aca784e927369e85786f08, type: 3}
 --- !u!1 &5519371745318547118
 GameObject:
   m_ObjectHideFlags: 0
@@ -412,10 +414,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pistol
       objectReference: {fileID: 0}
-    - target: {fileID: 6450036794256980827, guid: fde69184b78b0ee429393f068b2a3190, type: 3}
-      propertyPath: m_Layer
-      value: 6
-      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: -7849465080907893265, guid: fde69184b78b0ee429393f068b2a3190, type: 3}
     m_RemovedGameObjects: []
@@ -522,10 +520,6 @@ PrefabInstance:
     - target: {fileID: 6450036794256980827, guid: fde69184b78b0ee429393f068b2a3190, type: 3}
       propertyPath: m_Name
       value: Machine Gun
-      objectReference: {fileID: 0}
-    - target: {fileID: 6450036794256980827, guid: fde69184b78b0ee429393f068b2a3190, type: 3}
-      propertyPath: m_Layer
-      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 6450036794256980827, guid: fde69184b78b0ee429393f068b2a3190, type: 3}
       propertyPath: m_IsActive
@@ -637,10 +631,6 @@ PrefabInstance:
     - target: {fileID: 6450036794256980827, guid: fde69184b78b0ee429393f068b2a3190, type: 3}
       propertyPath: m_Name
       value: Shotgun
-      objectReference: {fileID: 0}
-    - target: {fileID: 6450036794256980827, guid: fde69184b78b0ee429393f068b2a3190, type: 3}
-      propertyPath: m_Layer
-      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 6450036794256980827, guid: fde69184b78b0ee429393f068b2a3190, type: 3}
       propertyPath: m_IsActive

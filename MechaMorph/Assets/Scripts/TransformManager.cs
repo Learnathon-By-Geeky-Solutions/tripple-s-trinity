@@ -7,19 +7,15 @@ namespace TrippleTrinity.MechaMorph
     public class TransformManager : MonoBehaviour
     {
         [Header("Form Settings")]
-        [SerializeField] private GameObject ballVisual;    // Child object for the ball visuals
-        [SerializeField] private GameObject robotVisual;   // Child object for the robot visuals
-        [SerializeField] private BallControllerWithDash ballController; // Ball movement script
-        [SerializeField] private RobotController robotController; // Robot movement script
-
-        [Header("Camera Settings")]
-        [SerializeField] private CameraController cameraController; // Reference to the CameraController script
+        [SerializeField] private GameObject ballVisual; // Child object for the ball visuals
+        [SerializeField] private GameObject robotVisual; // Child object for the robot visuals
+        [SerializeField] private NewBallControllerWithDash ballController; // Ball movement script
+        [SerializeField] private NewRobotController robotController; // Robot movement script
 
         private bool _isBallForm = true; // Track the current form
-        
+
         [Header("Abilities")]
         [SerializeField] private AreaDamageAbility areaDamageAbility;
-
 
         private void Start()
         {
@@ -43,54 +39,57 @@ namespace TrippleTrinity.MechaMorph
 
         private void SetBallForm()
         {
-            // Existing code
+            // Switch to ball visuals
             ballVisual.transform.position = robotVisual.transform.position;
             ballVisual.transform.rotation = robotVisual.transform.rotation;
 
             ballVisual.SetActive(true);
             robotVisual.SetActive(false);
-            ballController.enabled = true;
-            robotController.enabled = false;
 
-            if (cameraController != null)
+            if (ballController != null)
             {
-                cameraController.Target = ballVisual.transform; // Set the camera to follow the ball
+                ballController.enabled = true;
+
+                // If the ball controller has a method named "OnTransformToBall", call it
+                var method = ballController.GetType().GetMethod("OnTransformToBall");
+                method?.Invoke(ballController, null);
+            }
+
+            if (robotController != null)
+            {
+                robotController.enabled = false;
             }
 
             _isBallForm = true;
 
             // Notify the AreaDamageAbility
-            if (areaDamageAbility != null)
-            {
-                areaDamageAbility.SetRobotForm(false);
-            }
+            areaDamageAbility?.SetRobotForm(false);
         }
 
         private void SetRobotForm()
         {
-            // Existing code
+            // Switch to robot visuals
             robotVisual.transform.position = ballVisual.transform.position;
             robotVisual.transform.rotation = ballVisual.transform.rotation;
 
             ballVisual.SetActive(false);
             robotVisual.SetActive(true);
-            ballController.enabled = false;
-            robotController.enabled = true;
 
-            if (cameraController != null)
+            if (ballController != null)
             {
-                cameraController.Target = robotVisual.transform; // Set the camera to follow the robot
+                ballController.enabled = false;
+            }
+
+            if (robotController != null)
+            {
+                robotController.enabled = true;
             }
 
             _isBallForm = false;
 
             // Notify the AreaDamageAbility
-            if (areaDamageAbility != null)
-            {
-                areaDamageAbility.SetRobotForm(true);
-            }
+            areaDamageAbility?.SetRobotForm(true);
         }
-
 
         public bool IsBallForm()
         {
