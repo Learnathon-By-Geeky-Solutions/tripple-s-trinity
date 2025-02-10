@@ -5,12 +5,12 @@ namespace TrippleTrinity.MechaMorph.Ui
 {
     public class MainMenu : MonoBehaviour
     {
-        public void PlayGame()
+        public static void PlayGame()
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         }
 
-        public void QuitGame()
+        public static void QuitGame()
         {
             Application.Quit();
         }
