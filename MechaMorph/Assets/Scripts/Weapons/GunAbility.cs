@@ -6,32 +6,32 @@ namespace TrippleTrinity.MechaMorph.Weapons
     public class GunAbility : BaseGun
     {
         [SerializeField] private float damage;
-        public GameObject bulletPrefeb;
-        public Transform bulletSpawnPoint;
+        [SerializeField] private GameObject bulletPrefeb;
+        [SerializeField] private Transform bulletSpawnPoint;
         private const float ImpactForce = 50f;
 
         [SerializeField] private InputActionAsset playerInput;
-        private InputAction fireAction;
-        private InputAction reloadAction;
+        private InputAction _fireAction;
+        private InputAction _reloadAction;
 
         private void Awake()
         {
-            fireAction = playerInput.FindAction("Fire");
-            reloadAction = playerInput.FindAction("Reloading");
+            _fireAction = playerInput.FindAction("Fire");
+            _reloadAction = playerInput.FindAction("Reloading");
 
-            fireAction.Enable();
-            reloadAction.Enable();
+            _fireAction.Enable();
+            _reloadAction.Enable();
         }
 
         public override void Update()
         {
             base.Update();
 
-            if (fireAction.triggered)
+            if (_fireAction.triggered)
             {
                 TryShoot();
             }
-            if(reloadAction.triggered)
+            if(_reloadAction.triggered)
             {
                 TryReloading();
             }
@@ -58,7 +58,13 @@ namespace TrippleTrinity.MechaMorph.Weapons
                     hit.rigidbody.AddForce(-hit.normal * ImpactForce);
                 }
             }
-            Instantiate(bulletPrefeb, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
+            GameObject bullet = Instantiate(bulletPrefeb, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
+    
+            BulletBehaviour bulletBehaviour = bullet.GetComponent<BulletBehaviour>();
+            if (bulletBehaviour != null)
+            {
+                bulletBehaviour.SetBulletDirection(bulletSpawnPoint.forward);
+            }
         }
     }
 }

@@ -1,20 +1,40 @@
 using UnityEngine;
 
-namespace TrippleTrinity.MechaMorph
+namespace TrippleTrinity.MechaMorph.Weapons
 {
     public class BulletBehaviour : MonoBehaviour
     {
-        public float bulletSpeed = 20f;
+        [SerializeField] private float bulletSpeed = 20f;
+        private Vector3 _bulletDirection;
+        private GunData _gunData;
+        private readonly float _damage = 1f;
 
-        // Update is called once per frame
+        public void SetBulletDirection(Vector3 direction)
+        {
+            _bulletDirection = direction.normalized;
+        }
         void Update()
         {
-            transform.Translate(Vector3.forward * bulletSpeed *  Time.deltaTime);
+            transform.Translate(Vector3.forward * (bulletSpeed * Time.deltaTime));
         }
 
         private void OnEnable()
         {
             Destroy(gameObject, 2f);
+        }
+
+        private void OnCollisionEnter(Collision collision)
+        {
+            if (collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("Player"))
+            {
+                TakeDamage takeDamage = collision.gameObject.GetComponent<TakeDamage>();
+                if (takeDamage != null)
+                {
+                    takeDamage.Damage(_damage);
+                }
+                
+                Destroy(gameObject);
+            }
         }
     }
 }
