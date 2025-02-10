@@ -5,6 +5,8 @@ namespace TrippleTrinity.MechaMorph.Weapons
     public class GunAbility : BaseGun
     {
         [SerializeField] private float damage;
+        public GameObject bulletPrefeb;
+        public Transform bulletSpawnPoint;
         private const float ImpactForce = 50f;
 
         public override void Update()
@@ -42,6 +44,7 @@ namespace TrippleTrinity.MechaMorph.Weapons
                     hit.rigidbody.AddForce(-hit.normal * ImpactForce);
                 }
             }
+            Instantiate(bulletPrefeb, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
         }
     }
 }
