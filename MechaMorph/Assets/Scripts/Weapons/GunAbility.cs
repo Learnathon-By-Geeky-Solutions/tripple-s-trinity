@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace TrippleTrinity.MechaMorph.Weapons
 {
@@ -9,15 +10,28 @@ namespace TrippleTrinity.MechaMorph.Weapons
         public Transform bulletSpawnPoint;
         private const float ImpactForce = 50f;
 
+        [SerializeField] private InputActionAsset playerInput;
+        private InputAction fireAction;
+        private InputAction reloadAction;
+
+        private void Awake()
+        {
+            fireAction = playerInput.FindAction("Fire");
+            reloadAction = playerInput.FindAction("Reloading");
+
+            fireAction.Enable();
+            reloadAction.Enable();
+        }
+
         public override void Update()
         {
             base.Update();
 
-            if (Input.GetButtonDown("Fire1"))
+            if (fireAction.triggered)
             {
                 TryShoot();
             }
-            if(Input.GetKeyDown(KeyCode.R))
+            if(reloadAction.triggered)
             {
                 TryReloading();
             }

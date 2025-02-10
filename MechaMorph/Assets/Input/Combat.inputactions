@@ -6,7 +6,7 @@
             "id": "12f53139-67b6-4850-9863-4f43b097a245",
             "actions": [
                 {
-                    "name": "Shoot",
+                    "name": "Fire",
                     "type": "Button",
                     "id": "a71db934-4e35-4865-906e-9b823267e895",
                     "expectedControlType": "Button",
@@ -15,12 +15,12 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "SwitchWeapon",
+                    "name": "Reloading",
                     "type": "Button",
-                    "id": "0fcef71c-39a0-4c4f-814c-d61049d29e52",
+                    "id": "efb6b1cd-f849-469b-b810-7c5c067e8ea2",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "Press",
+                    "interactions": "",
                     "initialStateCheck": false
                 }
             ],
@@ -32,29 +32,18 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "New control scheme",
-                    "action": "Shoot",
+                    "action": "Fire",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "8a5e3b61-23e7-4de0-a5a6-a24b04eec479",
-                    "path": "<Keyboard>/1",
+                    "id": "1508e37e-5117-4835-8f37-f5cce1b00825",
+                    "path": "<Keyboard>/r",
                     "interactions": "",
                     "processors": "",
-                    "groups": "New control scheme",
-                    "action": "SwitchWeapon",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "6f4e34b0-aef4-4cf1-9dd5-36fb392b8c36",
-                    "path": "<Keyboard>/2",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "New control scheme",
-                    "action": "SwitchWeapon",
+                    "groups": "",
+                    "action": "Reloading",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -2012,6 +2012,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 1931157675}
     m_Modifications:
     - target: {fileID: 629596051547572084, guid: b7076bdbb2b35ba458635deefeeb7856, type: 3}
+      propertyPath: playerInput
+      value: 
+      objectReference: {fileID: -944628639613478452, guid: 0388b01dea2dce54fa4564664ad47562, type: 3}
+    - target: {fileID: 629596051547572084, guid: b7076bdbb2b35ba458635deefeeb7856, type: 3}
       propertyPath: bulletPrefeb
       value: 
       objectReference: {fileID: 3956043680047013727, guid: a484627e1c855e24aa5bef53d4ae9f50, type: 3}
@@ -2064,6 +2068,10 @@ PrefabInstance:
       value: Robot
       objectReference: {fileID: 0}
     - target: {fileID: 5816728858699877545, guid: b7076bdbb2b35ba458635deefeeb7856, type: 3}
+      propertyPath: playerInput
+      value: 
+      objectReference: {fileID: -944628639613478452, guid: 0388b01dea2dce54fa4564664ad47562, type: 3}
+    - target: {fileID: 5816728858699877545, guid: b7076bdbb2b35ba458635deefeeb7856, type: 3}
       propertyPath: bulletPrefeb
       value: 
       objectReference: {fileID: 3956043680047013727, guid: a484627e1c855e24aa5bef53d4ae9f50, type: 3}
@@ -2071,6 +2079,10 @@ PrefabInstance:
       propertyPath: bulletSpawnPoint
       value: 
       objectReference: {fileID: 1884831094}
+    - target: {fileID: 7851866995699218347, guid: b7076bdbb2b35ba458635deefeeb7856, type: 3}
+      propertyPath: playerInput
+      value: 
+      objectReference: {fileID: -944628639613478452, guid: 0388b01dea2dce54fa4564664ad47562, type: 3}
     - target: {fileID: 7851866995699218347, guid: b7076bdbb2b35ba458635deefeeb7856, type: 3}
       propertyPath: bulletPrefeb
       value: 
