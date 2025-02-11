@@ -10,13 +10,13 @@ namespace TrippleTrinity.MechaMorph.Enemy
         [SerializeField] private GameObject bossPrefab;
 
         private readonly List<GameObject> activeEnemies = new();
-        private float spawnDelay = 6f;
+        [SerializeField]private float spawnDelay = 6f;
         private float timeCounter;
         private float counter;
         
         private readonly float xMinVal = -13f, xMaxVal = 13f, zMinVal = -20f, zMaxVal = 20f;
         private readonly float spawnHeight = 1f;
-
+  
         void Start()
         {
             StartCoroutine(SpawnLoop());
@@ -26,7 +26,10 @@ namespace TrippleTrinity.MechaMorph.Enemy
         {
             timeCounter += Time.deltaTime;
             counter += Time.deltaTime;
-
+            if (enemyAi.Length == 0)
+            {
+                SpawnEnemy();
+            }
             // Update lap based on elapsed time
             if (timeCounter >= 900f) // 15+ minutes
             {
@@ -43,34 +46,28 @@ namespace TrippleTrinity.MechaMorph.Enemy
                
                 spawnDelay = 3f;
             }
-
+            
             // Spawn enemy if the delay time is met
             if (counter >= spawnDelay || activeEnemies.Count == 0)
             {
-                SpawnEnemy();
+            
                 counter = 0f; // Reset counter
             }
         }
 
         private IEnumerator SpawnLoop()
         {
-           
+         
                 yield return new WaitForSeconds(spawnDelay);
 
-                if (activeEnemies.Count == 0)
-                {
+                
                     SpawnEnemy();
-                }
+                
         }
 
         private void SpawnEnemy()
         {
-            if (enemyAi.Length == 0)
-            {
-                Debug.LogError("Enemy array is empty!");
-                return;
-            }
-
+  
             Vector3 spawnPosition = new(
                 Random.Range(xMinVal, xMaxVal),
                 spawnHeight,
@@ -79,6 +76,7 @@ namespace TrippleTrinity.MechaMorph.Enemy
 
             GameObject enemy = Instantiate(enemyAi[Random.Range(0, enemyAi.Length)], spawnPosition, Quaternion.identity);
             activeEnemies.Add(enemy);
+            counter = 0f;   
         }
 
         public void RemoveEnemy(GameObject enemy)
