@@ -758,12 +758,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 694028d4d2c76584ba6d746b8985a74c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
   healthBarFill: {fileID: 1692037377}
-  fillSpeed: 0.3
+  fillSpeed: 5
   colorChangeSpeed: 10
-  damageAmount: 10
-  healAmount: 10
 --- !u!1 &272240306
 GameObject:
   m_ObjectHideFlags: 0
@@ -971,18 +968,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4711839821739533900, guid: 90c3087a30165be468cdce124cff5b30, type: 3}
   m_PrefabInstance: {fileID: 3079958440047573734}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &300820698
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 300820685}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0251344ab85183745b41037c4c8c0d66, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &300820699 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8092132072495083454, guid: 90c3087a30165be468cdce124cff5b30, type: 3}
@@ -2004,7 +1989,7 @@ Transform:
   m_GameObject: {fileID: 963194225}
   serializedVersion: 2
   m_LocalRotation: {x: 0.42261827, y: 0, z: 0, w: 0.9063079}
-  m_LocalPosition: {x: 391.09277, y: -20415.004, z: 17094.205}
+  m_LocalPosition: {x: 443.10376, y: -21753.65, z: 18213.785}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2025,6 +2010,7 @@ MonoBehaviour:
   offset: {x: 0, y: 10, z: -10}
   followSpeed: 5
   rotationSmoothTime: 0.1
+  _velocity: {x: 0, y: 0, z: 0}
   target: {fileID: 0}
 --- !u!114 &963194230
 MonoBehaviour:
@@ -2457,7 +2443,7 @@ Transform:
   m_GameObject: {fileID: 1173084218}
   serializedVersion: 2
   m_LocalRotation: {x: 0.42261827, y: 0, z: 0, w: 0.9063079}
-  m_LocalPosition: {x: 391.09277, y: -20415.004, z: 17094.205}
+  m_LocalPosition: {x: 443.10376, y: -21753.65, z: 18213.785}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3616,6 +3602,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1931157675}
   - component: {fileID: 1931157676}
+  - component: {fileID: 1931157677}
+  - component: {fileID: 1931157678}
   m_Layer: 0
   m_Name: TransformManager
   m_TagString: Untagged
@@ -3657,6 +3645,33 @@ MonoBehaviour:
   ballController: {fileID: 300820699}
   robotController: {fileID: 960974503}
   areaDamageAbility: {fileID: 960974502}
+  damageable: {fileID: 1931157677}
+--- !u!114 &1931157677
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1931157674}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ef6265345c1ea843a347aecf31d5f48, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
+--- !u!114 &1931157678
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1931157674}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24f0fe196eee5de419288c4e8331078a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageable: {fileID: 1931157677}
 --- !u!1 &2081802462
 GameObject:
   m_ObjectHideFlags: 0
@@ -3854,10 +3869,7 @@ PrefabInstance:
     - {fileID: 205887859538799406, guid: 90c3087a30165be468cdce124cff5b30, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 4200522066654881006, guid: 90c3087a30165be468cdce124cff5b30, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 300820698}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 90c3087a30165be468cdce124cff5b30, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
