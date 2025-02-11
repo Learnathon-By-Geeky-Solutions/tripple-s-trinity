@@ -1,52 +1,55 @@
 using UnityEngine;
 
-public class WeaponSwitching : MonoBehaviour
+namespace TrippleTrinity.MechaMorph.Weapons
 {
-    public GameObject[] weapons; 
-    private int _currentWeaponIndex; 
-
-    void Start()
+    public class WeaponSwitching : MonoBehaviour
     {
-        SwitchWeapon(_currentWeaponIndex);
-    }
+        public GameObject[] weapons; 
+        private int _currentWeaponIndex; 
 
-    void Update()
-    {
-        HandleWeaponSwitchInput();
-    }
-
-    void HandleWeaponSwitchInput()
-    {
-        if (Input.GetAxis("Mouse ScrollWheel") > 0f)
+        void Start()
         {
-            _currentWeaponIndex = (_currentWeaponIndex + 1) % weapons.Length;
-            SwitchWeapon(_currentWeaponIndex);
-        }
-        else if (Input.GetAxis("Mouse ScrollWheel") < 0f)
-        {
-            _currentWeaponIndex = (_currentWeaponIndex - 1 + weapons.Length) % weapons.Length;
             SwitchWeapon(_currentWeaponIndex);
         }
 
-        for (int i = 0; i < weapons.Length; i++)
+        void Update()
         {
-            if (Input.GetKeyDown(KeyCode.Alpha1 + i))
+            HandleWeaponSwitchInput();
+        }
+
+        void HandleWeaponSwitchInput()
+        {
+            if (Input.GetAxis("Mouse ScrollWheel") > 0f)
             {
-                _currentWeaponIndex = i;
+                _currentWeaponIndex = (_currentWeaponIndex + 1) % weapons.Length;
                 SwitchWeapon(_currentWeaponIndex);
             }
-        }
-    }
+            else if (Input.GetAxis("Mouse ScrollWheel") < 0f)
+            {
+                _currentWeaponIndex = (_currentWeaponIndex - 1 + weapons.Length) % weapons.Length;
+                SwitchWeapon(_currentWeaponIndex);
+            }
 
-    void SwitchWeapon(int newWeaponIndex)
-    {
-        foreach (var i in weapons)
+            for (int i = 0; i < weapons.Length; i++)
+            {
+                if (Input.GetKeyDown(KeyCode.Alpha1 + i))
+                {
+                    _currentWeaponIndex = i;
+                    SwitchWeapon(_currentWeaponIndex);
+                }
+            }
+        }
+
+        void SwitchWeapon(int newWeaponIndex)
         {
-            i.SetActive(false);
+            foreach (var i in weapons)
+            {
+                i.SetActive(false);
+            }
+
+            weapons[newWeaponIndex].SetActive(true);
+
+            Debug.Log("Switched to weapon: " + weapons[newWeaponIndex].name);
         }
-
-        weapons[newWeaponIndex].SetActive(true);
-
-        Debug.Log("Switched to weapon: " + weapons[newWeaponIndex].name);
     }
 }

@@ -15,7 +15,7 @@ namespace TrippleTrinity.MechaMorph.Weapons
         }
         void Update()
         {
-            transform.Translate(Vector3.forward * (bulletSpeed * Time.deltaTime));
+            transform.Translate(_bulletDirection * (bulletSpeed * Time.deltaTime));
         }
 
         private void OnEnable()

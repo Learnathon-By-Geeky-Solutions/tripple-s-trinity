@@ -44,7 +44,7 @@ namespace TrippleTrinity.MechaMorph.Weapons
 
         protected override void Shoot()
         {
-            if(Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out var hit, Gundata.ShootingRange, Gundata.LayerMask))
+            /*if(Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out var hit, Gundata.ShootingRange, Gundata.LayerMask))
             {
                 Debug.Log(Gundata.GunName + " hit" + hit.collider.name);
                 TakeDamage takedamage = hit.transform.GetComponent<TakeDamage>();
@@ -57,7 +57,7 @@ namespace TrippleTrinity.MechaMorph.Weapons
                 {
                     hit.rigidbody.AddForce(-hit.normal * ImpactForce);
                 }
-            }
+            }*/
             GameObject bullet = Instantiate(bulletPrefeb, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
     
             BulletBehaviour bulletBehaviour = bullet.GetComponent<BulletBehaviour>();
