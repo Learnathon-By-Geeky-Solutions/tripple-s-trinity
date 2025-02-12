@@ -125,7 +125,6 @@ MonoBehaviour:
   health: 0
   bullet: {fileID: 0}
   moveRotationSpeed: 45
-  direction: {x: 0, y: 0, z: 0}
 --- !u!195 &8341434758562488400
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -145,7 +144,7 @@ NavMeshAgent:
   m_AutoBraking: 1
   m_AutoRepath: 1
   m_Height: 1
-  m_BaseOffset: 0.3
+  m_BaseOffset: 0.58
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
 --- !u!114 &3357132804257560334
