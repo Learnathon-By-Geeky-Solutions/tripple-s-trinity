@@ -11,9 +11,10 @@ namespace TrippleTrinity.MechaMorph.Enemy
         private Transform targetPosition;
         [SerializeField] private GameObject bullet;
         [SerializeField] private float moveRotationSpeed = 45f;
-        public  Vector3 direction;
 
-        // Start is called before the first frame update
+        // 🔧 Declare direction as a private field
+        protected Vector3 Direction; 
+        
         protected virtual void Start()
         {
             agent = GetComponent<NavMeshAgent>();
@@ -32,9 +33,15 @@ namespace TrippleTrinity.MechaMorph.Enemy
             agent.autoBraking = false;
         }
 
-        // Update is called once per frame
         protected virtual void Update()
         {
+            GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
+            if (playerObject != null)
+            {
+                targetPosition = playerObject.transform;
+                Debug.Log($"Player found: {targetPosition.name}");
+            }
+
             if (targetPosition != null)
             {
                 RotateTowardsTarget();
@@ -42,7 +49,6 @@ namespace TrippleTrinity.MechaMorph.Enemy
             }
         }
 
-        // Move towards the target
         protected virtual void MoveTowardsTarget()
         {
             if (targetPosition == null) return;
@@ -52,13 +58,13 @@ namespace TrippleTrinity.MechaMorph.Enemy
             }
         }
 
-        // Rotate towards the target
         protected virtual void RotateTowardsTarget()
         {
             if (targetPosition == null) return;
 
-            direction = (targetPosition.position - transform.position).normalized;
-            Quaternion targetRotation = Quaternion.LookRotation(direction);
+            // 🔧 Now 'direction' is correctly assigned
+            Direction = (targetPosition.position - transform.position).normalized;
+            Quaternion targetRotation = Quaternion.LookRotation(Direction);
             transform.rotation = Quaternion.Slerp(
                 transform.rotation,
                 targetRotation,
@@ -66,7 +72,6 @@ namespace TrippleTrinity.MechaMorph.Enemy
             );
         }
 
-        // Enemy death logic
         protected virtual void Die()
         {
             Debug.Log("Enemy is dead.");

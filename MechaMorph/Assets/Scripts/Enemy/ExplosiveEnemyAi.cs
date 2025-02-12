@@ -30,7 +30,7 @@ namespace TrippleTrinity.MechaMorph.Enemy
         }
         void Explode()
         {
-            //ExplosionSound();
+          
             Debug.Log("Death");
             Destroy(this.gameObject);
         }
