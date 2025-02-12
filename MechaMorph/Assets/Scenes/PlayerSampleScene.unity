@@ -633,6 +633,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 7966401257371391893, guid: 5e095dcc954dd5c49855ebc8a600d9c2, type: 3}
     - target: {fileID: 5693971541612250817, guid: cfa4c5b7860a614468256fcfd83029a2, type: 3}
+      propertyPath: spawnDelay
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5693971541612250817, guid: cfa4c5b7860a614468256fcfd83029a2, type: 3}
       propertyPath: enemyAi.Array.size
       value: 3
       objectReference: {fileID: 0}

@@ -37,7 +37,7 @@ namespace TrippleTrinity.MechaMorph.Enemy
             float yPos = Random.Range(-yVal, yVal);
             float zPos = Random.Range(-zVal, zVal);
 
-            if (Vector3.Distance(direction, transform.position) <= 5f)
+            if (Vector3.Distance(Direction, transform.position) <= 5f)
             {
                 return new Vector3(xPos, yPos, zPos);
             }

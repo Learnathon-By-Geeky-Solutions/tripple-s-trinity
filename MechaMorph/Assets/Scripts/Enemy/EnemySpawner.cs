@@ -24,12 +24,14 @@ namespace TrippleTrinity.MechaMorph.Enemy
 
         void Update()
         {
-       
             timeCounter += Time.deltaTime;
             counter += Time.deltaTime;
-          
+            if (enemyAi.Length == 0)
+            {
+                SpawnEnemy();
+            }
             // Update lap based on elapsed time
-           if (timeCounter >= 900f) // 15+ minutes
+            if (timeCounter >= 900f) // 15+ minutes
             {
                 
                 spawnDelay = 0.5f;
@@ -48,9 +50,9 @@ namespace TrippleTrinity.MechaMorph.Enemy
             // Spawn enemy if the delay time is met
             if (counter >= spawnDelay || activeEnemies.Count == 0)
             {
-                SpawnEnemy();
-               
+                 SpawnEnemy();
                 counter = 0f; // Reset counter
+               
             }
         }
 
@@ -66,6 +68,7 @@ namespace TrippleTrinity.MechaMorph.Enemy
 
         private void SpawnEnemy()
         {
+  
             Vector3 spawnPosition = new(
                 Random.Range(xMinVal, xMaxVal),
                 spawnHeight,
