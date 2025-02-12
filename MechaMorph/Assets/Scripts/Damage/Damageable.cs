@@ -1,5 +1,5 @@
 using UnityEngine;
-using TrippleTrinity.MechaMorph.Ui;
+using System;
 
 namespace TrippleTrinity.MechaMorph.Damage
 {
@@ -9,9 +9,11 @@ namespace TrippleTrinity.MechaMorph.Damage
 
         [SerializeField] private float maxHealth = 100f;
         private float _currentHealth;
-        private PlayerForm _currentForm = PlayerForm.Ball; // Start as Ball
+        private PlayerForm _currentForm = PlayerForm.Ball;
 
-        private HealthBar _healthBar;
+        public event Action OnDamageTaken; // Event for taking damage
+        public event Action OnHealed; // Event for healing
+        public event Action OnDeath; // Event for death
 
         public float CurrentHealth => _currentHealth;
         public float MaxHealth => maxHealth;
@@ -19,21 +21,24 @@ namespace TrippleTrinity.MechaMorph.Damage
         private void Start()
         {
             _currentHealth = maxHealth;
-            _healthBar = FindObjectOfType<HealthBar>(); // Auto-assign HealthBar
         }
 
         public void TakeDamage(float amount)
         {
-            // If in Ball form, take half damage
             if (_currentForm == PlayerForm.Ball)
             {
-                amount *= 0.5f;
+                amount *= 0.5f; // Ball form takes half damage
             }
 
             _currentHealth -= amount;
             _currentHealth = Mathf.Clamp(_currentHealth, 0, maxHealth);
 
-            _healthBar?.UpdateHealthUI(); // Update UI
+            OnDamageTaken?.Invoke(); // Trigger event when damaged
+
+            if (_currentHealth <= 0)
+            {
+                OnDeath?.Invoke(); // Trigger death event
+            }
         }
 
         public void Heal(float amount)
@@ -41,7 +46,7 @@ namespace TrippleTrinity.MechaMorph.Damage
             _currentHealth += amount;
             _currentHealth = Mathf.Clamp(_currentHealth, 0, maxHealth);
 
-            _healthBar?.UpdateHealthUI(); // Update UI
+            OnHealed?.Invoke(); // Trigger heal event
         }
 
         public void SwitchForm(PlayerForm newForm)

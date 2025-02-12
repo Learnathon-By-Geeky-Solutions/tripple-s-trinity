@@ -1,6 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
-using TrippleTrinity.MechaMorph.Damage; // Import Damageable
+using TrippleTrinity.MechaMorph.Damage;
 
 namespace TrippleTrinity.MechaMorph.Ui
 {
@@ -23,6 +23,11 @@ namespace TrippleTrinity.MechaMorph.Ui
                 return;
             }
 
+            // Subscribe to events
+            _damageable.OnDamageTaken += UpdateHealthUI;
+            _damageable.OnHealed += UpdateHealthUI;
+            _damageable.OnDeath += HandleDeath;
+
             _targetFillAmount = 1f;
             _targetColor = Color.green;
             UpdateHealthBarColor();
@@ -40,7 +45,8 @@ namespace TrippleTrinity.MechaMorph.Ui
             }
         }
 
-        public void UpdateHealthUI()
+        // Update the health bar based on the current health
+        private void UpdateHealthUI()
         {
             if (_damageable == null) return;
 
@@ -48,6 +54,13 @@ namespace TrippleTrinity.MechaMorph.Ui
             float maxHealth = _damageable.MaxHealth;
             _targetFillAmount = currentHealth / maxHealth;
 
+            UpdateHealthBarColor();
+        }
+
+        private void HandleDeath()
+        {
+            Debug.Log("Player is dead. Reset health bar.");
+            _targetFillAmount = 0;
             UpdateHealthBarColor();
         }
 
@@ -59,6 +72,17 @@ namespace TrippleTrinity.MechaMorph.Ui
             _targetColor = healthPercentage > 0.5f 
                 ? Color.Lerp(Color.yellow, Color.green, (healthPercentage - 0.5f) * 2) 
                 : Color.Lerp(Color.red, Color.yellow, healthPercentage * 2);
+        }
+
+        private void OnDestroy()
+        {
+            // Unsubscribe to avoid memory leaks
+            if (_damageable != null)
+            {
+                _damageable.OnDamageTaken -= UpdateHealthUI;
+                _damageable.OnHealed -= UpdateHealthUI;
+                _damageable.OnDeath -= HandleDeath;
+            }
         }
     }
 }
