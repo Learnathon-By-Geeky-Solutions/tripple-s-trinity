@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 95876122554862722}
   - component: {fileID: 2266847526801993517}
   - component: {fileID: 2199688014844323030}
-  - component: {fileID: 5691807673868826042}
   m_Layer: 0
   m_Name: Cylinder
   m_TagString: Untagged
@@ -28,13 +27,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 795961312448100140}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: -0.7071068}
-  m_LocalPosition: {x: 0.08213186, y: -0.004, z: 0.452}
+  m_LocalRotation: {x: 0.38268343, y: -0, z: -0, w: 0.92387956}
+  m_LocalPosition: {x: 0.08213186, y: 0.34739447, z: 0.42950535}
   m_LocalScale: {x: 0.5, y: 0.25, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8845937794885050502}
-  m_LocalEulerAnglesHint: {x: 270, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 45, y: 0, z: 0}
 --- !u!33 &95876122554862722
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -108,22 +107,6 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
---- !u!114 &5691807673868826042
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 795961312448100140}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4131547bd308c574f9e6e3e35ff6db53, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  range: 20
-  projectileSpeed: 10
-  shootPoint: {fileID: 0}
-  projectilePrefab: {fileID: 0}
 --- !u!1 &6376213158033550541
 GameObject:
   m_ObjectHideFlags: 0

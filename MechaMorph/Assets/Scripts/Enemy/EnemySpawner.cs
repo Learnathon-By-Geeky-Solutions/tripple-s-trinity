@@ -2,87 +2,72 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 namespace TrippleTrinity.MechaMorph.Enemy
 {
     public class EnemySpawner : MonoBehaviour
     {
         [SerializeField] private GameObject[] enemyAi;
-        [SerializeField] private GameObject bossPrefab;
-
-        private readonly List<GameObject> activeEnemies = new();
-        [SerializeField]private float spawnDelay = 6f;
-        private float timeCounter;
-        private float counter;
-        
+        private int arrayLength;
+        [SerializeField] private float spawnDelay = 10f;
         private readonly float xMinVal = -13f, xMaxVal = 13f, zMinVal = -20f, zMaxVal = 20f;
+        private float xVal, zVal;
         private readonly float spawnHeight = 1f;
-  
+        [SerializeField] private float countDown = 10f;
+        private List<GameObject> gameObjects;
         void Start()
         {
-            StartCoroutine(SpawnLoop());
+            arrayLength = enemyAi.Length;
+            gameObjects = new List<GameObject>();
+            StartCoroutine(SpawnEnemiesDelay());
+          
         }
 
         void Update()
         {
-            timeCounter += Time.deltaTime;
-            counter += Time.deltaTime;
-            if (enemyAi.Length == 0)
+            if (countDown > 0)
             {
-                SpawnEnemy();
+                   countDown -= Time.deltaTime;
             }
-            // Update lap based on elapsed time
-            if (timeCounter >= 900f) // 15+ minutes
+            else if (countDown<=0 && gameObjects.Count > 0)
             {
-                
-                spawnDelay = 0.5f;
-            }
-            else if (timeCounter >= 600f) // 10-15 minutes
-            {
-             
-                spawnDelay = 2f;
-            }
-            else if (timeCounter >= 300f) // 5-10 minutes
-            {
-               
-                spawnDelay = 3f;
-            }
-            
-            // Spawn enemy if the delay time is met
-            if (counter >= spawnDelay || activeEnemies.Count == 0)
-            {
-                 SpawnEnemy();
-                counter = 0f; // Reset counter
-               
+                ClearGameObjects();
+                Debug.Log("All game objects are cleared");
             }
         }
-
-        private IEnumerator SpawnLoop()
+        private IEnumerator SpawnEnemiesDelay()
         {
-         
+            while (countDown>=0f)
+            {
+                xVal = Random.Range(xMinVal, xMaxVal);
+                zVal = Random.Range(zMinVal, zMaxVal);
+                EnemySpawn();
                 yield return new WaitForSeconds(spawnDelay);
-
-                
-                    SpawnEnemy();
-                
+            }
         }
 
-        private void SpawnEnemy()
+        private void EnemySpawn()
         {
-  
-            Vector3 spawnPosition = new(
-                Random.Range(xMinVal, xMaxVal),
-                spawnHeight,
-                Random.Range(zMinVal, zMaxVal)
-            );
-
-            GameObject enemy = Instantiate(enemyAi[Random.Range(0, enemyAi.Length)], spawnPosition, Quaternion.identity);
-            activeEnemies.Add(enemy);
-            counter = 0f;   
+            if(enemyAi==null || enemyAi.Length ==0)
+            {
+                Debug.LogError("The Array is empty!");
+                return;
+            }
+            int randomValue = Random.Range(0, arrayLength);
+            Debug.Log($"Spawning Enemy at Index: {randomValue}");
+            Vector3 spawnPosition = new Vector3(xVal, spawnHeight, zVal);
+           GameObject prefab= Instantiate(enemyAi[randomValue], spawnPosition, Quaternion.identity);
+            gameObjects.Add(prefab);
+            Debug.Log($"GameObjects Count: {gameObjects.Count}");
         }
 
-        public void RemoveEnemy(GameObject enemy)
+        private void ClearGameObjects()
         {
-            activeEnemies.Remove(enemy);
+            foreach (var obj in gameObjects)
+            {
+                Destroy(obj);
+            }
+            gameObjects.Clear();
         }
     }
 }
