@@ -1318,7 +1318,7 @@ Transform:
   m_GameObject: {fileID: 635673471}
   serializedVersion: 2
   m_LocalRotation: {x: -0.42261827, y: -0, z: -0, w: 0.9063079}
-  m_LocalPosition: {x: 0.07699469, y: 0, z: 11.000002}
+  m_LocalPosition: {x: 0.027481891, y: 0, z: 11.000002}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1942,7 +1942,7 @@ Transform:
   m_GameObject: {fileID: 963194225}
   serializedVersion: 2
   m_LocalRotation: {x: 0.42261827, y: 0, z: 0, w: 0.9063079}
-  m_LocalPosition: {x: -0.07699469, y: 6.0064898, z: -7.0706644}
+  m_LocalPosition: {x: -0.027481891, y: 6.0064898, z: -7.0706644}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2006,6 +2006,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1931157675}
     m_Modifications:
+    - target: {fileID: 611979111218199657, guid: b7076bdbb2b35ba458635deefeeb7856, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 629596051547572084, guid: b7076bdbb2b35ba458635deefeeb7856, type: 3}
+      propertyPath: bulletPrefeb
+      value: 
+      objectReference: {fileID: 821264732710663634, guid: a484627e1c855e24aa5bef53d4ae9f50, type: 3}
+    - target: {fileID: 3506166553522681168, guid: b7076bdbb2b35ba458635deefeeb7856, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3858065892817132848, guid: b7076bdbb2b35ba458635deefeeb7856, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3960683278813943281, guid: b7076bdbb2b35ba458635deefeeb7856, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -2050,6 +2066,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Robot
       objectReference: {fileID: 0}
+    - target: {fileID: 5816728858699877545, guid: b7076bdbb2b35ba458635deefeeb7856, type: 3}
+      propertyPath: bulletPrefeb
+      value: 
+      objectReference: {fileID: 821264732710663634, guid: a484627e1c855e24aa5bef53d4ae9f50, type: 3}
+    - target: {fileID: 7851866995699218347, guid: b7076bdbb2b35ba458635deefeeb7856, type: 3}
+      propertyPath: bulletPrefeb
+      value: 
+      objectReference: {fileID: 821264732710663634, guid: a484627e1c855e24aa5bef53d4ae9f50, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2379,7 +2403,7 @@ Transform:
   m_GameObject: {fileID: 1173084218}
   serializedVersion: 2
   m_LocalRotation: {x: 0.42261827, y: 0, z: 0, w: 0.9063079}
-  m_LocalPosition: {x: -0.07699469, y: 6.0064898, z: -7.0706644}
+  m_LocalPosition: {x: -0.027481891, y: 6.0064898, z: -7.0706644}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
