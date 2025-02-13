@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2553479885522214164
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7464443404145133954}
+  m_Layer: 0
+  m_Name: FirePoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7464443404145133954
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2553479885522214164}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.682, y: 0.003, z: 0.857}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3960683278813943281}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4132436444165388229
 GameObject:
   m_ObjectHideFlags: 0
@@ -47,7 +78,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e72ee54c97fb2a459952f12ca86470f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectedWeapon: 0
+  weapons:
+  - {fileID: 5408769272997752132}
+  - {fileID: 8573581832558267421}
+  - {fileID: 8347851655187375229}
 --- !u!1 &5373993913881270072
 GameObject:
   m_ObjectHideFlags: 0
@@ -69,7 +103,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &3960683278813943281
 Transform:
   m_ObjectHideFlags: 0
@@ -86,6 +120,7 @@ Transform:
   - {fileID: 1183615462026466167}
   - {fileID: 9208809207520315304}
   - {fileID: 8781897559238856142}
+  - {fileID: 7464443404145133954}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &8494913796595617348
@@ -449,6 +484,9 @@ MonoBehaviour:
   currentAmmo: 50
   nextTimeToFire: 2
   damage: 10
+  bulletPrefeb: {fileID: 3956043680047013727, guid: a484627e1c855e24aa5bef53d4ae9f50, type: 3}
+  bulletSpawnPoint: {fileID: 7464443404145133954}
+  playerInput: {fileID: -944628639613478452, guid: 0388b01dea2dce54fa4564664ad47562, type: 3}
 --- !u!1001 &3051932637573373734
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -560,6 +598,9 @@ MonoBehaviour:
   currentAmmo: 200
   nextTimeToFire: 10
   damage: 50
+  bulletPrefeb: {fileID: 3956043680047013727, guid: a484627e1c855e24aa5bef53d4ae9f50, type: 3}
+  bulletSpawnPoint: {fileID: 7464443404145133954}
+  playerInput: {fileID: -944628639613478452, guid: 0388b01dea2dce54fa4564664ad47562, type: 3}
 --- !u!1001 &3420581816933955398
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -643,9 +684,6 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 6450036794256980827, guid: fde69184b78b0ee429393f068b2a3190, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 6927506483815736361}
-    - targetCorrespondingSourceObject: {fileID: 6450036794256980827, guid: fde69184b78b0ee429393f068b2a3190, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 5816728858699877545}
   m_SourcePrefab: {fileID: 100100000, guid: fde69184b78b0ee429393f068b2a3190, type: 3}
 --- !u!4 &986344312574934768 stripped
@@ -658,22 +696,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 6450036794256980827, guid: fde69184b78b0ee429393f068b2a3190, type: 3}
   m_PrefabInstance: {fileID: 3420581816933955398}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &6927506483815736361
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8573581832558267421}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e333bd947a5a23240b2c16f3d9508e0b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gunData: {fileID: 11400000, guid: a3224c70a052a9d4aa78530453283ff5, type: 2}
-  currentAmmo: 80
-  nextTimeToFire: 5
-  damage: 20
 --- !u!114 &5816728858699877545
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -690,3 +712,6 @@ MonoBehaviour:
   currentAmmo: 80
   nextTimeToFire: 5
   damage: 20
+  bulletPrefeb: {fileID: 3956043680047013727, guid: a484627e1c855e24aa5bef53d4ae9f50, type: 3}
+  bulletSpawnPoint: {fileID: 7464443404145133954}
+  playerInput: {fileID: -944628639613478452, guid: 0388b01dea2dce54fa4564664ad47562, type: 3}
