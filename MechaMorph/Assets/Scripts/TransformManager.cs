@@ -1,5 +1,6 @@
 using TrippleTrinity.MechaMorph.Ability;
 using TrippleTrinity.MechaMorph.Control;
+
 using UnityEngine;
 
 namespace TrippleTrinity.MechaMorph
@@ -7,24 +8,27 @@ namespace TrippleTrinity.MechaMorph
     public class TransformManager : MonoBehaviour
     {
         [Header("Form Settings")]
-        [SerializeField] private GameObject ballVisual; // Child object for the ball visuals
-        [SerializeField] private GameObject robotVisual; // Child object for the robot visuals
-        [SerializeField] private NewBallControllerWithDash ballController; // Ball movement script
-        [SerializeField] private NewRobotController robotController; // Robot movement script
-
-        private bool _isBallForm = true; // Track the current form
+        [SerializeField] private GameObject ballVisual;
+        [SerializeField] private GameObject robotVisual;
+        [SerializeField] private NewBallControllerWithDash ballController;
+        [SerializeField] private NewRobotController robotController;
 
         [Header("Abilities")]
         [SerializeField] private AreaDamageAbility areaDamageAbility;
 
+        [Header("Health System")]
+        [SerializeField] private Damage.Damageable damageable;
+
+        private bool _isBallForm = true;
+
         private void Start()
         {
-            SetBallForm(); // Start in ball form
+            SetBallForm();
         }
 
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.T)) // Switch form on 'T'
+            if (Input.GetKeyDown(KeyCode.T)) 
             {
                 if (_isBallForm)
                 {
@@ -39,7 +43,6 @@ namespace TrippleTrinity.MechaMorph
 
         private void SetBallForm()
         {
-            // Switch to ball visuals
             ballVisual.transform.position = robotVisual.transform.position;
             ballVisual.transform.rotation = robotVisual.transform.rotation;
 
@@ -49,8 +52,6 @@ namespace TrippleTrinity.MechaMorph
             if (ballController != null)
             {
                 ballController.enabled = true;
-
-                // If the ball controller has a method named "OnTransformToBall", call it
                 var method = ballController.GetType().GetMethod("OnTransformToBall");
                 method?.Invoke(ballController, null);
             }
@@ -62,13 +63,13 @@ namespace TrippleTrinity.MechaMorph
 
             _isBallForm = true;
 
-            // Notify the AreaDamageAbility
+            // Notify other systems
             areaDamageAbility?.SetRobotForm(false);
+            damageable?.SwitchForm(Damage.Damageable.PlayerForm.Ball);
         }
 
         private void SetRobotForm()
         {
-            // Switch to robot visuals
             robotVisual.transform.position = ballVisual.transform.position;
             robotVisual.transform.rotation = ballVisual.transform.rotation;
 
@@ -87,8 +88,9 @@ namespace TrippleTrinity.MechaMorph
 
             _isBallForm = false;
 
-            // Notify the AreaDamageAbility
+            // Notify other systems
             areaDamageAbility?.SetRobotForm(true);
+            damageable?.SwitchForm(Damage.Damageable.PlayerForm.Robot);
         }
 
         public bool IsBallForm()
@@ -97,3 +99,4 @@ namespace TrippleTrinity.MechaMorph
         }
     }
 }
+
