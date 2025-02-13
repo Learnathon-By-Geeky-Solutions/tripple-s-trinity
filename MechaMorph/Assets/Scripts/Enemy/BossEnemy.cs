@@ -1,29 +1,29 @@
-using UnityEngine; // Use UnityEngine for Transform and Vector3
+using System.Collections;
+using UnityEngine;
 
 namespace TrippleTrinity.MechaMorph.Enemy
 {
     public class BossEnemy : EnemyAi
     {
-        private Transform bossTransform;
         private readonly float xVal = 5f, yVal = 5f, zVal = 5f;
-        private bool hasWarped = false;
+        private bool isTeleporting;
+
         protected override void Update()
         {
-            if (!hasWarped)
+          
+            if (!isTeleporting)
             {
-                Disappear();
-                hasWarped = true;
+                StartCoroutine(TeleportRoutine());
             }
         }
 
         void Disappear()
         {
-           
             Vector3 destination = Boss_Destination();
-            if (agent.isOnNavMesh) 
+            if (agent.isOnNavMesh)
             {
                 agent.Warp(destination);
-                hasWarped = false;
+                isTeleporting = false;
             }
             else
             {
@@ -33,15 +33,27 @@ namespace TrippleTrinity.MechaMorph.Enemy
 
         Vector3 Boss_Destination()
         {
-            
-            if (Vector3.Distance(direction, transform.position) <= 5f)
+            float xPos = Random.Range(-xVal, xVal);
+            float yPos = Random.Range(-yVal, yVal);
+            float zPos = Random.Range(-zVal, zVal);
+
+            if (Vector3.Distance(Direction, transform.position) <= 5f)
             {
-              
-                return new Vector3(xVal, yVal, zVal);
+                return new Vector3(xPos, yPos, zPos);
             }
 
-          
             return transform.position;
+        }
+
+        IEnumerator TeleportRoutine()
+        {
+            isTeleporting = true;
+
+            // Wait for 1 second before teleporting
+            yield return new WaitForSeconds(5f);
+           
+            // Perform teleportation
+            Disappear();
         }
     }
 }
