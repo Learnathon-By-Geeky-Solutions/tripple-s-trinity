@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641258, b: 0.5748172, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1371,7 +1371,7 @@ Transform:
   m_GameObject: {fileID: 635673471}
   serializedVersion: 2
   m_LocalRotation: {x: -0.42261824, y: -0, z: -0, w: 0.90630776}
-  m_LocalPosition: {x: 0.02748108, y: -0.00009918213, z: 11.000428}
+  m_LocalPosition: {x: 0.02748108, y: 0.000113487244, z: 11.002359}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2282,7 +2282,7 @@ Transform:
   m_GameObject: {fileID: 963194225}
   serializedVersion: 2
   m_LocalRotation: {x: 0.42261827, y: 0, z: 0, w: 0.9063079}
-  m_LocalPosition: {x: -18.157082, y: -1184.8684, z: 992.2043}
+  m_LocalPosition: {x: -64.70914, y: -6253.6035, z: 5244.562}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2389,10 +2389,6 @@ PrefabInstance:
     - target: {fileID: 5373993913881270072, guid: b7076bdbb2b35ba458635deefeeb7856, type: 3}
       propertyPath: m_Name
       value: Robot
-      objectReference: {fileID: 0}
-    - target: {fileID: 8464874218455898076, guid: b7076bdbb2b35ba458635deefeeb7856, type: 3}
-      propertyPath: m_Enabled
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2801,7 +2797,7 @@ Transform:
   m_GameObject: {fileID: 1173084218}
   serializedVersion: 2
   m_LocalRotation: {x: 0.42261827, y: 0, z: 0, w: 0.9063079}
-  m_LocalPosition: {x: -18.157082, y: -1184.8684, z: 992.2043}
+  m_LocalPosition: {x: -64.70914, y: -6253.6035, z: 5244.562}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4644,6 +4640,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 100
+  scoreValue: 10
 --- !u!1 &2081802462
 GameObject:
   m_ObjectHideFlags: 0

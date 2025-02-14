@@ -1,5 +1,7 @@
 using UnityEngine;
 using System;
+using TrippleTrinity.MechaMorph.Ui;
+using TrippleTrinity.MechaMorph.Ability;
 
 namespace TrippleTrinity.MechaMorph.Damage
 {
@@ -8,12 +10,15 @@ namespace TrippleTrinity.MechaMorph.Damage
         public enum PlayerForm { Ball, Robot }
 
         [SerializeField] private float maxHealth = 100f;
+        [SerializeField] private int scoreValue = 10; // Points for enemy kill
+
         private float _currentHealth;
         private PlayerForm _currentForm = PlayerForm.Ball;
+        private AreaDamageAbility _areaDamageAbility;
 
-        public event Action OnDamageTaken; // Event for taking damage
-        public event Action OnHealed; // Event for healing
-        public event Action OnDeath; // Event for death
+        public event Action OnDamageTaken;
+        public event Action OnHealed;
+        public event Action OnDeath;
 
         public float CurrentHealth => _currentHealth;
         public float MaxHealth => maxHealth;
@@ -21,24 +26,38 @@ namespace TrippleTrinity.MechaMorph.Damage
         private void Start()
         {
             _currentHealth = maxHealth;
+            _areaDamageAbility = FindObjectOfType<AreaDamageAbility>();
         }
 
         public void TakeDamage(float amount)
         {
             if (_currentForm == PlayerForm.Ball)
             {
-                amount *= 0.5f; // Ball form takes half damage
+                amount *= 0.5f; // Ball form takes reduced damage
             }
 
             _currentHealth -= amount;
             _currentHealth = Mathf.Clamp(_currentHealth, 0, maxHealth);
 
-            OnDamageTaken?.Invoke(); // Trigger event when damaged
+            OnDamageTaken?.Invoke();
 
             if (_currentHealth <= 0)
             {
-                OnDeath?.Invoke(); // Trigger death event
+                HandleDeath();
             }
+        }
+
+        private void HandleDeath()
+        {
+            OnDeath?.Invoke();
+
+            // Register enemy kill for ability cooldown
+            _areaDamageAbility?.RegisterEnemyKill();
+
+            // Add score if enemy
+            ScoreManager.Instance?.AddScore(scoreValue);
+
+            Destroy(gameObject);
         }
 
         public void Heal(float amount)
@@ -46,8 +65,10 @@ namespace TrippleTrinity.MechaMorph.Damage
             _currentHealth += amount;
             _currentHealth = Mathf.Clamp(_currentHealth, 0, maxHealth);
 
-            OnHealed?.Invoke(); // Trigger heal event
+            OnHealed?.Invoke();
         }
+        
+        
 
         public void SwitchForm(PlayerForm newForm)
         {
