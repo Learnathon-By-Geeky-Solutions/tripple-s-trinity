@@ -1,3 +1,4 @@
+using TrippleTrinity.MechaMorph.Damage;
 using UnityEngine;
 
 namespace TrippleTrinity.MechaMorph.Weapons
@@ -7,7 +8,7 @@ namespace TrippleTrinity.MechaMorph.Weapons
         [SerializeField] private float bulletSpeed = 20f;
         private Rigidbody _rigidbody;
         private Vector3 _bulletDirection;
-        private GunData _gunData;
+        private float _damage;
 
         private void Awake()
         {
@@ -18,9 +19,20 @@ namespace TrippleTrinity.MechaMorph.Weapons
         {
             _rigidbody.velocity = transform.forward * bulletSpeed;
         }
+        
+        public void SetDamage(float newDamage)
+        {
+            _damage = newDamage; // Assign damage value from GunAbility
+        }
 
         private void OnTriggerEnter(Collider other)
         {
+            //Damageable damageable = other.GetComponent<Damageable>();
+            TakeDamage takedamage = other.GetComponent<TakeDamage>();
+            if (takedamage != null && (other.CompareTag("Player") || other.CompareTag("Enemy")))
+            {
+                takedamage.Damage(_damage);
+            }
             Destroy(gameObject);
         }
     }
