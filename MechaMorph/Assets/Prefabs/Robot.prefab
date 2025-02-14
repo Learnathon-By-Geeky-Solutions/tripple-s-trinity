@@ -97,6 +97,7 @@ GameObject:
   - component: {fileID: 7130069094913957009}
   - component: {fileID: 8805475619258487710}
   - component: {fileID: 3207395339312987363}
+  - component: {fileID: 8464874218455898076}
   m_Layer: 0
   m_Name: Robot
   m_TagString: Player
@@ -261,6 +262,19 @@ MonoBehaviour:
   groundCheck: {fileID: 9208809207520315304}
   groundCheckRadius: 0.3
   playerInput: {fileID: -944628639613478452, guid: 7c2e3d5878aca784e927369e85786f08, type: 3}
+--- !u!114 &8464874218455898076
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5373993913881270072}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e3c6ae7beea01f4899ba1be57dd3480, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
 --- !u!1 &5519371745318547118
 GameObject:
   m_ObjectHideFlags: 0
@@ -451,6 +465,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: -7849465080907893265, guid: fde69184b78b0ee429393f068b2a3190, type: 3}
+    - {fileID: 1941829305468742262, guid: fde69184b78b0ee429393f068b2a3190, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
@@ -484,7 +499,7 @@ MonoBehaviour:
   currentAmmo: 50
   nextTimeToFire: 2
   damage: 10
-  bulletPrefeb: {fileID: 3956043680047013727, guid: a484627e1c855e24aa5bef53d4ae9f50, type: 3}
+  bulletPrefeb: {fileID: 821264732710663634, guid: a484627e1c855e24aa5bef53d4ae9f50, type: 3}
   bulletSpawnPoint: {fileID: 7464443404145133954}
   playerInput: {fileID: -944628639613478452, guid: 0388b01dea2dce54fa4564664ad47562, type: 3}
 --- !u!1001 &3051932637573373734
@@ -565,6 +580,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: -7849465080907893265, guid: fde69184b78b0ee429393f068b2a3190, type: 3}
+    - {fileID: 1941829305468742262, guid: fde69184b78b0ee429393f068b2a3190, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
@@ -598,7 +614,7 @@ MonoBehaviour:
   currentAmmo: 200
   nextTimeToFire: 10
   damage: 50
-  bulletPrefeb: {fileID: 3956043680047013727, guid: a484627e1c855e24aa5bef53d4ae9f50, type: 3}
+  bulletPrefeb: {fileID: 821264732710663634, guid: a484627e1c855e24aa5bef53d4ae9f50, type: 3}
   bulletSpawnPoint: {fileID: 7464443404145133954}
   playerInput: {fileID: -944628639613478452, guid: 0388b01dea2dce54fa4564664ad47562, type: 3}
 --- !u!1001 &3420581816933955398
@@ -679,6 +695,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: -7849465080907893265, guid: fde69184b78b0ee429393f068b2a3190, type: 3}
+    - {fileID: 1941829305468742262, guid: fde69184b78b0ee429393f068b2a3190, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
@@ -712,6 +729,6 @@ MonoBehaviour:
   currentAmmo: 80
   nextTimeToFire: 5
   damage: 20
-  bulletPrefeb: {fileID: 3956043680047013727, guid: a484627e1c855e24aa5bef53d4ae9f50, type: 3}
+  bulletPrefeb: {fileID: 821264732710663634, guid: a484627e1c855e24aa5bef53d4ae9f50, type: 3}
   bulletSpawnPoint: {fileID: 7464443404145133954}
   playerInput: {fileID: -944628639613478452, guid: 0388b01dea2dce54fa4564664ad47562, type: 3}
