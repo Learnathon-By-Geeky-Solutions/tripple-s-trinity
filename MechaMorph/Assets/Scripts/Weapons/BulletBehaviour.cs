@@ -7,7 +7,6 @@ namespace TrippleTrinity.MechaMorph.Weapons
     {
         [SerializeField] private float bulletSpeed = 20f;
         private Rigidbody _rigidbody;
-        private Vector3 _bulletDirection;
         private float _damage;
 
         private void Awake()
@@ -22,18 +21,28 @@ namespace TrippleTrinity.MechaMorph.Weapons
         
         public void SetDamage(float newDamage)
         {
-            _damage = newDamage; // Assign damage value from GunAbility
+            _damage = newDamage;
         }
 
         private void OnTriggerEnter(Collider other)
         {
-            //Damageable damageable = other.GetComponent<Damageable>();
-            TakeDamage takedamage = other.GetComponent<TakeDamage>();
-            if (takedamage != null && (other.CompareTag("Player") || other.CompareTag("Enemy")))
+            Damageable damageable = other.GetComponent<Damageable>();
+            if (damageable != null)
             {
-                takedamage.Damage(_damage);
+                damageable.TakeDamage(_damage); // Apply damage using Damageable
+
+                // Optional: Log or play effects when damage is taken
+                damageable.OnDamageTaken += () => Debug.Log($"{other.name} took damage!");
+
+                // Handle death event
+                damageable.OnDeath += () =>
+                {
+                    Debug.Log($"{other.name} has died.");
+                    Destroy(other.gameObject);
+                };
             }
-            Destroy(gameObject);
+
+            Destroy(gameObject); // Destroy bullet after hit
         }
     }
 }
