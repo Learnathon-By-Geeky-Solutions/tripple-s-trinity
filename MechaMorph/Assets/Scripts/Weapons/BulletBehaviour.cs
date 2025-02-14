@@ -27,7 +27,6 @@ namespace TrippleTrinity.MechaMorph.Weapons
 
         private void OnTriggerEnter(Collider other)
         {
-            //Damageable damageable = other.GetComponent<Damageable>();
             TakeDamage takedamage = other.GetComponent<TakeDamage>();
             if (takedamage != null && (other.CompareTag("Player") || other.CompareTag("Enemy")))
             {
