@@ -38,11 +38,13 @@ namespace TrippleTrinity.MechaMorph.Weapons
                 damageable.OnDeath += () =>
                 {
                     Debug.Log($"{other.name} has died.");
-                    Destroy(other.gameObject);
+                    //Destroy(other.gameObject);
+                    gameObject.SetActive(false);
                 };
             }
 
-            Destroy(gameObject); // Destroy bullet after hit
+            //Destroy(gameObject); // Destroy bullet after hit
+            gameObject.SetActive(false);
         }
     }
 }
