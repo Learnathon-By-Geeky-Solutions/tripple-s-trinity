@@ -42,14 +42,35 @@ namespace TrippleTrinity.MechaMorph.Weapons
 
         protected override void Shoot()
         {
-            Vector3 aimDirection = transform.forward.normalized;
-            Transform bulletTransform = Instantiate(bulletPrefeb, bulletSpawnPoint.position, Quaternion.LookRotation(aimDirection));
-            
-            BulletBehaviour bulletBehaviour = bulletTransform.GetComponent<BulletBehaviour>();
-            if (bulletBehaviour != null)
+            GameObject bullet = ObjectPool.instance.GetPooledObjects();
+
+            if (bullet != null)
             {
-                bulletBehaviour.SetDamage(damage);
+                // Reset position and rotation
+                bullet.transform.position = bulletSpawnPoint.position;
+                bullet.transform.rotation = Quaternion.LookRotation(bulletSpawnPoint.forward);
+
+                // Reset velocity if using Rigidbody
+                Rigidbody rb = bullet.GetComponent<Rigidbody>();
+                if (rb != null)
+                {
+                    rb.velocity = Vector3.zero;  // Stop previous movement
+                    rb.angularVelocity = Vector3.zero; // Reset rotation movement
+                }
+
+                // Reset other properties (if needed)
+                BulletBehaviour bulletBehaviour = bullet.GetComponent<BulletBehaviour>();
+                if (bulletBehaviour != null)
+                {
+                    bulletBehaviour.ResetBullet(); // If you have a reset function inside BulletBehaviour
+                    bulletBehaviour.SetDamage(damage);
+                }
+
+                // Activate bullet
+                bullet.SetActive(true);
             }
+
+
         }
     }
 }
