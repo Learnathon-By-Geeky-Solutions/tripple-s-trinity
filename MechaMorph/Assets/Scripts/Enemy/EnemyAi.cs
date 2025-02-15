@@ -53,7 +53,7 @@ namespace TrippleTrinity.MechaMorph.Enemy
         protected virtual void MoveTowardsTarget()
         {
             if (targetPosition == null) return;
-            if (agent.isOnNavMesh)
+            if (agent!=null && agent.isOnNavMesh)
             {
                 agent.SetDestination(targetPosition.position);
             }
