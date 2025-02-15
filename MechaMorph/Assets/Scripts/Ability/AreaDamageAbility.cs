@@ -1,7 +1,7 @@
+using TrippleTrinity.MechaMorph.Weapons;
 using TrippleTrinity.MechaMorph.Ui;
 using UnityEngine;
-using UnityEngine.InputSystem; 
-using TrippleTrinity.MechaMorph.Damage;
+using UnityEngine.InputSystem; // Import the new Input System namespace
 
 namespace TrippleTrinity.MechaMorph.Ability
 {
@@ -98,25 +98,18 @@ namespace TrippleTrinity.MechaMorph.Ability
             Debug.Log("Area Damage Ability Activated!");
             _currentCooldown = 0f; // Reset cooldown
             UpdateCooldownUI();
-        
+
             // Use Physics.OverlapSphereNonAlloc for efficiency
             int hitCount = Physics.OverlapSphereNonAlloc(transform.position, damageRadius, _hitResults);
             for (int i = 0; i < hitCount; i++)
             {
-                // Exclude the player from taking damage
-                if (_hitResults[i].CompareTag("Player"))
-                    continue;
-        
-                // Check if the hit object has a Damageable component
-                Damageable damageable = _hitResults[i].GetComponent<Damageable>();
-                if (damageable != null)
+                TakeDamage targetHealth = _hitResults[i].GetComponent<TakeDamage>();
+                if (targetHealth != null)
                 {
-                    // Apply damage using the Damageable component's TakeDamage method
-                    damageable.TakeDamage(damageAmount);
+                    targetHealth.Damage(damageAmount);
                 }
             }
         }
-
 
         private void UpdateCooldownUI()
         {

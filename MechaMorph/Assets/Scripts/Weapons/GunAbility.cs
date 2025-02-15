@@ -8,6 +8,7 @@ namespace TrippleTrinity.MechaMorph.Weapons
         [SerializeField] private float damage;
         [SerializeField] private Transform bulletPrefeb;
         [SerializeField] private Transform bulletSpawnPoint;
+
         [SerializeField] private InputActionAsset playerInput;
         private InputAction _fireAction;
         private InputAction _reloadAction;
@@ -43,13 +44,8 @@ namespace TrippleTrinity.MechaMorph.Weapons
         protected override void Shoot()
         {
             Vector3 aimDirection = transform.forward.normalized;
-            Transform bulletTransform = Instantiate(bulletPrefeb, bulletSpawnPoint.position, Quaternion.LookRotation(aimDirection));
+            Instantiate(bulletPrefeb, bulletSpawnPoint.position, Quaternion.LookRotation(aimDirection));
             
-            BulletBehaviour bulletBehaviour = bulletTransform.GetComponent<BulletBehaviour>();
-            if (bulletBehaviour != null)
-            {
-                bulletBehaviour.SetDamage(damage);
-            }
         }
     }
 }

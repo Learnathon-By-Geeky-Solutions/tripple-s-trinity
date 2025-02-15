@@ -27,13 +27,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 795961312448100140}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.38268343, y: -0, z: -0, w: 0.92387956}
+  m_LocalRotation: {x: -0.8977202, y: 0, z: 0, w: 0.44056594}
   m_LocalPosition: {x: 0.08213186, y: 0.34739447, z: 0.42950535}
   m_LocalScale: {x: 0.5, y: 0.25, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8845937794885050502}
-  m_LocalEulerAnglesHint: {x: 45, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -127.72, y: 0, z: 0}
 --- !u!33 &95876122554862722
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -101,7 +101,7 @@ CapsuleCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.5000001
   m_Height: 2
@@ -120,9 +120,9 @@ GameObject:
   - component: {fileID: 7090818163195690518}
   - component: {fileID: 5417520489673953742}
   - component: {fileID: 4755251772485390445}
-  - component: {fileID: 5812533328368393086}
   - component: {fileID: -7224592478731414331}
-  - component: {fileID: -770467019871865390}
+  - component: {fileID: 1955221600034886641}
+  - component: {fileID: 3880435916006311740}
   m_Layer: 6
   m_Name: Meele EnemyBody
   m_TagString: Enemy
@@ -139,7 +139,7 @@ Transform:
   m_GameObject: {fileID: 6376213158033550541}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.1000004, y: 2.204789, z: -17.27099}
+  m_LocalPosition: {x: -2.1000004, y: 2.204789, z: -16.98}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -239,33 +239,6 @@ NavMeshAgent:
   m_BaseOffset: 0.5
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!54 &5812533328368393086
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6376213158033550541}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!114 &-7224592478731414331
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -278,12 +251,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e34e1eb0754ad649ab559ffdb433d9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rb: {fileID: 5812533328368393086}
+  rb: {fileID: 0}
   agent: {fileID: 0}
   health: 0
   bullet: {fileID: 0}
   moveRotationSpeed: 45
---- !u!114 &-770467019871865390
+--- !u!114 &1955221600034886641
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -292,8 +265,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 6376213158033550541}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9e3c6ae7beea01f4899ba1be57dd3480, type: 3}
+  m_Script: {fileID: 11500000, guid: e0a6b323794409541893f75a0745d041, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
+  enemyHealth: 50
   scoreValue: 20
+--- !u!114 &3880435916006311740
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6376213158033550541}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f355e40cac973c469123fed9e84b2c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletSpawnPoint: {fileID: 8845937794885050502}
+  fireRate: 1
+  bulletSpeed: 15

@@ -61,10 +61,5 @@ namespace TrippleTrinity.MechaMorph.Ui
 
             scoreText.text = $"Score: {_score}";
         }
-        public int CurrentScore()
-        {
-            return _score;
-        }
-
     }
 }

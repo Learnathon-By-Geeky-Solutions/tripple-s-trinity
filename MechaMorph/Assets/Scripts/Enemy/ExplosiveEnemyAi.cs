@@ -1,38 +1,64 @@
+using System.Collections;
 using UnityEngine;
-
 
 namespace TrippleTrinity.MechaMorph.Enemy
 {
     public class ExplosiveEnemyAi : EnemyAi
     {
+        private bool hasExploded = false;
+        private bool hasStartedMoving = false; // Ensure the enemy has moved at least once
+        
+        protected override void Start()
+        {
+            base.Start();
+        }
 
-        private bool hasExploded;
-        // Update is called once per frame
         protected override void Update()
         {
+            if (agent == null) return;
             base.Update();
 
-            if (!hasExploded && AutoBreak())
+            // Ensure the enemy has started moving at least once before checking AutoBreak
+            if (!hasStartedMoving && agent.velocity.magnitude > 0.1f)
             {
-                hasExploded = true;
-                Explode();
+                hasStartedMoving = true;
             }
+
+            if (hasStartedMoving && !hasExploded && AutoBreak())
+            {
+                hasExploded = true; // Mark explosion to prevent multiple triggers
+                StartCoroutine(ExplodeWait());
+            }
+            
+            
         }
+
+        IEnumerator ExplodeWait()
+        {
+            yield return new WaitForSeconds(0.5f);
+            Explode();
+        }
+
         bool AutoBreak()
         {
-            if (agent.isOnNavMesh && agent.remainingDistance <= 5f && agent.velocity.magnitude > 0.1f)
+            if (!agent.isOnNavMesh) return false;
+
+            // Ensure enemy is fully stopped before exploding
+            if (agent.remainingDistance <= 5f && agent.velocity.magnitude < 0.1f)
             {
-                agent.autoBraking = true;
+                if (!agent.autoBraking)
+                    agent.autoBraking = true;
+
                 return true;
             }
             return false;
         }
+
         void Explode()
         {
-          
-            Debug.Log("Death");
-            Destroy(this.gameObject);
+            
+            Debug.Log("Explosion triggered!");
+            Destroy(gameObject);
         }
-
     }
 }

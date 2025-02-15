@@ -1,34 +1,25 @@
 using UnityEngine;
 using UnityEngine.UI;
-using TrippleTrinity.MechaMorph.Damage;
 
 namespace TrippleTrinity.MechaMorph.Ui
 {
     public class HealthBar : MonoBehaviour
     {
+        [SerializeField] private float maxHealth = 100f;
         [SerializeField] private Image healthBarFill;
         [SerializeField] private float fillSpeed = 5f;
-        [SerializeField] private float colorChangeSpeed = 10f;
-
-        private Damageable _damageable;
+        [SerializeField] private float colorChangeSpeed = 10f; // Faster color change
+        [SerializeField] private float damageAmount = 10f;
+        [SerializeField] private float healAmount = 10f;
+        
+        private float _currentHealth;
         private float _targetFillAmount;
         private Color _targetColor;
 
         void Start()
         {
-            _damageable = FindObjectOfType<Damageable>(); // Find the health system
-            if (_damageable == null)
-            {
-                Debug.LogError("HealthBar: No Damageable script found in scene!");
-                return;
-            }
-
-            // Subscribe to events
-            _damageable.OnDamageTaken += UpdateHealthUI;
-            _damageable.OnHealed += UpdateHealthUI;
-            _damageable.OnDeath += HandleDeath;
-
-            _targetFillAmount = 1f;
+            _currentHealth = maxHealth;
+            _targetFillAmount = 1f; // Full health
             _targetColor = Color.green;
             UpdateHealthBarColor();
         }
@@ -37,52 +28,41 @@ namespace TrippleTrinity.MechaMorph.Ui
         {
             if (healthBarFill != null)
             {
-                // Smoothly update health bar fill amount
+                // Smooth fill transition
                 healthBarFill.fillAmount = Mathf.MoveTowards(healthBarFill.fillAmount, _targetFillAmount, Time.deltaTime * fillSpeed);
                 
-                // Smoothly update health bar color
+                // Faster smooth color transition
                 healthBarFill.color = Color.Lerp(healthBarFill.color, _targetColor, Time.deltaTime * colorChangeSpeed);
+            }
+
+            // Test Damage: Press 'P' to decrease health
+            if (Input.GetKeyDown(KeyCode.P))
+            {
+                UpdateHealth(-damageAmount);
+            }
+
+            // Test Heal: Press 'O' to increase health
+            if (Input.GetKeyDown(KeyCode.O))
+            {
+                UpdateHealth(healAmount);
             }
         }
 
-        // Update the health bar based on the current health
-        private void UpdateHealthUI()
+        private void UpdateHealth(float amount)
         {
-            if (_damageable == null) return;
-
-            float currentHealth = _damageable.CurrentHealth;
-            float maxHealth = _damageable.MaxHealth;
-            _targetFillAmount = currentHealth / maxHealth;
-
-            UpdateHealthBarColor();
-        }
-
-        private void HandleDeath()
-        {
-            Debug.Log("Player is dead. Reset health bar.");
-            _targetFillAmount = 0;
+            _currentHealth += amount;
+            _currentHealth = Mathf.Clamp(_currentHealth, 0, maxHealth);
+            _targetFillAmount = _currentHealth / maxHealth;
             UpdateHealthBarColor();
         }
 
         private void UpdateHealthBarColor()
         {
-            float healthPercentage = _targetFillAmount;
+            float healthPercentage = _currentHealth / maxHealth;
 
-            // Smooth transition between Green -> Yellow -> Red
-            _targetColor = healthPercentage > 0.5f 
-                ? Color.Lerp(Color.yellow, Color.green, (healthPercentage - 0.5f) * 2) 
-                : Color.Lerp(Color.red, Color.yellow, healthPercentage * 2);
-        }
-
-        private void OnDestroy()
-        {
-            // Unsubscribe to avoid memory leaks
-            if (_damageable != null)
-            {
-                _damageable.OnDamageTaken -= UpdateHealthUI;
-                _damageable.OnHealed -= UpdateHealthUI;
-                _damageable.OnDeath -= HandleDeath;
-            }
+            // Faster transition between Green -> Yellow -> Red
+            _targetColor = healthPercentage > 0.5f ? Color.Lerp(Color.yellow, Color.green, (healthPercentage - 0.5f) * 3) : // Faster shift
+                Color.Lerp(Color.red, Color.yellow, healthPercentage * 3); // Faster shift
         }
     }
 }
