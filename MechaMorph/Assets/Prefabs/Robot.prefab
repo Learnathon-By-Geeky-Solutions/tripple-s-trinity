@@ -97,13 +97,14 @@ GameObject:
   - component: {fileID: 7130069094913957009}
   - component: {fileID: 8805475619258487710}
   - component: {fileID: 3207395339312987363}
+  - component: {fileID: 3201564825044948721}
   m_Layer: 0
   m_Name: Robot
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3960683278813943281
 Transform:
   m_ObjectHideFlags: 0
@@ -236,7 +237,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damageRadius: 5
-  damageAmount: 100
+  damageAmount: 200
   maxTargets: 10
   isRobotForm: 0
   inputActions: {fileID: -944628639613478452, guid: 7c2e3d5878aca784e927369e85786f08, type: 3}
@@ -261,6 +262,18 @@ MonoBehaviour:
   groundCheck: {fileID: 9208809207520315304}
   groundCheckRadius: 0.3
   playerInput: {fileID: -944628639613478452, guid: 7c2e3d5878aca784e927369e85786f08, type: 3}
+--- !u!114 &3201564825044948721
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5373993913881270072}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ccbe440190d1a4844977c264345af0be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5519371745318547118
 GameObject:
   m_ObjectHideFlags: 0
@@ -451,6 +464,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: -7849465080907893265, guid: fde69184b78b0ee429393f068b2a3190, type: 3}
+    - {fileID: 1941829305468742262, guid: fde69184b78b0ee429393f068b2a3190, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
@@ -484,7 +498,7 @@ MonoBehaviour:
   currentAmmo: 50
   nextTimeToFire: 2
   damage: 10
-  bulletPrefeb: {fileID: 3956043680047013727, guid: a484627e1c855e24aa5bef53d4ae9f50, type: 3}
+  bulletPrefeb: {fileID: 821264732710663634, guid: a484627e1c855e24aa5bef53d4ae9f50, type: 3}
   bulletSpawnPoint: {fileID: 7464443404145133954}
   playerInput: {fileID: -944628639613478452, guid: 0388b01dea2dce54fa4564664ad47562, type: 3}
 --- !u!1001 &3051932637573373734
@@ -565,6 +579,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: -7849465080907893265, guid: fde69184b78b0ee429393f068b2a3190, type: 3}
+    - {fileID: 1941829305468742262, guid: fde69184b78b0ee429393f068b2a3190, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
@@ -598,7 +613,7 @@ MonoBehaviour:
   currentAmmo: 200
   nextTimeToFire: 10
   damage: 50
-  bulletPrefeb: {fileID: 3956043680047013727, guid: a484627e1c855e24aa5bef53d4ae9f50, type: 3}
+  bulletPrefeb: {fileID: 821264732710663634, guid: a484627e1c855e24aa5bef53d4ae9f50, type: 3}
   bulletSpawnPoint: {fileID: 7464443404145133954}
   playerInput: {fileID: -944628639613478452, guid: 0388b01dea2dce54fa4564664ad47562, type: 3}
 --- !u!1001 &3420581816933955398
@@ -679,6 +694,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: -7849465080907893265, guid: fde69184b78b0ee429393f068b2a3190, type: 3}
+    - {fileID: 1941829305468742262, guid: fde69184b78b0ee429393f068b2a3190, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
@@ -712,6 +728,6 @@ MonoBehaviour:
   currentAmmo: 80
   nextTimeToFire: 5
   damage: 20
-  bulletPrefeb: {fileID: 3956043680047013727, guid: a484627e1c855e24aa5bef53d4ae9f50, type: 3}
+  bulletPrefeb: {fileID: 821264732710663634, guid: a484627e1c855e24aa5bef53d4ae9f50, type: 3}
   bulletSpawnPoint: {fileID: 7464443404145133954}
   playerInput: {fileID: -944628639613478452, guid: 0388b01dea2dce54fa4564664ad47562, type: 3}

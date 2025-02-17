@@ -63,9 +63,6 @@ namespace TrippleTrinity.MechaMorph.Ability
 
         private void Update()
         {
-            // ✅ Removed Passive Cooldown Regeneration
-            // Now cooldown ONLY increases when enemies are killed or tokens are collected
-        
             if (isRobotForm && _activateAbilityAction.triggered && IsAbilityReady())
             {
                 ActivateAbility();
@@ -74,7 +71,7 @@ namespace TrippleTrinity.MechaMorph.Ability
 
         public void CollectToken()
         {
-            // ✅ Fixed cooldown increment logic
+            // Fixed cooldown increment logic
             _currentCooldown = Mathf.Clamp(_currentCooldown + _tokenValue, 0f, _maxCooldown);
             UpdateCooldownUI();
             Debug.Log("Token collected! Cooldown: " + _currentCooldown);
@@ -82,7 +79,6 @@ namespace TrippleTrinity.MechaMorph.Ability
 
         public void RegisterEnemyKill()
         {
-            // ✅ Killing 4 enemies now fills cooldown instead of one kill doing too much
             _currentCooldown = Mathf.Clamp(_currentCooldown + _killValue, 0f, _maxCooldown);
             UpdateCooldownUI();
             Debug.Log("Enemy killed! Cooldown: " + _currentCooldown);
@@ -99,15 +95,15 @@ namespace TrippleTrinity.MechaMorph.Ability
             _currentCooldown = 0f; // Reset cooldown after use
             UpdateCooldownUI();
         
-            // ✅ Limit the number of enemies affected
+        
             int hitCount = Physics.OverlapSphereNonAlloc(transform.position, damageRadius, _hitResults);
             int targetsHit = 0;
 
             for (int i = 0; i < hitCount; i++)
             {
-                if (targetsHit >= maxTargets) break; // ✅ Stop once max targets reached
+                if (targetsHit >= maxTargets) break; //Stop once max targets reached
 
-                // ✅ Ensure Player is NOT damaged
+                // Ensure Player is NOT damaged
                 if (_hitResults[i].CompareTag("Player")) 
                     continue;
         
@@ -115,7 +111,7 @@ namespace TrippleTrinity.MechaMorph.Ability
                 if (damageable != null)
                 {
                     damageable.TakeDamage(damageAmount);
-                    targetsHit++; // ✅ Track how many enemies are hit
+                    targetsHit++; // Track how many enemies are hit
                 }
             }
 
