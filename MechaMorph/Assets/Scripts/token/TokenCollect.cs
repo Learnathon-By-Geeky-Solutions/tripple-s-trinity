@@ -1,33 +1,52 @@
 using TrippleTrinity.MechaMorph.Ability;
+using TrippleTrinity.MechaMorph.Damage;
 using UnityEngine;
 
 namespace TrippleTrinity.MechaMorph.Token
 {
-    public class TokenCollect : MonoBehaviour
+    public class TokenCollector : MonoBehaviour
     {
-        private void OnTriggerEnter(Collider other)
+        private Damageable _playerHealth;
+        private AreaDamageAbility _areaDamageAbility;
+
+        private void Start()
         {
-            HandleTokenCollection(this, other);
+            _playerHealth = GetComponentInParent<Damageable>(); // Get from Parent
+            Debug.Log($"TokenCollector initialized. Player Health Component: {_playerHealth}");
+            _areaDamageAbility = FindObjectOfType<AreaDamageAbility>();
+            
+            if (_playerHealth == null)
+                Debug.LogWarning("TokenCollector: Damageable component missing on Player.");
+
+            if (_areaDamageAbility == null)
+                Debug.LogWarning("TokenCollector: AreaDamageAbility not found in scene.");
         }
 
-        private static void HandleTokenCollection(TokenCollect token, Collider other)
+        public void CollectToken(TokenType type, float value)
         {
-            if (other.CompareTag("Player"))
-            {
-                // Notify AreaDamageAbility about the token collection
-                AreaDamageAbility ability = other.GetComponent<AreaDamageAbility>();
-                if (ability != null)
-                {
-                    ability.CollectToken();
-                    Debug.Log("Token collected by player!");
-                }
-                else
-                {
-                    Debug.LogWarning("AreaDamageAbility component not found on player!");
-                }
+            Debug.Log($"Token Collected: {type} | Value: {value}");
 
-                // Destroy the token
-                Destroy(token.gameObject);
+            switch (type)
+            {
+                case TokenType.Health:
+                    if (_playerHealth != null)
+                    {
+                        Debug.Log($"Applying Heal: {value}");
+                        _playerHealth.Heal(value);
+                    }
+                    else
+                    {
+                        Debug.LogWarning("TokenCollector: Damageable component not found on Player!");
+                    }
+                    break;
+
+                case TokenType.Cooldown:
+                    _areaDamageAbility?.CollectToken(); // Calls Area Damage cooldown
+                    break;
+
+                case TokenType.Upgrade:
+                    UpgradeManager.Instance?.AddUpgradePoint();
+                    break;
             }
         }
     }

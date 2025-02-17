@@ -40,7 +40,6 @@ namespace TrippleTrinity.MechaMorph.Enemy
             if (playerObject != null)
             {
                 targetPosition = playerObject.transform;
-                Debug.Log($"Player found: {targetPosition.name}");
             }
 
             if (targetPosition != null)
