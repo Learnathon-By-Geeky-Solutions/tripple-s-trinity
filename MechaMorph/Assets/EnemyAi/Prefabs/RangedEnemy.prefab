@@ -121,6 +121,7 @@ GameObject:
   - component: {fileID: 8341434758562488400}
   - component: {fileID: 3357132804257560334}
   - component: {fileID: 3970136796650627076}
+  - component: {fileID: -4104374937651237427}
   m_Layer: 0
   m_Name: RangedEnemy
   m_TagString: Untagged
@@ -138,7 +139,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -2.5955358, y: 2.3, z: -11.36}
-  m_LocalScale: {x: 2, y: 0.5, z: 2}
+  m_LocalScale: {x: 2, y: 0.75, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6755437182186676677}
@@ -289,3 +290,18 @@ MonoBehaviour:
   bulletSpawnPoint: {fileID: 6755437182186676677}
   fireRate: 1
   bulletSpeed: 15
+--- !u!114 &-4104374937651237427
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3189499250034600938}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e3c6ae7beea01f4899ba1be57dd3480, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
+  scoreValue: 20
+  shouldDropToken: 0

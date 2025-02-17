@@ -15,7 +15,8 @@ GameObject:
   - component: {fileID: 1003790467664697904}
   - component: {fileID: 3201954146574192600}
   - component: {fileID: -2283225980316836534}
-  - component: {fileID: 4028234863755870497}
+  - component: {fileID: -6907996611023750031}
+  - component: {fileID: 4515647214053130555}
   m_Layer: 0
   m_Name: ExplosiveEnemy
   m_TagString: Untagged
@@ -177,7 +178,7 @@ MonoBehaviour:
   health: 0
   bullet: {fileID: 0}
   moveRotationSpeed: 45
---- !u!114 &4028234863755870497
+--- !u!114 &-6907996611023750031
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -186,8 +187,26 @@ MonoBehaviour:
   m_GameObject: {fileID: 4980032239789531758}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e0a6b323794409541893f75a0745d041, type: 3}
+  m_Script: {fileID: 11500000, guid: 9e3c6ae7beea01f4899ba1be57dd3480, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyHealth: 50
+  maxHealth: 50
   scoreValue: 10
+  shouldDropToken: 1
+--- !u!114 &4515647214053130555
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4980032239789531758}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd6a373706de8df40932224bea1c833e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tokenPrefabs:
+  - {fileID: 1625036059308077693, guid: 710272348a7683f4a81ea206673d1556, type: 3}
+  - {fileID: 5977431511591139307, guid: ec6c75ad8d3d4db4c9761100d70a5a10, type: 3}
+  - {fileID: 3800090450541190722, guid: e14b0a2046ee1e948b20b560320662d9, type: 3}
+  dropChance: 1
