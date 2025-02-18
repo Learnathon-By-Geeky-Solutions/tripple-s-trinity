@@ -1,7 +1,9 @@
 
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace TrippleTrinity.MechaMorph.Enemy
 {
@@ -9,7 +11,7 @@ namespace TrippleTrinity.MechaMorph.Enemy
     {
         [SerializeField] private GameObject[] enemyAi;
         [SerializeField] private GameObject bossPrefab;
-
+        
         private readonly List<GameObject> activeEnemies = new();
         [SerializeField]private float spawnDelay = 6f;
         private float timeCounter;
@@ -17,7 +19,7 @@ namespace TrippleTrinity.MechaMorph.Enemy
         
         private readonly float xMinVal = -13f, xMaxVal = 13f, zMinVal = -20f, zMaxVal = 20f;
         private readonly float spawnHeight = 1f;
-  
+
         void Start()
         {
             StartCoroutine(SpawnLoop());

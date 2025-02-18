@@ -23,10 +23,6 @@ namespace TrippleTrinity.MechaMorph.Ui
             }
         }
 
-        /// <summary>
-        /// Smoothly transitions the fill amount of the cooldown bar.
-        /// </summary>
-        /// <param name="targetFillAmount">The target fill amount (value between 0 and 1).</param>
         public void SetFillAmount(float targetFillAmount)
         {
             // Stop any ongoing transition
@@ -38,11 +34,6 @@ namespace TrippleTrinity.MechaMorph.Ui
             // Start _a new smooth transition
             _smoothTransitionCoroutine = StartCoroutine(SmoothFill(targetFillAmount));
         }
-
-        /// <summary>
-        /// Coroutine to smoothly transition the fill amount.
-        /// </summary>
-        /// <param name="targetFillAmount">The target fill amount (value between 0 and 1).</param>
         private IEnumerator SmoothFill(float targetFillAmount)
         {
             if (cooldownBarImage == null) yield break;

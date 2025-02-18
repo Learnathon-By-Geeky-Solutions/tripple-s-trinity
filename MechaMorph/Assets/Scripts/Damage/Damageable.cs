@@ -2,6 +2,7 @@ using UnityEngine;
 using System;
 using TrippleTrinity.MechaMorph.Ui;
 using TrippleTrinity.MechaMorph.Ability;
+using TrippleTrinity.MechaMorph.Token;
 
 namespace TrippleTrinity.MechaMorph.Damage
 {
@@ -11,10 +12,12 @@ namespace TrippleTrinity.MechaMorph.Damage
 
         [SerializeField] private float maxHealth = 100f;
         [SerializeField] private int scoreValue = 10; // Points for enemy kill
+        [SerializeField] private bool shouldDropToken; //  Only specific enemies drop tokens
 
         private float _currentHealth;
         private PlayerForm _currentForm = PlayerForm.Ball;
         private AreaDamageAbility _areaDamageAbility;
+        private TokenSpawner _tokenSpawner;
 
         public event Action OnDamageTaken;
         public event Action OnHealed;
@@ -27,6 +30,7 @@ namespace TrippleTrinity.MechaMorph.Damage
         {
             _currentHealth = maxHealth;
             _areaDamageAbility = FindObjectOfType<AreaDamageAbility>();
+            _tokenSpawner = GetComponent<TokenSpawner>(); //  Uses TokenSpawner attached to enemy
         }
 
         public void TakeDamage(float amount)
@@ -38,7 +42,6 @@ namespace TrippleTrinity.MechaMorph.Damage
 
             _currentHealth -= amount;
             _currentHealth = Mathf.Clamp(_currentHealth, 0, maxHealth);
-
             OnDamageTaken?.Invoke();
 
             if (_currentHealth <= 0)
@@ -51,10 +54,16 @@ namespace TrippleTrinity.MechaMorph.Damage
         {
             OnDeath?.Invoke();
 
-            // Register enemy kill for ability cooldown
-            _areaDamageAbility?.RegisterEnemyKill();
+            Vector3 deathPosition = transform.position; //  Store death position before destroying enemy
 
-            // Add score if enemy
+            if (shouldDropToken && _tokenSpawner != null)
+            {
+                Debug.Log($"Enemy {gameObject.name} died, spawning token at {deathPosition}");
+                _tokenSpawner.SpawnToken(deathPosition);
+            }
+
+            _areaDamageAbility?.RegisterEnemyKill(); 
+
             ScoreManager.Instance?.AddScore(scoreValue);
 
             Destroy(gameObject);
@@ -62,13 +71,16 @@ namespace TrippleTrinity.MechaMorph.Damage
 
         public void Heal(float amount)
         {
+            if (amount <= 0) return;
+
             _currentHealth += amount;
             _currentHealth = Mathf.Clamp(_currentHealth, 0, maxHealth);
 
+            Debug.Log($"Player Healed! Current Health: {_currentHealth}/{maxHealth}");
+
             OnHealed?.Invoke();
         }
-        
-        
+
 
         public void SwitchForm(PlayerForm newForm)
         {

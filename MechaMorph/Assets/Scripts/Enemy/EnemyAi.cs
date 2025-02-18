@@ -40,7 +40,6 @@ namespace TrippleTrinity.MechaMorph.Enemy
             if (playerObject != null)
             {
                 targetPosition = playerObject.transform;
-                Debug.Log($"Player found: {targetPosition.name}");
             }
 
             if (targetPosition != null)
@@ -53,7 +52,7 @@ namespace TrippleTrinity.MechaMorph.Enemy
         protected virtual void MoveTowardsTarget()
         {
             if (targetPosition == null) return;
-            if (agent.isOnNavMesh)
+            if (agent!=null && agent.isOnNavMesh)
             {
                 agent.SetDestination(targetPosition.position);
             }

@@ -97,6 +97,7 @@ GameObject:
   - component: {fileID: 7130069094913957009}
   - component: {fileID: 8805475619258487710}
   - component: {fileID: 3207395339312987363}
+  - component: {fileID: 3201564825044948721}
   m_Layer: 0
   m_Name: Robot
   m_TagString: Player
@@ -261,6 +262,18 @@ MonoBehaviour:
   groundCheck: {fileID: 9208809207520315304}
   groundCheckRadius: 0.3
   playerInput: {fileID: -944628639613478452, guid: 7c2e3d5878aca784e927369e85786f08, type: 3}
+--- !u!114 &3201564825044948721
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5373993913881270072}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ccbe440190d1a4844977c264345af0be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5519371745318547118
 GameObject:
   m_ObjectHideFlags: 0
