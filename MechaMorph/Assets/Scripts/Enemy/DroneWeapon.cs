@@ -1,6 +1,8 @@
 using UnityEngine;
 using UnityEngine.AI;
 using System.Collections;
+using TrippleTrinity.MechaMorph.Weapons;
+
 namespace TrippleTrinity.MechaMorph.Enemy
 {
     public class DroneWeapon : MonoBehaviour
