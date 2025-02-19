@@ -150,10 +150,9 @@ MonoBehaviour:
   movementSpeed: 500
   dashMultiplier: 2
   dashDuration: 0.5
-  dashCooldown: 2
+  dashCooldown: 4
   dashParticleEffect: {fileID: 0}
   dashSound: {fileID: 0}
-  playerInput: {fileID: -944628639613478452, guid: 801f509d55da7504ba802a484f90b657, type: 3}
 --- !u!114 &6899350910026972029
 MonoBehaviour:
   m_ObjectHideFlags: 0
