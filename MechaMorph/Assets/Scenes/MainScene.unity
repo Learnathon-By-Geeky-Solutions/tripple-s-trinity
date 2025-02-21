@@ -2388,7 +2388,7 @@ Transform:
   m_GameObject: {fileID: 963194225}
   serializedVersion: 2
   m_LocalRotation: {x: 0.42261827, y: 0, z: 0, w: 0.9063079}
-  m_LocalPosition: {x: 3.6407797, y: -6673.2646, z: 5598.4863}
+  m_LocalPosition: {x: 3.9273493, y: -6826.0303, z: 5726.665}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2993,7 +2993,7 @@ Transform:
   m_GameObject: {fileID: 1173084218}
   serializedVersion: 2
   m_LocalRotation: {x: 0.42261827, y: 0, z: 0, w: 0.9063079}
-  m_LocalPosition: {x: 3.6407797, y: -6673.2646, z: 5598.4863}
+  m_LocalPosition: {x: 3.9273493, y: -6826.0303, z: 5726.665}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4891,14 +4891,6 @@ PrefabInstance:
     - target: {fileID: 4711839821739533900, guid: 90c3087a30165be468cdce124cff5b30, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8092132072495083454, guid: 90c3087a30165be468cdce124cff5b30, type: 3}
-      propertyPath: movementSpeed
-      value: 500
-      objectReference: {fileID: 0}
-    - target: {fileID: 8092132072495083454, guid: 90c3087a30165be468cdce124cff5b30, type: 3}
-      propertyPath: dashMultiplier
-      value: 10.06
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

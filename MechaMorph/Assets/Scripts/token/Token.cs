@@ -6,8 +6,8 @@ namespace TrippleTrinity.MechaMorph.Token
 
     public class Token : MonoBehaviour
     {
-        public TokenType tokenType;
-        public float tokenValue; // Amount of health/cooldown/upgrade points
+        [SerializeField] private TokenType tokenType;
+        [SerializeReference] private float tokenValue; // Amount of health/cooldown/upgrade points
 
         private void OnTriggerEnter(Collider other)
         {
