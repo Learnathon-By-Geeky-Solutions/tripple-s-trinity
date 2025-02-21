@@ -45,12 +45,18 @@ namespace TrippleTrinity.MechaMorph.Weapons
         {
             Vector3 aimDirection = transform.forward.normalized;
             Transform bulletTransform = Instantiate(bulletPrefeb, bulletSpawnPoint.position, Quaternion.LookRotation(aimDirection));
-
+    
             BulletBehaviour bulletBehaviour = bulletTransform.GetComponent<BulletBehaviour>();
+    
             if (bulletBehaviour != null)
             {
                 bulletBehaviour.SetDamage(damage);
+        
+                // Assign the shooter based on whether it's an enemy or player
+                string shooterTag = gameObject.CompareTag("Enemy") ? "Enemy" : "Player";
+                bulletBehaviour.SetShooter(shooterTag);
             }
         }
+
     }
 }
