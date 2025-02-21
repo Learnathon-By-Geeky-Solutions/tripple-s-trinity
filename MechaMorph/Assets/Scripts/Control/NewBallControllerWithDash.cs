@@ -1,6 +1,7 @@
 using System.Collections;
-using UnityEngine;
 using TrippleTrinity.MechaMorph.InputHandling;
+using TrippleTrinity.MechaMorph.Ui;
+using UnityEngine;
 
 namespace TrippleTrinity.MechaMorph.Control
 {
@@ -11,8 +12,8 @@ namespace TrippleTrinity.MechaMorph.Control
 
         [Header("Dash Settings")]
         [SerializeField] private float dashMultiplier = 2f;
-        [SerializeField] private float dashDuration = 0.2f;
-        [SerializeField] private float dashCooldown = 1f;
+        [SerializeField] private float dashDuration = 0.5f;
+        [SerializeField] private float dashCooldown = 2f;
 
         [Header("Effects")]
         [SerializeField] private ParticleSystem dashParticleEffect;
@@ -20,59 +21,38 @@ namespace TrippleTrinity.MechaMorph.Control
 
         private Rigidbody _rb;
         private AudioSource _audioSource;
-        private Vector2 _moveInput;
-
         private bool _isDashing;
         private bool _isCooldownActive;
 
-        private void Awake()
+        void Awake()
         {
             InitializeComponents();
         }
 
-        private void InitializeComponents()
+        void FixedUpdate()
         {
-            _rb = GetComponent<Rigidbody>();
-            if (_rb == null)
-            {
-                Debug.LogError("Rigidbody not found on Ball GameObject.");
-            }
+            Vector2 moveInput = InputHandler.Instance.GetMoveInput();
+            Vector3 movement = new Vector3(moveInput.x, 0, moveInput.y);
+            _rb.AddForce(movement * movementSpeed);
 
-            _audioSource = GetComponent<AudioSource>();
-            if (_audioSource == null)
+            if (InputHandler.Instance.IsDashPressed() && !_isDashing && !_isCooldownActive)
             {
-                _audioSource = gameObject.AddComponent<AudioSource>();
+                PerformDash();
+                InputHandler.Instance.ResetDash();
             }
         }
 
-        private void Update()
+        private void PerformDash()
         {
-            // Get movement input from InputHandler
-            _moveInput = InputHandler.Instance.GetMoveInput();
-
-            // Check if dash is pressed and available
-            if (InputHandler.Instance.IsDashPressed() && !_isDashing && !_isCooldownActive)
-            {
-                Debug.Log("Dash Started");
-                StartCoroutine(DashCoroutine());
-                InputHandler.Instance.ResetDash();  // Reset the dash input after consuming it
-            }
+            StartCoroutine(DashCoroutine());
         }
 
         private IEnumerator DashCoroutine()
         {
             _isDashing = true;
+            float originalSpeed = movementSpeed;
+            movementSpeed *= dashMultiplier;
 
-            // Get dash direction based on movement input
-            Vector3 dashDirection = new Vector3(_moveInput.x, 0, _moveInput.y).normalized * dashMultiplier;
-            if (dashDirection == Vector3.zero) // If no input, dash in current velocity direction
-            {
-                dashDirection = _rb.velocity.normalized * dashMultiplier;
-            }
-            
-            _rb.velocity = dashDirection;
-
-            // Dash effects
             if (dashParticleEffect != null)
             {
                 ParticleSystem effect = Instantiate(dashParticleEffect, transform.position, Quaternion.identity);
@@ -85,27 +65,35 @@ namespace TrippleTrinity.MechaMorph.Control
                 _audioSource.PlayOneShot(dashSound);
             }
 
+            DashCooldownUI.Instance?.StartCooldown(dashCooldown);
+
             yield return new WaitForSeconds(dashDuration);
-
-            _rb.velocity /= dashMultiplier; // Reduce velocity after dash
-
+            movementSpeed = originalSpeed;
             _isDashing = false;
-            StartCoroutine(DashCooldown());
-        }
-
-        private IEnumerator DashCooldown()
-        {
             _isCooldownActive = true;
+
             yield return new WaitForSeconds(dashCooldown);
             _isCooldownActive = false;
         }
 
-        private void FixedUpdate()
+        public void OnTransformToBall()
         {
-            if (!_isDashing)
+            _isDashing = false;
+            _isCooldownActive = false;
+            InitializeComponents();
+        }
+
+        private void InitializeComponents()
+        {
+            _rb = GetComponent<Rigidbody>();
+            if (_rb == null)
             {
-                Vector3 movement = new Vector3(_moveInput.x, 0, _moveInput.y);
-                _rb.AddForce(movement * movementSpeed);
+                Debug.LogError("Rigidbody not found on Ball GameObject.");
+            }
+
+            if (_audioSource == null)
+            {
+                _audioSource = gameObject.AddComponent<AudioSource>();
             }
         }
     }
