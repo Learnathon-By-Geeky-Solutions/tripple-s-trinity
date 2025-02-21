@@ -8,7 +8,7 @@ namespace TrippleTrinity.MechaMorph.Enemy
         [SerializeField] private float damage;
         [SerializeField] private Transform bulletPrefeb;
         [SerializeField] private Transform bulletSpawnPoint;
-        [SerializeField] private InputActionAsset playerInput;
+       
    
 
  

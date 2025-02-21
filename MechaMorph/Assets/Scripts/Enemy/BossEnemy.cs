@@ -20,9 +20,9 @@ namespace TrippleTrinity.MechaMorph.Enemy
         void Disappear()
         {
             Vector3 destination = Boss_Destination();
-            if (agent.isOnNavMesh)
+            if (Agent.isOnNavMesh)
             {
-                agent.Warp(destination);
+                Agent.Warp(destination);
                 isTeleporting = false;
             }
             else

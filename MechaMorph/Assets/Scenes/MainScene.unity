@@ -1439,6 +1439,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: RangedEnemy
       objectReference: {fileID: 0}
+    - target: {fileID: 3189499250034600938, guid: 18b79f0a479840440b87bc47c1ca793d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3255145673609304150, guid: 18b79f0a479840440b87bc47c1ca793d, type: 3}
       propertyPath: m_LocalPosition.x
       value: 12.743502
@@ -1625,7 +1629,7 @@ Transform:
   m_GameObject: {fileID: 635673471}
   serializedVersion: 2
   m_LocalRotation: {x: -0.42261824, y: -0, z: -0, w: 0.90630776}
-  m_LocalPosition: {x: 0.07694113, y: -0.0033388138, z: 11.006474}
+  m_LocalPosition: {x: 0.07694113, y: -0.00034713745, z: 11.008985}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2399,7 +2403,7 @@ Transform:
   m_GameObject: {fileID: 963194225}
   serializedVersion: 2
   m_LocalRotation: {x: 0.42261827, y: 0, z: 0, w: 0.9063079}
-  m_LocalPosition: {x: -0.07694113, y: -19325.105, z: 16183.274}
+  m_LocalPosition: {x: -0.07694113, y: -19980.295, z: 16731.514}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2968,7 +2972,7 @@ Transform:
   m_GameObject: {fileID: 1173084218}
   serializedVersion: 2
   m_LocalRotation: {x: 0.42261827, y: 0, z: 0, w: 0.9063079}
-  m_LocalPosition: {x: -0.07694113, y: -19325.105, z: 16183.274}
+  m_LocalPosition: {x: -0.07694113, y: -19980.295, z: 16731.514}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
