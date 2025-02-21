@@ -15,12 +15,6 @@ namespace TrippleTrinity.MechaMorph.Health
         private TokenSpawner _tokenSpawner;
         private AreaDamageAbility _areaDamageAbility;
 
-        protected override void Start()
-        {
-            base.Start();
-            _tokenSpawner = GetComponent<TokenSpawner>();
-            _areaDamageAbility = FindObjectOfType<AreaDamageAbility>();
-        }
 
         public override void TakeDamage(float amount)
         {
