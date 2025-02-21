@@ -1676,7 +1676,7 @@ Transform:
   m_GameObject: {fileID: 635673471}
   serializedVersion: 2
   m_LocalRotation: {x: -0.42261824, y: -0, z: -0, w: 0.90630776}
-  m_LocalPosition: {x: 0.07694101, y: -0.00034713745, z: 11.008985}
+  m_LocalPosition: {x: 0.076942444, y: -0.00034713745, z: 11.008985}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2449,7 +2449,7 @@ Transform:
   m_GameObject: {fileID: 963194225}
   serializedVersion: 2
   m_LocalRotation: {x: 0.42261827, y: 0, z: 0, w: 0.9063079}
-  m_LocalPosition: {x: 4.205051, y: -20122.385, z: 16850.633}
+  m_LocalPosition: {x: 44.94292, y: -21475.156, z: 17983.92}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3006,7 +3006,7 @@ Transform:
   m_GameObject: {fileID: 1173084218}
   serializedVersion: 2
   m_LocalRotation: {x: 0.42261827, y: 0, z: 0, w: 0.9063079}
-  m_LocalPosition: {x: 4.205051, y: -20122.385, z: 16850.633}
+  m_LocalPosition: {x: 44.94292, y: -21475.156, z: 17983.92}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4514,8 +4514,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1931157675}
   - component: {fileID: 1931157676}
-  - component: {fileID: 1931157678}
   - component: {fileID: 1931157677}
+  - component: {fileID: 1931157678}
   m_Layer: 0
   m_Name: TransformManager
   m_TagString: Untagged
@@ -4557,7 +4557,7 @@ MonoBehaviour:
   ballController: {fileID: 300820699}
   robotController: {fileID: 960974503}
   areaDamageAbility: {fileID: 960974502}
-  damageable: {fileID: 1931157678}
+  playerHealth: {fileID: 1931157678}
 --- !u!114 &1931157677
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4580,11 +4580,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1931157674}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9e3c6ae7beea01f4899ba1be57dd3480, type: 3}
+  m_Script: {fileID: 11500000, guid: 47fe4dbd3dc7a684b889324309f36477, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 100
-  scoreValue: 10
+  currentForm: 0
   shouldDropToken: 0
 --- !u!1 &2081802462
 GameObject:
