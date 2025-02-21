@@ -1,5 +1,6 @@
-using TrippleTrinity.MechaMorph.Damage;
 using UnityEngine;
+using TrippleTrinity.MechaMorph.Damage;
+using TrippleTrinity.MechaMorph.Health;
 
 namespace TrippleTrinity.MechaMorph.Weapons
 {
@@ -8,6 +9,7 @@ namespace TrippleTrinity.MechaMorph.Weapons
         [SerializeField] private float bulletSpeed = 20f;
         private Rigidbody _rigidbody;
         private float _damage;
+        private string _shooterTag;
 
         private void Awake()
         {
@@ -24,22 +26,36 @@ namespace TrippleTrinity.MechaMorph.Weapons
             _damage = newDamage;
         }
 
+        public void SetShooter(string shooterTag)
+        {
+            _shooterTag = shooterTag;
+        }
+
         private void OnTriggerEnter(Collider other)
         {
-            Damageable damageable = other.GetComponent<Damageable>();
-            if (damageable != null)
+            // Ignore collision with the shooter itself
+            if (other.CompareTag(_shooterTag)) return;
+
+            // If shooter is Enemy, bullet should damage Player
+            if (_shooterTag == "Enemy" && other.CompareTag("Player"))
             {
-                damageable.TakeDamage(_damage); // Apply damage using Damageable
-
-                // Optional: Log or play effects when damage is taken
-                damageable.OnDamageTaken += () => Debug.Log($"{other.name} took damage!");
-
-                // Handle death event
-                damageable.OnDeath += () =>
+                // Look for PlayerHealth in the parent
+                Damageable playerHealth = other.GetComponentInParent<PlayerHealth>();
+                if (playerHealth != null)
                 {
-                    Debug.Log($"{other.name} has died.");
-                    Destroy(other.gameObject);
-                };
+                    playerHealth.TakeDamage(_damage);
+                    Debug.Log($"Enemy bullet hit Player! Dealt {_damage} damage.");
+                }
+            }
+            // If shooter is Player, bullet should damage Enemy
+            else if (_shooterTag == "Player" && other.CompareTag("Enemy"))
+            {
+                Damageable enemyHealth = other.GetComponent<Damageable>();
+                if (enemyHealth != null)
+                {
+                    enemyHealth.TakeDamage(_damage);
+                    Debug.Log($"Player bullet hit Enemy! Dealt {_damage} damage.");
+                }
             }
 
             Destroy(gameObject); // Destroy bullet after hit
