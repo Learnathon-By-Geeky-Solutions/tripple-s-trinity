@@ -7,7 +7,7 @@ namespace TrippleTrinity.MechaMorph.Enemy
     public class EnemyAi : MonoBehaviour
     {
         [SerializeField] private Rigidbody rb;
-        public NavMeshAgent agent;
+
         [SerializeField] private int health;
         private Transform targetPosition;
         [SerializeField] private GameObject bullet;
@@ -15,7 +15,13 @@ namespace TrippleTrinity.MechaMorph.Enemy
 
         // 🔧 Declare direction as a private field
         protected Vector3 Direction; 
+        private NavMeshAgent agent; // 🔧 Made private
         
+        public NavMeshAgent Agent // 🔧 Encapsulation
+        {
+            get => agent;
+           
+        }
         protected virtual void Start()
         {
             agent = GetComponent<NavMeshAgent>();

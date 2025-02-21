@@ -1,4 +1,5 @@
 using UnityEngine;
+using TrippleTrinity.MechaMorph.InputHandling;
 using UnityEngine.InputSystem;
 
 namespace TrippleTrinity.MechaMorph.Control
@@ -12,93 +13,28 @@ namespace TrippleTrinity.MechaMorph.Control
         [SerializeField] private LayerMask groundLayer;
         [SerializeField] private Transform groundCheck;
         [SerializeField] private float groundCheckRadius = 0.3f;
-        [SerializeField] private InputActionAsset playerInput;
 
         private Rigidbody _rb;
         private bool _isGrounded;
-        private Vector2 _moveInput;
-        private bool _jumpPressed;
 
-        private InputAction _moveAction;
-        private InputAction _jumpAction;
-
-        void Awake()
+        private void Awake()
         {
             _rb = GetComponent<Rigidbody>();
             _rb.freezeRotation = true;
             _rb.interpolation = RigidbodyInterpolation.Interpolate;
             _rb.collisionDetectionMode = CollisionDetectionMode.Continuous;
-
-            // Find input actions
-            _moveAction = playerInput.FindAction("Move");
-            _jumpAction = playerInput.FindAction("Jump");
         }
 
-        void OnEnable()
-        {
-            if (_moveAction != null)
-            {
-                _moveAction.performed += MovePerformed;
-                _moveAction.canceled += MoveCanceled;
-                _moveAction.Enable();
-            }
-            else
-            {
-                Debug.LogError("Move action not found in InputActionAsset!");
-            }
-
-            if (_jumpAction != null)
-            {
-                _jumpAction.performed += JumpPerformed; // Use JumpPerformed with the proper signature
-                _jumpAction.Enable();
-            }
-            else
-            {
-                Debug.LogError("Jump action not found in InputActionAsset!");
-            }
-        }
-
-        void OnDisable()
-        {
-            if (_moveAction != null)
-            {
-                _moveAction.performed -= MovePerformed;
-                _moveAction.canceled -= MoveCanceled;
-                _moveAction.Disable();
-            }
-
-            if (_jumpAction != null)
-            {
-                _jumpAction.performed -= JumpPerformed;
-                _jumpAction.Disable();
-            }
-        }
-
-        private void MovePerformed(InputAction.CallbackContext ctx)
-        {
-            _moveInput = ctx.ReadValue<Vector2>();
-        }
-
-        private void MoveCanceled(InputAction.CallbackContext _) 
-        {
-            _moveInput = Vector2.zero;
-        }
-
-        private void JumpPerformed(InputAction.CallbackContext ctx) // Corrected method signature to match expected one
-        {
-            _jumpPressed = true;
-        }
-
-        void FixedUpdate()
+        private void FixedUpdate()
         {
             CheckGrounded();
             Move();
             RotateToMouse();
 
-            if (_jumpPressed && _isGrounded)
+            if (InputHandler.Instance.IsJumpPressed() && _isGrounded)
             {
                 Jump();
-                _jumpPressed = false;
+                InputHandler.Instance.ResetJump();  // Reset after handling
             }
         }
 
@@ -109,16 +45,15 @@ namespace TrippleTrinity.MechaMorph.Control
 
         private void Move()
         {
-            Vector3 moveDirection = new Vector3(_moveInput.x, 0, _moveInput.y).normalized; // Normalize to avoid faster diagonal movement
+            Vector2 moveInput = InputHandler.Instance.GetMoveInput();
+            Vector3 moveDirection = new Vector3(moveInput.x, 0, moveInput.y).normalized;
 
             if (moveDirection.magnitude > 0.1f)
             {
-                // Set the velocity directly to maintain constant speed
                 _rb.velocity = new Vector3(moveDirection.x * moveSpeed, _rb.velocity.y, moveDirection.z * moveSpeed);
             }
             else if (_isGrounded)
             {
-                // Stop horizontal movement when grounded and no input
                 _rb.velocity = new Vector3(0, _rb.velocity.y, 0);
             }
         }
@@ -144,11 +79,11 @@ namespace TrippleTrinity.MechaMorph.Control
 
         private void Jump()
         {
-            _rb.velocity = new Vector3(_rb.velocity.x, 0f, _rb.velocity.z); // Reset vertical velocity
-            _rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse); // Apply jump force
+            _rb.velocity = new Vector3(_rb.velocity.x, 0f, _rb.velocity.z);
+            _rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
         }
 
-        void OnDrawGizmosSelected()
+        private void OnDrawGizmosSelected()
         {
             if (groundCheck != null)
             {

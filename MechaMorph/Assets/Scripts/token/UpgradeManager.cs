@@ -4,14 +4,26 @@ namespace TrippleTrinity.MechaMorph.Token
 {
     public class UpgradeManager : MonoBehaviour
     {
-        public static UpgradeManager Instance;
+        private static UpgradeManager _instance;
         private int _upgradePoints;
-
+        
+        public static UpgradeManager Instance
+        {
+            get
+            {
+                if (_instance == null)
+                {
+                    Debug.LogError("UpgradeManager instance is null.");
+                }
+                return _instance;
+            }
+        }
+        
         private void Awake()
         {
-            if (Instance == null)
+            if (_instance == null)
             {
-                Instance = this;
+                _instance = this;
                 DontDestroyOnLoad(gameObject);
             }
             else
@@ -19,7 +31,7 @@ namespace TrippleTrinity.MechaMorph.Token
                 Destroy(gameObject);
             }
         }
-
+        
         public void AddUpgradePoint()
         {
             _upgradePoints++;

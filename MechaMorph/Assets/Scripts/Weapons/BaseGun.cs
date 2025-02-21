@@ -26,7 +26,7 @@ namespace TrippleTrinity.MechaMorph.Weapons
 
         public virtual void Update()
         {
-
+    
         }
 
         protected void TryReloading()

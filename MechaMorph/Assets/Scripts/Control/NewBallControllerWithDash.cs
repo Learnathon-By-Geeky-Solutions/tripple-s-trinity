@@ -1,7 +1,7 @@
 using System.Collections;
+using TrippleTrinity.MechaMorph.InputHandling;
 using TrippleTrinity.MechaMorph.Ui;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 namespace TrippleTrinity.MechaMorph.Control
 {
@@ -19,89 +19,32 @@ namespace TrippleTrinity.MechaMorph.Control
         [SerializeField] private ParticleSystem dashParticleEffect;
         [SerializeField] private AudioClip dashSound;
 
-        [Header("Input")]
-        [SerializeField] private InputActionAsset playerInput;
-
         private Rigidbody _rb;
         private AudioSource _audioSource;
-        private Vector2 _moveInput;
         private bool _isDashing;
         private bool _isCooldownActive;
-        private InputAction _moveAction;
-        private InputAction _dashAction;
 
         void Awake()
         {
             InitializeComponents();
-        
-            _moveAction = playerInput.FindAction("Move");
-            _dashAction = playerInput.FindAction("Dash");
-        }
-
-        void OnEnable()
-        {
-            if (_moveAction != null)
-            {
-                _moveAction.performed += MovePerformed;
-                _moveAction.canceled += MoveCanceled;
-                _moveAction.Enable();
-            }
-            else
-            {
-                Debug.LogError("Move action not found in InputActionAsset!");
-            }
-
-            if (_dashAction != null)
-            {
-                _dashAction.performed += DashPerformed; 
-                _dashAction.Enable();
-            }
-            else
-            {
-                Debug.LogError("Dash action not found in InputActionAsset!");
-            }
-        }
-
-        private void MovePerformed(InputAction.CallbackContext ctx)
-        {
-            _moveInput = ctx.ReadValue<Vector2>(); 
-        }
-
-        private void MoveCanceled(InputAction.CallbackContext _) 
-        {
-            _moveInput = Vector2.zero;
-        }
-
-        void OnDisable()
-        {
-            if (_moveAction != null)
-            {
-                _moveAction.Disable();
-            }
-
-            if (_dashAction != null)
-            {
-                _dashAction.Disable();
-            }
         }
 
         void FixedUpdate()
         {
-            Vector3 movement = new Vector3(_moveInput.x, 0, _moveInput.y);
+            Vector2 moveInput = InputHandler.Instance.GetMoveInput();
+            Vector3 movement = new Vector3(moveInput.x, 0, moveInput.y);
             _rb.AddForce(movement * movementSpeed);
-        }
 
-        private void DashPerformed(InputAction.CallbackContext _) 
-        {
-            PerformDash();
+            if (InputHandler.Instance.IsDashPressed() && !_isDashing && !_isCooldownActive)
+            {
+                PerformDash();
+                InputHandler.Instance.ResetDash();
+            }
         }
 
         private void PerformDash()
         {
-            if (!_isDashing && !_isCooldownActive)
-            {
-                StartCoroutine(DashCoroutine());
-            }
+            StartCoroutine(DashCoroutine());
         }
 
         private IEnumerator DashCoroutine()
@@ -135,10 +78,8 @@ namespace TrippleTrinity.MechaMorph.Control
 
         public void OnTransformToBall()
         {
-            // Reset dash-related variables
             _isDashing = false;
             _isCooldownActive = false;
-            // Re-initialize components
             InitializeComponents();
         }
 

@@ -15,6 +15,9 @@ using System.Collections.Generic;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Utilities;
 
+namespace TrippleTrinity.MechaMorph.Weapons
+{
+    
 public partial class @Combat: IInputActionCollection2, IDisposable
 {
     public InputActionAsset asset { get; }
@@ -220,4 +223,5 @@ public partial class @Combat: IInputActionCollection2, IDisposable
         void OnFire(InputAction.CallbackContext context);
         void OnReloading(InputAction.CallbackContext context);
     }
+}
 }
