@@ -1,5 +1,5 @@
 using UnityEngine;
-using TrippleTrinity.MechaMorph.InputHandling;  // Ensure you are using InputHandler namespace
+using TrippleTrinity.MechaMorph.InputHandling;  
 
 namespace TrippleTrinity.MechaMorph.Weapons
 {
@@ -8,21 +8,23 @@ namespace TrippleTrinity.MechaMorph.Weapons
         [SerializeField] private float damage;
         [SerializeField] private Transform bulletPrefeb;
         [SerializeField] private Transform bulletSpawnPoint;
+        [SerializeField] private bool isAI;  // New variable to differentiate Player & AI
 
         public override void Update()
         {
             base.Update();
 
-            // Use InputHandler to check for fire action without direct input dependency
-            if (InputHandler.Instance != null && InputHandler.Instance.IsFirePressed())
+            if (!isAI) // Only Player checks for input
             {
-                TryShoot();
-            }
+                if (InputHandler.Instance != null && InputHandler.Instance.IsFirePressed())
+                {
+                    TryShoot();
+                }
 
-            // You can still use InputHandler for reload if needed
-            if (InputHandler.Instance != null && InputHandler.Instance.IsReloadPressed())
-            {
-                TryReloading();
+                if (InputHandler.Instance != null && InputHandler.Instance.IsReloadPressed())
+                {
+                    TryReloading();
+                }
             }
 
             if (CurrentAmmo <= 0)
@@ -31,11 +33,19 @@ namespace TrippleTrinity.MechaMorph.Weapons
             }
         }
 
+        public void AITryShoot()
+        {
+            if (isAI)  // Only AI can call this method
+            {
+                TryShoot();
+            }
+        }
+
         protected override void Shoot()
         {
             Vector3 aimDirection = transform.forward.normalized;
             Transform bulletTransform = Instantiate(bulletPrefeb, bulletSpawnPoint.position, Quaternion.LookRotation(aimDirection));
-            
+
             BulletBehaviour bulletBehaviour = bulletTransform.GetComponent<BulletBehaviour>();
             if (bulletBehaviour != null)
             {

@@ -51,7 +51,7 @@ namespace TrippleTrinity.MechaMorph.Weapons
             Debug.Log(Gundata.GunName + " is reloaded.");
         }
 
-        protected void TryShoot()
+        public void TryShoot()
         {
             if (_isReloading)
             {
