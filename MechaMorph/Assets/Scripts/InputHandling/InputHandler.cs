@@ -112,7 +112,6 @@ namespace TrippleTrinity.MechaMorph.InputHandling
         public bool IsJumpPressed() => _jumpPressed;
         public bool IsDashPressed()
         {
-            Debug.Log("Checking Dash: " + _dashPressed);
             return _dashPressed;
         }
 
