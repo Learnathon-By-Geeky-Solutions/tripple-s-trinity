@@ -1,5 +1,5 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
+using TrippleTrinity.MechaMorph.InputHandling;  // Ensure you are using InputHandler namespace
 
 namespace TrippleTrinity.MechaMorph.Weapons
 {
@@ -8,28 +8,19 @@ namespace TrippleTrinity.MechaMorph.Weapons
         [SerializeField] private float damage;
         [SerializeField] private Transform bulletPrefeb;
         [SerializeField] private Transform bulletSpawnPoint;
-        [SerializeField] private InputActionAsset playerInput;
-        private InputAction _fireAction;
-        private InputAction _reloadAction;
-
-        private void Awake()
-        {
-            _fireAction = playerInput.FindAction("Fire");
-            _reloadAction = playerInput.FindAction("Reloading");
-
-            _fireAction.Enable();
-            _reloadAction.Enable();
-        }
 
         public override void Update()
         {
             base.Update();
 
-            if (_fireAction.triggered)
+            // Use InputHandler to check for fire action without direct input dependency
+            if (InputHandler.Instance != null && InputHandler.Instance.IsFirePressed())
             {
                 TryShoot();
             }
-            if(_reloadAction.triggered)
+
+            // You can still use InputHandler for reload if needed
+            if (InputHandler.Instance != null && InputHandler.Instance.IsReloadPressed())
             {
                 TryReloading();
             }
