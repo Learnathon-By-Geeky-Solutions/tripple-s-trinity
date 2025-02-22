@@ -9,7 +9,7 @@ namespace TrippleTrinity.MechaMorph.Enemy
         [SerializeField] private Rigidbody rb;
 
         [SerializeField] private int health;
-        private Transform targetPosition;
+        protected Transform targetPosition;
         [SerializeField] private GameObject bullet;
         [SerializeField] private float moveRotationSpeed = 45f;
 

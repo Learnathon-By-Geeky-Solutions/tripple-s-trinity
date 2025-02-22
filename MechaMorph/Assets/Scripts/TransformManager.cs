@@ -1,6 +1,6 @@
 using TrippleTrinity.MechaMorph.Ability;
 using TrippleTrinity.MechaMorph.Control;
-
+using TrippleTrinity.MechaMorph.Health;
 using UnityEngine;
 
 namespace TrippleTrinity.MechaMorph
@@ -17,7 +17,7 @@ namespace TrippleTrinity.MechaMorph
         [SerializeField] private AreaDamageAbility areaDamageAbility;
 
         [Header("Health System")]
-        [SerializeField] private Damage.Damageable damageable;
+        [SerializeField] private PlayerHealth playerHealth;  // Reference to PlayerHealth
 
         private bool _isBallForm = true;
 
@@ -46,26 +46,26 @@ namespace TrippleTrinity.MechaMorph
             ballVisual.transform.position = robotVisual.transform.position;
             ballVisual.transform.rotation = robotVisual.transform.rotation;
 
-            ballVisual.SetActive(true);
-            robotVisual.SetActive(false);
+            ballVisual.SetActive(true);  // Activate Ball form
+            robotVisual.SetActive(false); // Deactivate Robot form
 
             if (ballController != null)
             {
                 ballController.enabled = true;
                 var method = ballController.GetType().GetMethod("OnTransformToBall");
-                method?.Invoke(ballController, null);
+                method?.Invoke(ballController, null);  // Call method if it exists (on transformation)
             }
 
             if (robotController != null)
             {
-                robotController.enabled = false;
+                robotController.enabled = false; // Disable Robot controller
             }
 
-            _isBallForm = true;
+            _isBallForm = true; // Mark player in Ball form
 
             // Notify other systems
-            areaDamageAbility?.SetRobotForm(false);
-            damageable?.SwitchForm(Damage.Damageable.PlayerForm.Ball);
+            areaDamageAbility?.SetRobotForm(false);  // Disable robot-specific abilities
+            playerHealth?.SwitchForm(PlayerHealth.PlayerForm.Ball);  // Update PlayerHealth form to Ball
         }
 
         private void SetRobotForm()
@@ -73,24 +73,24 @@ namespace TrippleTrinity.MechaMorph
             robotVisual.transform.position = ballVisual.transform.position;
             robotVisual.transform.rotation = ballVisual.transform.rotation;
 
-            ballVisual.SetActive(false);
-            robotVisual.SetActive(true);
+            ballVisual.SetActive(false); // Deactivate Ball form
+            robotVisual.SetActive(true); // Activate Robot form
 
             if (ballController != null)
             {
-                ballController.enabled = false;
+                ballController.enabled = false; // Disable Ball controller
             }
 
             if (robotController != null)
             {
-                robotController.enabled = true;
+                robotController.enabled = true; // Enable Robot controller
             }
 
-            _isBallForm = false;
+            _isBallForm = false; // Mark player in Robot form
 
             // Notify other systems
-            areaDamageAbility?.SetRobotForm(true);
-            damageable?.SwitchForm(Damage.Damageable.PlayerForm.Robot);
+            areaDamageAbility?.SetRobotForm(true);  // Enable robot-specific abilities
+            playerHealth?.SwitchForm(PlayerHealth.PlayerForm.Robot);  // Update PlayerHealth form to Robot
         }
 
         public bool IsBallForm()

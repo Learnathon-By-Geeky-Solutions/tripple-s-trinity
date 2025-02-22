@@ -121,8 +121,7 @@ GameObject:
   - component: {fileID: 5417520489673953742}
   - component: {fileID: 4755251772485390445}
   - component: {fileID: -7224592478731414331}
-  - component: {fileID: 3880435916006311740}
-  - component: {fileID: -3923918249602899285}
+  - component: {fileID: 88753861475216149}
   m_Layer: 6
   m_Name: Meele EnemyBody
   m_TagString: Enemy
@@ -252,26 +251,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 0}
-  agent: {fileID: 0}
   health: 0
   bullet: {fileID: 0}
   moveRotationSpeed: 45
---- !u!114 &3880435916006311740
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6376213158033550541}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f355e40cac973c469123fed9e84b2c1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bulletSpawnPoint: {fileID: 8845937794885050502}
-  fireRate: 1
-  bulletSpeed: 15
---- !u!114 &-3923918249602899285
+--- !u!114 &88753861475216149
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -280,7 +263,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6376213158033550541}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9e3c6ae7beea01f4899ba1be57dd3480, type: 3}
+  m_Script: {fileID: 11500000, guid: b16456bee05c4f647bfcb555b52f4571, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 100
