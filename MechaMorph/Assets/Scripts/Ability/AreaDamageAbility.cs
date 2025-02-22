@@ -22,6 +22,9 @@ namespace TrippleTrinity.MechaMorph.Ability
 
         [Header("Form Settings")]
         [SerializeField] private bool isRobotForm;
+        
+        [SerializeField] private GameObject areaDamageEffect;
+
 
         private AreaCooldownBar _cooldownBar;
         private Collider[] _hitResults;
@@ -64,6 +67,12 @@ namespace TrippleTrinity.MechaMorph.Ability
             _currentCooldown = 0f;
             UpdateCooldownUI();
 
+            // Spawn the particle effect at the player's position
+            if (areaDamageEffect != null)
+            {
+                Instantiate(areaDamageEffect, transform.position, Quaternion.identity);
+            }
+
             int hitCount = Physics.OverlapSphereNonAlloc(transform.position, damageRadius, _hitResults);
             int targetsHit = 0;
 
@@ -82,6 +91,7 @@ namespace TrippleTrinity.MechaMorph.Ability
 
             Debug.Log($"Area Damage hit {targetsHit} enemies.");
         }
+
 
         private void UpdateCooldownUI()
         {
