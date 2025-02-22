@@ -1,5 +1,6 @@
 using TrippleTrinity.MechaMorph.Ability;
 using TrippleTrinity.MechaMorph.Damage;
+using TrippleTrinity.MechaMorph.Ui;
 using UnityEngine;
 
 namespace TrippleTrinity.MechaMorph.Token
@@ -26,6 +27,7 @@ namespace TrippleTrinity.MechaMorph.Token
         {
             Debug.Log($"Token Collected: {type} | Value: {value}");
 
+            TokenUIManager.Instance?.UpdateTokenCount();
             switch (type)
             {
                 case TokenType.Health:

@@ -5,18 +5,23 @@ namespace TrippleTrinity.MechaMorph.Ui
 {
     public class TokenUIManager : MonoBehaviour
     {
-        private static TokenUIManager _instance; // Singleton for easy access
+        public static TokenUIManager Instance { get; private set; } // Singleton for easy access
         public TextMeshProUGUI tokenCounterText; // UI Element
 
-        private int _tokenCount; // Token counter
-
+        private int _tokenCount; 
+        
         private void Awake()
         {
-            // Singleton pattern to ensure only one instance exists
-            if (_instance == null)
-                _instance = this;
+            // Ensure only one instance exists
+            if (Instance == null)
+            {
+                Instance = this;
+            }
             else
+            {
+                Debug.LogWarning("Multiple TokenUIManager instances detected! Destroying duplicate.");
                 Destroy(gameObject);
+            }
         }
 
         public void UpdateTokenCount()
@@ -25,6 +30,10 @@ namespace TrippleTrinity.MechaMorph.Ui
             if (tokenCounterText != null)
             {
                 tokenCounterText.text = $"Tokens: {_tokenCount}"; // Update UI
+            }
+            else
+            {
+                Debug.LogError("TokenUIManager: TokenCounterText is not assigned in the Inspector!");
             }
         }
     }
