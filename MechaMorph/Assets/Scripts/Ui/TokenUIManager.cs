@@ -5,7 +5,8 @@ namespace TrippleTrinity.MechaMorph.Ui
 {
     public class TokenUIManager : MonoBehaviour
     {
-        public static TokenUIManager Instance;
+        public static TokenUIManager Instance { get; private set; }
+
         [SerializeField] private TextMeshProUGUI tokenCountText; // Assign in Inspector
 
         private void Awake()
