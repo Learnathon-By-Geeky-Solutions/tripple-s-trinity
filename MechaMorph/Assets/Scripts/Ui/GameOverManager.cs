@@ -3,7 +3,7 @@ using UnityEngine.SceneManagement;
 using TMPro;
 using System.Collections;
 using TrippleTrinity.MechaMorph.Damage;
-using TrippleTrinity.MechaMorph.Token;
+using TrippleTrinity.MechaMorph.Token; // Import for UpgradeManager
 
 namespace TrippleTrinity.MechaMorph.Ui
 {
@@ -46,15 +46,10 @@ namespace TrippleTrinity.MechaMorph.Ui
                 finalScoreText.text = $"Score: {_scoreManager.CurrentScore()}";
             }
 
-            // Display the collected upgrade tokens
+            // Display the collected upgrade tokens for the session
             if (finalTokenText != null)
             {
-                int tokenCount = 0;
-                if (UpgradeManager.Instance != null)
-                {
-                    tokenCount = UpgradeManager.Instance.GetUpgradeTokenCount();
-                }
-                finalTokenText.text = $"Tokens: {tokenCount}";
+                finalTokenText.text = $"Tokens: {UpgradeManager.Instance.GetUpgradeTokenCount()}";
             }
         }
 

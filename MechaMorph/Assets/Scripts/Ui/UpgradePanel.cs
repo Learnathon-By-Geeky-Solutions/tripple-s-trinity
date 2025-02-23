@@ -1,21 +1,29 @@
-using UnityEngine;
 using TMPro;
+using TrippleTrinity.MechaMorph.Token;
+using UnityEngine;
 
 namespace TrippleTrinity.MechaMorph.Ui
 {
     public class UpgradePanel : MonoBehaviour
     {
-        [SerializeField] private TMP_Text tokenCountText; 
+        [SerializeField] private TextMeshProUGUI totalTokenText; // Assign in Inspector
 
         private void Start()
         {
-            UpdateTokenUI();
+            UpdateTotalTokenDisplay();
         }
 
-        private void UpdateTokenUI()
+        private void UpdateTotalTokenDisplay()
         {
-            int totalTokens = PlayerPrefs.GetInt("UpgradeTokenCount", 0);
-            tokenCountText.text = $"Tokens: {totalTokens}";
+            if (totalTokenText != null)
+            {
+                int totalTokens = UpgradeManager.Instance.GetTotalUpgradeTokenCount(); // Get total from PlayerPrefs
+                totalTokenText.text = $"Tokens: {totalTokens}";
+            }
+            else
+            {
+                Debug.LogError("UpgradePanel: totalTokenText is not assigned!");
+            }
         }
     }
 }
