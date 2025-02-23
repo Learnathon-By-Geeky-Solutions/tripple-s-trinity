@@ -1,3 +1,4 @@
+using TrippleTrinity.MechaMorph.Ui;
 using UnityEngine;
 
 namespace TrippleTrinity.MechaMorph.Token
@@ -6,6 +7,7 @@ namespace TrippleTrinity.MechaMorph.Token
     {
         private static UpgradeManager _instance;
         private int _upgradePoints;
+        private int _upgradeTokenCount;
         
         public static UpgradeManager Instance
         {
@@ -38,5 +40,17 @@ namespace TrippleTrinity.MechaMorph.Token
             Debug.Log($"Upgrade Points: {_upgradePoints}");
             // Implement upgrade system here
         }
+
+        public void AddUpgradeToken()
+        {
+            _upgradeTokenCount++;
+            
+            TokenUIManager.Instance?.UpdateTokenCount(_upgradeTokenCount);
+        }
+        public int GetUpgradeTokenCount()
+        {
+            return _upgradeTokenCount;
+        }
+
     }
 }
