@@ -32,6 +32,9 @@ namespace TrippleTrinity.MechaMorph.Token
             {
                 Destroy(gameObject);
             }
+
+            // Load the saved upgrade token count on Awake
+            _upgradeTokenCount = PlayerPrefs.GetInt("UpgradeTokenCount", 0);
         }
         
         public void AddUpgradePoint()
@@ -44,13 +47,15 @@ namespace TrippleTrinity.MechaMorph.Token
         public void AddUpgradeToken()
         {
             _upgradeTokenCount++;
+            PlayerPrefs.SetInt("UpgradeTokenCount", _upgradeTokenCount); // Save to PlayerPrefs
+            PlayerPrefs.Save();
             
             TokenUIManager.Instance?.UpdateTokenCount(_upgradeTokenCount);
         }
+
         public int GetUpgradeTokenCount()
         {
             return _upgradeTokenCount;
         }
-
     }
 }
