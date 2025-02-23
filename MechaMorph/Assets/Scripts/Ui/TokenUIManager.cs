@@ -24,7 +24,7 @@ namespace TrippleTrinity.MechaMorph.Ui
             }
         }
 
-        public void UpdateTokenCount()
+        public void UpdateTokenCount(int upgradeTokenCount)
         {
             _tokenCount++; // Increase counter
             if (tokenCounterText != null)

@@ -27,7 +27,6 @@ namespace TrippleTrinity.MechaMorph.Token
         {
             Debug.Log($"Token Collected: {type} | Value: {value}");
 
-            TokenUIManager.Instance?.UpdateTokenCount();
             switch (type)
             {
                 case TokenType.Health:
@@ -48,6 +47,7 @@ namespace TrippleTrinity.MechaMorph.Token
 
                 case TokenType.Upgrade:
                     UpgradeManager.Instance?.AddUpgradePoint();
+                    UpgradeManager.Instance?.AddUpgradeToken();
                     break;
             }
         }
