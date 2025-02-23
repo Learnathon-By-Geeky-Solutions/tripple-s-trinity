@@ -48,9 +48,5 @@ namespace TrippleTrinity.MechaMorph.Token
             TokenUIManager.Instance?.UpdateTokenCount(_upgradeTokenCount);
         }
 
-        public int GetUpgradeTokenCount()
-        {
-            return _upgradeTokenCount;
-        }
     }
 }

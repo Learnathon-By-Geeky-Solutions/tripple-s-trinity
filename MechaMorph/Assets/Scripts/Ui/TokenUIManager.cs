@@ -1,39 +1,35 @@
-using UnityEngine;
 using TMPro;
+using UnityEngine;
 
 namespace TrippleTrinity.MechaMorph.Ui
 {
     public class TokenUIManager : MonoBehaviour
     {
-        public static TokenUIManager Instance { get; private set; } // Singleton for easy access
-        public TextMeshProUGUI tokenCounterText; // UI Element
+        public static TokenUIManager Instance;
+        [SerializeField] private TextMeshProUGUI tokenCountText; // Assign in Inspector
 
-        private int _tokenCount; 
-        
         private void Awake()
         {
-            // Ensure only one instance exists
             if (Instance == null)
             {
                 Instance = this;
             }
             else
             {
-                Debug.LogWarning("Multiple TokenUIManager instances detected! Destroying duplicate.");
                 Destroy(gameObject);
             }
         }
 
-        public void UpdateTokenCount(int upgradeTokenCount)
+        public void UpdateTokenCount(int count)
         {
-            _tokenCount++; // Increase counter
-            if (tokenCounterText != null)
+            if (tokenCountText != null)
             {
-                tokenCounterText.text = $"Tokens: {_tokenCount}"; // Update UI
+                tokenCountText.text = $"Tokens: {count}";
+                Debug.Log($"UI Updated: Tokens = {count}");
             }
             else
             {
-                Debug.LogError("TokenUIManager: TokenCounterText is not assigned in the Inspector!");
+                Debug.LogError("TokenUIManager: tokenCountText is not assigned!");
             }
         }
     }
