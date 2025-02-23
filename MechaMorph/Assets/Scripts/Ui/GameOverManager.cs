@@ -3,6 +3,7 @@ using UnityEngine.SceneManagement;
 using TMPro;
 using System.Collections;
 using TrippleTrinity.MechaMorph.Damage;
+using TrippleTrinity.MechaMorph.Token; // Import for UpgradeManager
 
 namespace TrippleTrinity.MechaMorph.Ui
 {
@@ -10,6 +11,7 @@ namespace TrippleTrinity.MechaMorph.Ui
     {
         [SerializeField] private GameObject gameOverPanel;
         [SerializeField] private TextMeshProUGUI finalScoreText; // UI text for final score display
+        [SerializeField] private TextMeshProUGUI finalTokenText; // UI text for collected tokens
 
         private Damageable _playerDamageable;
         private ScoreManager _scoreManager;
@@ -41,7 +43,13 @@ namespace TrippleTrinity.MechaMorph.Ui
             // Display the final score
             if (finalScoreText != null && _scoreManager != null)
             {
-                finalScoreText.text = $"Final Score: {_scoreManager.CurrentScore()}";
+                finalScoreText.text = $"Score: {_scoreManager.CurrentScore()}";
+            }
+
+            // Display the collected upgrade tokens
+            if (finalTokenText != null && UpgradeManager.Instance != null)
+            {
+                finalTokenText.text = $"Tokens: {UpgradeManager.Instance.GetUpgradeTokenCount()}";
             }
         }
 

@@ -12,9 +12,10 @@ namespace TrippleTrinity.MechaMorph.Token
         private void Start()
         {
             _playerHealth = GetComponentInParent<Damageable>(); // Get from Parent
-            Debug.Log($"TokenCollector initialized. Player Health Component: {_playerHealth}");
             _areaDamageAbility = FindObjectOfType<AreaDamageAbility>();
-            
+
+            Debug.Log($"TokenCollector initialized. Player Health Component: {_playerHealth}");
+
             if (_playerHealth == null)
                 Debug.LogWarning("TokenCollector: Damageable component missing on Player.");
 
@@ -41,11 +42,26 @@ namespace TrippleTrinity.MechaMorph.Token
                     break;
 
                 case TokenType.Cooldown:
-                    _areaDamageAbility?.CollectToken(); // Calls Area Damage cooldown
+                    if (_areaDamageAbility != null)
+                    {
+                        _areaDamageAbility.CollectToken(); // Calls Area Damage cooldown
+                    }
+                    else
+                    {
+                        Debug.LogWarning("TokenCollector: AreaDamageAbility instance is null!");
+                    }
                     break;
 
                 case TokenType.Upgrade:
-                    UpgradeManager.Instance?.AddUpgradePoint();
+                    if (UpgradeManager.Instance != null)
+                    {
+                        UpgradeManager.Instance.AddUpgradePoint();
+                        UpgradeManager.Instance.AddUpgradeToken();
+                    }
+                    else
+                    {
+                        Debug.LogError("TokenCollector: UpgradeManager instance is null!");
+                    }
                     break;
             }
         }
