@@ -46,8 +46,8 @@ namespace TrippleTrinity.MechaMorph.Ui
                 finalScoreText.text = $"Score: {_scoreManager.CurrentScore()}";
             }
 
-            // Display the collected upgrade tokens
-            if (finalTokenText != null && UpgradeManager.Instance != null)
+            // Display the collected upgrade tokens for the session
+            if (finalTokenText != null)
             {
                 finalTokenText.text = $"Tokens: {UpgradeManager.Instance.GetUpgradeTokenCount()}";
             }
