@@ -23,6 +23,8 @@ namespace TrippleTrinity.MechaMorph.Control
         private AudioSource _audioSource;
         private bool _isDashing;
         private bool _isCooldownActive;
+        private ParticleSystem _activeDashEffect;
+        private Vector3 _dashDirection; // Store dash direction
 
         void Awake()
         {
@@ -37,8 +39,15 @@ namespace TrippleTrinity.MechaMorph.Control
 
             if (InputHandler.Instance.IsDashPressed() && !_isDashing && !_isCooldownActive)
             {
+                _dashDirection = movement.normalized; // Store direction before dashing
                 PerformDash();
                 InputHandler.Instance.ResetDash();
+            }
+
+            // Keep effect following player
+            if (_activeDashEffect != null)
+            {
+                _activeDashEffect.transform.position = transform.position; // Follow player position
             }
         }
 
@@ -53,11 +62,11 @@ namespace TrippleTrinity.MechaMorph.Control
             float originalSpeed = movementSpeed;
             movementSpeed *= dashMultiplier;
 
-            if (dashParticleEffect != null)
+            // Spawn and orient the effect correctly
+            if (dashParticleEffect != null && _dashDirection != Vector3.zero)
             {
-                ParticleSystem effect = Instantiate(dashParticleEffect, transform.position, Quaternion.identity);
-                effect.Play();
-                Destroy(effect.gameObject, effect.main.duration);
+                _activeDashEffect = Instantiate(dashParticleEffect, transform.position, Quaternion.LookRotation(-_dashDirection)); // Flipped direction
+                _activeDashEffect.Play();
             }
 
             if (dashSound != null)
@@ -68,10 +77,18 @@ namespace TrippleTrinity.MechaMorph.Control
             DashCooldownUI.Instance?.StartCooldown(dashCooldown);
 
             yield return new WaitForSeconds(dashDuration);
+
             movementSpeed = originalSpeed;
             _isDashing = false;
-            _isCooldownActive = true;
 
+            // Stop and destroy the effect after dash
+            if (_activeDashEffect != null)
+            {
+                _activeDashEffect.Stop();
+                Destroy(_activeDashEffect.gameObject, _activeDashEffect.main.duration);
+            }
+
+            _isCooldownActive = true;
             yield return new WaitForSeconds(dashCooldown);
             _isCooldownActive = false;
         }
