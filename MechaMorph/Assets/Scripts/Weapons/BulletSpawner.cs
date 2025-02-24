@@ -33,7 +33,7 @@ namespace TrippleTrinity.MechaMorph.Weapons
 
         private void OnGetFromPool(BulletBehaviour bullet)
         {
-            bullet.transform.position = bulletSpawnPoint.position;
+            bullet.transform.position = bulletSpawnPoint.position; // Ensure this is the correct spawn point
             bullet.transform.rotation = Quaternion.LookRotation(transform.forward);
             bullet.gameObject.SetActive(true);
         }

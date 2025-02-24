@@ -588,6 +588,10 @@ PrefabInstance:
       value: Machine Gun
       objectReference: {fileID: 0}
     - target: {fileID: 6450036794256980827, guid: fde69184b78b0ee429393f068b2a3190, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6450036794256980827, guid: fde69184b78b0ee429393f068b2a3190, type: 3}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}

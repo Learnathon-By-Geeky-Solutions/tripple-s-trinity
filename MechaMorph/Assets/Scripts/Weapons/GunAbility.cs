@@ -49,14 +49,27 @@ namespace TrippleTrinity.MechaMorph.Weapons
 
         protected override void Shoot()
         {
-            //GameObject bulletTransform = Instantiate(bulletPrefeb, bulletSpawnPoint.position, Quaternion.LookRotation(transform.forward));
-            _bulletSpawner.bulletPool.Get();
-            BulletBehaviour bulletBehaviour = _bulletSpawner.GetComponent<BulletBehaviour>();
+            if (_bulletSpawner == null || _bulletSpawner.bulletPool == null)
+            {
+                Debug.LogError($"BulletSpawner or bulletPool is not initialized for {gameObject.name}!");
+                return;
+            }
+
+            // Get a bullet from the pool
+            BulletBehaviour bulletBehaviour = _bulletSpawner.bulletPool.Get();
 
             if (bulletBehaviour != null)
             {
+                bulletBehaviour.transform.position = bulletSpawnPoint.position;
+                bulletBehaviour.transform.rotation = Quaternion.LookRotation(transform.forward);
                 bulletBehaviour.SetDamage(damage);
-                bulletBehaviour.SetShooter(gameObject.tag); 
+                bulletBehaviour.SetShooter(gameObject.tag);
+
+                Debug.Log($"{gameObject.name} successfully shot a bullet.");
+            }
+            else
+            {
+                Debug.LogError($"BulletBehaviour is null when shooting from {gameObject.name}!");
             }
         }
 
