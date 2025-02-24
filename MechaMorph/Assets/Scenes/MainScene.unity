@@ -2375,17 +2375,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3960683278813943281, guid: b7076bdbb2b35ba458635deefeeb7856, type: 3}
   m_PrefabInstance: {fileID: 1003349963}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &960974502 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8805475619258487710, guid: b7076bdbb2b35ba458635deefeeb7856, type: 3}
-  m_PrefabInstance: {fileID: 1003349963}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 960974494}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c5c78b7eb8d719a4d9d3f8c5354f12fe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &960974503 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3207395339312987363, guid: b7076bdbb2b35ba458635deefeeb7856, type: 3}
@@ -2484,7 +2473,7 @@ Transform:
   m_GameObject: {fileID: 963194225}
   serializedVersion: 2
   m_LocalRotation: {x: 0.42261827, y: 0, z: 0, w: 0.9063079}
-  m_LocalPosition: {x: 1180.8955, y: -54173.957, z: 45367.477}
+  m_LocalPosition: {x: 1194.1682, y: -54699.203, z: 45818.523}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2575,6 +2564,10 @@ PrefabInstance:
     - target: {fileID: 5373993913881270072, guid: b7076bdbb2b35ba458635deefeeb7856, type: 3}
       propertyPath: m_Name
       value: Robot
+      objectReference: {fileID: 0}
+    - target: {fileID: 8805475619258487710, guid: b7076bdbb2b35ba458635deefeeb7856, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8805475619258487710, guid: b7076bdbb2b35ba458635deefeeb7856, type: 3}
       propertyPath: areaDamageEffect
@@ -3045,7 +3038,7 @@ Transform:
   m_GameObject: {fileID: 1173084218}
   serializedVersion: 2
   m_LocalRotation: {x: 0.42261827, y: 0, z: 0, w: 0.9063079}
-  m_LocalPosition: {x: 1180.8955, y: -54173.957, z: 45367.477}
+  m_LocalPosition: {x: 1194.1682, y: -54699.203, z: 45818.523}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4690,6 +4683,7 @@ GameObject:
   - component: {fileID: 1931157676}
   - component: {fileID: 1931157677}
   - component: {fileID: 1931157678}
+  - component: {fileID: 1931157679}
   m_Layer: 0
   m_Name: TransformManager
   m_TagString: Untagged
@@ -4730,7 +4724,7 @@ MonoBehaviour:
   robotVisual: {fileID: 960974494}
   ballController: {fileID: 300820699}
   robotController: {fileID: 960974503}
-  areaDamageAbility: {fileID: 960974502}
+  areaDamageAbility: {fileID: 1931157679}
   playerHealth: {fileID: 1931157678}
 --- !u!114 &1931157677
 MonoBehaviour:
@@ -4760,6 +4754,24 @@ MonoBehaviour:
   maxHealth: 100
   currentForm: 0
   shouldDropToken: 0
+--- !u!114 &1931157679
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1931157674}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5c78b7eb8d719a4d9d3f8c5354f12fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageRadius: 5
+  damageAmount: 200
+  maxTargets: 10
+  isRobotForm: 0
+  robotTransform: {fileID: 960974500}
+  areaDamageEffect: {fileID: 3906421606462360874, guid: dc85061f948aa4c48ab3cdbceda2486d, type: 3}
 --- !u!1 &2081802462
 GameObject:
   m_ObjectHideFlags: 0
