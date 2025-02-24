@@ -10,6 +10,11 @@ namespace TrippleTrinity.MechaMorph.Token
         private int _upgradeTokenCount;
         private const string TotalTokensKey = "TotalTokens"; // Key for PlayerPrefs
 
+        //upgrade levels and costs
+        private int _boosterUpgradeLevel;
+        private int _areaDamageUpgradeLevel;
+        private int _boosterUpgradeCost = 5;
+        private int _areaDamageUpgradeCost = 5;
         public static UpgradeManager Instance
         {
             get
@@ -47,12 +52,46 @@ namespace TrippleTrinity.MechaMorph.Token
         {
             _upgradeTokenCount++;
             // Add to total tokens across all sessions
-            int totalTokens = PlayerPrefs.GetInt(TotalTokensKey, 0);
+            int totalTokens = PlayerPrefs.GetInt(TotalTokensKey, 0) + 1;
             totalTokens++;
             PlayerPrefs.SetInt(TotalTokensKey, totalTokens);
+            PlayerPrefs.Save();
 
             // Update the UI for the current session
             TokenUIManager.Instance?.UpdateTokenCount(_upgradeTokenCount);
+        }
+
+        public bool UpgradeBoosterCooldown()
+        {
+            if (_upgradeTokenCount >= _boosterUpgradeCost)
+            {
+                _upgradeTokenCount -= _boosterUpgradeCost;
+                _boosterUpgradeLevel++;
+                _boosterUpgradeCost += 5;
+                
+                PlayerPrefs.SetInt(TotalTokensKey, _upgradeTokenCount);
+                PlayerPrefs.Save();
+                
+                TokenUIManager.Instance?.UpdateTokenCount(_boosterUpgradeCost);
+                return true;
+            }
+            return false;
+        }
+
+        public bool UpgradeAreaDamage()
+        {
+            if (_upgradeTokenCount >= _areaDamageUpgradeCost)
+            {
+                _upgradeTokenCount -= _areaDamageUpgradeCost;
+                _areaDamageUpgradeLevel++;
+                _areaDamageUpgradeCost += 5;
+                
+                PlayerPrefs.SetInt(TotalTokensKey, _upgradeTokenCount);
+                PlayerPrefs.Save();
+                TokenUIManager.Instance?.UpdateTokenCount(_areaDamageUpgradeCost);
+                return true;
+            }
+            return false;
         }
 
         public int GetUpgradeTokenCount()
