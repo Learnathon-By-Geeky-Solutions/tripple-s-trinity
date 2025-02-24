@@ -13,8 +13,10 @@ GameObject:
   - component: {fileID: 6823010716573535427}
   - component: {fileID: 8472429886949806720}
   - component: {fileID: 4306614343535350722}
+  - component: {fileID: -7952709774943939077}
+  - component: {fileID: 2482414927490466110}
   m_Layer: 0
-  m_Name: Meele Weapon
+  m_Name: ExplosiveWeapon2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -133,3 +135,30 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &-7952709774943939077
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4731324519220670206}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea11f23b44a3d844da4e18494c56cc65, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletSpeed: 20
+--- !u!114 &2482414927490466110
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4731324519220670206}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99ccc50cc622eae42837e8b95cdd2afe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 5
+  explosionPrefab: {fileID: 0}

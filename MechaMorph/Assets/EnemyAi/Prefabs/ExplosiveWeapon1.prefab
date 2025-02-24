@@ -13,8 +13,10 @@ GameObject:
   - component: {fileID: 4963576509411588622}
   - component: {fileID: 7394634917229874870}
   - component: {fileID: -5368379451343913713}
+  - component: {fileID: -304554127068405593}
+  - component: {fileID: 2714228531916952552}
   m_Layer: 0
-  m_Name: Enemy Bullet
+  m_Name: ExplosiveWeapon1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -133,3 +135,30 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &-304554127068405593
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5207734803460045378}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea11f23b44a3d844da4e18494c56cc65, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletSpeed: 20
+--- !u!114 &2714228531916952552
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5207734803460045378}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99ccc50cc622eae42837e8b95cdd2afe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 5
+  explosionPrefab: {fileID: 0}
