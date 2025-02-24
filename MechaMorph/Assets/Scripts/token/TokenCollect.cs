@@ -12,7 +12,10 @@ namespace TrippleTrinity.MechaMorph.Token
         private void Start()
         {
             _playerHealth = GetComponentInParent<Damageable>(); // Get from Parent
-            _areaDamageAbility = FindObjectOfType<AreaDamageAbility>();
+            
+            // Find AreaDamageAbility from the TransformManager (root object)
+            Transform transformManager = transform.root; 
+            _areaDamageAbility = transformManager.GetComponentInChildren<AreaDamageAbility>();
 
             Debug.Log($"TokenCollector initialized. Player Health Component: {_playerHealth}");
 
@@ -20,7 +23,7 @@ namespace TrippleTrinity.MechaMorph.Token
                 Debug.LogWarning("TokenCollector: Damageable component missing on Player.");
 
             if (_areaDamageAbility == null)
-                Debug.LogWarning("TokenCollector: AreaDamageAbility not found in scene.");
+                Debug.LogWarning("TokenCollector: AreaDamageAbility not found in TransformManager.");
         }
 
         public void CollectToken(TokenType type, float value)

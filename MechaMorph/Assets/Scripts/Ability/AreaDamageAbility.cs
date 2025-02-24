@@ -21,10 +21,11 @@ namespace TrippleTrinity.MechaMorph.Ability
         [SerializeField] private int maxTargets = 5;
 
         [Header("Form Settings")]
-        [SerializeField] private bool isRobotForm;
-        
-        [SerializeField] private GameObject areaDamageEffect;
+        [SerializeField] private bool isRobotForm; // ✅ Only Robot can use the ability
+        [SerializeField] private Transform robotTransform; // 🔥 Assign this in Unity Inspector
 
+        [Header("Effects")]
+        [SerializeField] private GameObject areaDamageEffect; // ✅ Particle effect
 
         private AreaCooldownBar _cooldownBar;
         private Collider[] _hitResults;
@@ -34,10 +35,16 @@ namespace TrippleTrinity.MechaMorph.Ability
             _currentCooldown = 0f;
             _cooldownBar = FindObjectOfType<AreaCooldownBar>();
             _hitResults = new Collider[maxTargets];
+
+            if (robotTransform == null)
+            {
+                Debug.LogError("AreaDamageAbility: Robot Transform is not assigned in Inspector!");
+            }
         }
 
         private void Update()
         {
+            // ✅ Ability only works if the player is in Robot form
             if (isRobotForm && InputHandler.Instance.IsAbilityActivated() && IsAbilityReady())
             {
                 ActivateAbility();
@@ -46,6 +53,7 @@ namespace TrippleTrinity.MechaMorph.Ability
 
         public void CollectToken()
         {
+            // ✅ Tokens can be collected in both Ball & Robot forms
             _currentCooldown = Mathf.Clamp(_currentCooldown + _tokenValue, 0f, _maxCooldown);
             UpdateCooldownUI();
         }
@@ -63,23 +71,32 @@ namespace TrippleTrinity.MechaMorph.Ability
 
         private void ActivateAbility()
         {
+            if (robotTransform == null)
+            {
+                Debug.LogWarning("AreaDamageAbility: Robot Transform is null! Ability activation failed.");
+                return;
+            }
+
             Debug.Log("Area Damage Ability Activated!");
             _currentCooldown = 0f;
             UpdateCooldownUI();
 
-            // Spawn the particle effect at the player's position
+            // 🔥 Use Robot's position instead of TransformManager
+            Vector3 abilityPosition = robotTransform.position;
+
+            // ✅ Spawn the particle effect at the Robot's position
             if (areaDamageEffect != null)
             {
-                Instantiate(areaDamageEffect, transform.position, Quaternion.identity);
+                Instantiate(areaDamageEffect, abilityPosition, Quaternion.identity);
             }
 
-            int hitCount = Physics.OverlapSphereNonAlloc(transform.position, damageRadius, _hitResults);
+            int hitCount = Physics.OverlapSphereNonAlloc(abilityPosition, damageRadius, _hitResults);
             int targetsHit = 0;
 
             for (int i = 0; i < hitCount; i++)
             {
                 if (targetsHit >= maxTargets) break;
-                if (_hitResults[i].CompareTag("Player")) continue;
+                if (_hitResults[i].CompareTag("Player")) continue; // Ignore Ball and Robot form
 
                 Damageable damageable = _hitResults[i].GetComponent<Damageable>();
                 if (damageable != null)
@@ -91,7 +108,6 @@ namespace TrippleTrinity.MechaMorph.Ability
 
             Debug.Log($"Area Damage hit {targetsHit} enemies.");
         }
-
 
         private void UpdateCooldownUI()
         {
