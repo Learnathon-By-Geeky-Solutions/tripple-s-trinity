@@ -11,4 +11,5 @@
 - adding token counting and saving which show in the upgrade panel
 ## [2025-02-24]
 - Updating Object pooling system for bullet.
-- Adding UI in the Upgrade section. 
+- Adding UI in the Upgrade section.
+- Updated Lobby brunch for player ability update. 
