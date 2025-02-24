@@ -1,26 +1,34 @@
+using System;
+using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
 using TrippleTrinity.MechaMorph.Damage;
 using TrippleTrinity.MechaMorph.Health;
+using UnityEngine.Pool;
 
 namespace TrippleTrinity.MechaMorph.Weapons
 {
     public class BulletBehaviour : MonoBehaviour
     {
         [SerializeField] private float bulletSpeed = 20f;
+        [SerializeField] private float bulletLifeTime = 3f;
         private Rigidbody _rigidbody;
         private float _damage;
         private string _shooterTag;
+        private Coroutine _distroyAfterTimeCoroutine;
+        private ObjectPool<BulletBehaviour> _bulletPool;
 
         private void Awake()
         {
             _rigidbody = GetComponent<Rigidbody>();
         }
 
-        private void Start()
+        private void OnEnable()
         {
             _rigidbody.velocity = transform.forward * bulletSpeed;
+            _distroyAfterTimeCoroutine = StartCoroutine(DestroyAfterTimeCoroutine());
         }
-        
+
         public void SetDamage(float newDamage)
         {
             _damage = newDamage;
@@ -58,7 +66,25 @@ namespace TrippleTrinity.MechaMorph.Weapons
                 }
             }
 
-            Destroy(gameObject); // Destroy bullet after hit
+            //Destroy(gameObject); 
+            _bulletPool.Release(this);
         }
+
+        public void SetPool(ObjectPool<BulletBehaviour> pool)
+        {
+            _bulletPool = pool;
+        }
+
+        private IEnumerator DestroyAfterTimeCoroutine()
+        {
+            float elapsedTime = 0f;
+            while (elapsedTime < bulletLifeTime)
+            {
+                elapsedTime += Time.deltaTime;
+                yield return null;
+            }
+            _bulletPool.Release(this);
+        }
+        
     }
 }

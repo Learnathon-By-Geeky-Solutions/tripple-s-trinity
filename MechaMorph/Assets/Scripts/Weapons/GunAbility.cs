@@ -6,10 +6,16 @@ namespace TrippleTrinity.MechaMorph.Weapons
     public class GunAbility : BaseGun
     {
         [SerializeField] private float damage;
-        [SerializeField] private Transform bulletPrefeb;
+        [SerializeField] private GameObject bulletPrefeb;
         [SerializeField] private Transform bulletSpawnPoint;
         [SerializeField] private bool isAI;  // New variable to differentiate Player & AI
+        private BulletSpawner _bulletSpawner;
 
+        private void Start()
+        {
+            _bulletSpawner = FindObjectOfType<BulletSpawner>();
+            
+        }
         public override void Update()
         {
             base.Update();
@@ -43,18 +49,14 @@ namespace TrippleTrinity.MechaMorph.Weapons
 
         protected override void Shoot()
         {
-            Vector3 aimDirection = transform.forward.normalized;
-            Transform bulletTransform = Instantiate(bulletPrefeb, bulletSpawnPoint.position, Quaternion.LookRotation(aimDirection));
-    
-            BulletBehaviour bulletBehaviour = bulletTransform.GetComponent<BulletBehaviour>();
-    
+            //GameObject bulletTransform = Instantiate(bulletPrefeb, bulletSpawnPoint.position, Quaternion.LookRotation(transform.forward));
+            _bulletSpawner.bulletPool.Get();
+            BulletBehaviour bulletBehaviour = _bulletSpawner.GetComponent<BulletBehaviour>();
+
             if (bulletBehaviour != null)
             {
                 bulletBehaviour.SetDamage(damage);
-        
-                // Assign the shooter based on whether it's an enemy or player
-                string shooterTag = gameObject.CompareTag("Enemy") ? "Enemy" : "Player";
-                bulletBehaviour.SetShooter(shooterTag);
+                bulletBehaviour.SetShooter(gameObject.tag); 
             }
         }
 
