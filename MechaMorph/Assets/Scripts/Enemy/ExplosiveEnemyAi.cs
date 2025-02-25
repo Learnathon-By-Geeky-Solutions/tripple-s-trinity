@@ -1,5 +1,4 @@
-using System;
-using System.Collections;
+
 using UnityEngine;
 
 namespace TrippleTrinity.MechaMorph.Enemy
@@ -8,20 +7,13 @@ namespace TrippleTrinity.MechaMorph.Enemy
     {
         private bool hasExploded ;
         private bool hasStartedMoving ; 
-        private float delay = 1f;
-        private float countDown;
+    
+
         [SerializeField] private float radius = 5f;
       
         [SerializeField] private GameObject explosionEffect;
         [SerializeField] private float force = 700f;
-
-    
-
-        protected override void Start()
-        {
-            base.Start();
-            countDown = delay;
-        }
+        
         protected override void Update()
         {
             if (Agent == null) return; 

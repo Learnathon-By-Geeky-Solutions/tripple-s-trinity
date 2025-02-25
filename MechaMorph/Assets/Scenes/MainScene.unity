@@ -1631,7 +1631,7 @@ PrefabInstance:
     - target: {fileID: 5693971541612250817, guid: cfa4c5b7860a614468256fcfd83029a2, type: 3}
       propertyPath: enemyAi.Array.data[0]
       value: 
-      objectReference: {fileID: 6376213158033550541, guid: 4a376697e47317d47874ff76df76c936, type: 3}
+      objectReference: {fileID: 8756551998183607127, guid: c9d58952b88db154ba47f25d020d3742, type: 3}
     - target: {fileID: 5693971541612250817, guid: cfa4c5b7860a614468256fcfd83029a2, type: 3}
       propertyPath: enemyAi.Array.data[1]
       value: 
@@ -1654,7 +1654,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8725680209447731275, guid: cfa4c5b7860a614468256fcfd83029a2, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2484,7 +2484,7 @@ Transform:
   m_GameObject: {fileID: 963194225}
   serializedVersion: 2
   m_LocalRotation: {x: 0.42261827, y: 0, z: 0, w: 0.9063079}
-  m_LocalPosition: {x: -396.0116, y: -875023.44, z: 787971}
+  m_LocalPosition: {x: -483.037, y: -897832.06, z: 809719.44}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3045,7 +3045,7 @@ Transform:
   m_GameObject: {fileID: 1173084218}
   serializedVersion: 2
   m_LocalRotation: {x: 0.42261827, y: 0, z: 0, w: 0.9063079}
-  m_LocalPosition: {x: -396.0116, y: -875023.44, z: 787971}
+  m_LocalPosition: {x: -483.037, y: -897832.06, z: 809719.44}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
