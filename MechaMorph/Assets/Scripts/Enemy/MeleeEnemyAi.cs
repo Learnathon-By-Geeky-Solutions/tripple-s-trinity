@@ -4,7 +4,7 @@ namespace TrippleTrinity.MechaMorph.Enemy
 {
     public class MeleeEnemyAi : MonoBehaviour
     {
-        private int _damage= 1;
+        private readonly int _damage= 1;
          void OnParticleCollision(GameObject other)
         {
             Debug.Log($"Particle hit: {other.name}"); 
