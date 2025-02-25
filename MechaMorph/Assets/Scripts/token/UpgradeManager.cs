@@ -57,7 +57,7 @@ namespace TrippleTrinity.MechaMorph.Token
             _upgradeTokenCount++;
             // Add to total tokens across all sessions
             int totalTokens = PlayerPrefs.GetInt(TotalTokensKey, 0) + 1;
-            //totalTokens++;
+            totalTokens++;
             PlayerPrefs.SetInt(TotalTokensKey, totalTokens);
             PlayerPrefs.SetInt(TotalTokensKey, _upgradeTokenCount);
             PlayerPrefs.Save();
