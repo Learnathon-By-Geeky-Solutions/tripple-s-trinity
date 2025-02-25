@@ -33,7 +33,7 @@ Transform:
   m_GameObject: {fileID: 4980032239789531758}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.2, y: 2.18, z: -15.7}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -177,6 +177,10 @@ MonoBehaviour:
   health: 0
   bullet: {fileID: 0}
   moveRotationSpeed: 45
+  delay: 3
+  radius: 5
+  explosionEffect: {fileID: 6803596885632055626, guid: 6735bdc291ca3ae4e90a5004d3231f8e, type: 3}
+  force: 700
 --- !u!114 &4515647214053130555
 MonoBehaviour:
   m_ObjectHideFlags: 0
