@@ -5,7 +5,7 @@ namespace TrippleTrinity.MechaMorph.Enemy
 {
     public class GrenadeSpawner : MonoBehaviour
     {
-        private int _damage = 2;
+        private readonly int _damage = 2;
         //grenade force
         private void Start()
         {
