@@ -2,6 +2,7 @@ using TrippleTrinity.MechaMorph.Ability;
 using TrippleTrinity.MechaMorph.Token;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 namespace TrippleTrinity.MechaMorph.Ui
 {
@@ -9,6 +10,8 @@ namespace TrippleTrinity.MechaMorph.Ui
     {
         [SerializeField] private Button boosterUpgradeButton;
         [SerializeField] private Button areaDamageUpgradeButton;
+        [SerializeField] private TMP_Text areaDamageUpgradeCostText;
+        [SerializeField] private TMP_Text coolDownUpgradeCostText;
 
         private AreaDamageAbility _areaDamageAbility;
 
@@ -18,18 +21,24 @@ namespace TrippleTrinity.MechaMorph.Ui
             areaDamageUpgradeButton?.onClick.AddListener(UpgradeAreaDamage);
 
             _areaDamageAbility = FindObjectOfType<AreaDamageAbility>();
+
+            UpdateUI();
         }
 
         private void UpgradeBoosterCooldown()
         {
             if (UpgradeManager.Instance.UpgradeBoosterCooldown())
             {
-                Debug.Log("Booster cooldown upgraded!");
-                UpgradePanel.Instance.UpdateTotalTokenDisplay(); // Update UI
+                int newUpgradeLevel = UpgradeManager.Instance.GetBoosterUpgradeCost();
+                Debug.Log($"Area damage ability upgraded to level {newUpgradeLevel}!");
+
+                _areaDamageAbility.ApplyUpgrades(newUpgradeLevel);
+
+                UpdateUI(); // Refresh UI after upgrade
             }
             else
             {
-                Debug.Log("Not enough tokens for booster upgrade.");
+                Debug.Log("Not enough tokens for area damage upgrade.");
             }
         }
 
@@ -37,14 +46,23 @@ namespace TrippleTrinity.MechaMorph.Ui
         {
             if (UpgradeManager.Instance.UpgradeAreaDamage())
             {
-                Debug.Log("Area damage ability upgraded!");
-                _areaDamageAbility?.ApplyUpgrades(1); // Apply upgrade effect
-                UpgradePanel.Instance.UpdateTotalTokenDisplay(); // Update UI
+                int newUpgradeLevel = UpgradeManager.Instance.GetAreaDamageUpgradeCost();
+                Debug.Log($"Area damage ability upgraded to level {newUpgradeLevel}!");
+
+                _areaDamageAbility.ApplyUpgrades(newUpgradeLevel);
+
+                UpdateUI(); // Refresh UI after upgrade
             }
             else
             {
                 Debug.Log("Not enough tokens for area damage upgrade.");
             }
         }
+        private void UpdateUI()
+        {
+            areaDamageUpgradeCostText.text = $"Upgrade Cost: {UpgradeManager.Instance.GetAreaDamageUpgradeCost()}";
+            coolDownUpgradeCostText.text = $"Upgrade Cost:{UpgradeManager.Instance.GetBoosterUpgradeCost()}";
+        }
+        
     }
 }
