@@ -2,30 +2,22 @@ using TrippleTrinity.MechaMorph.Ability;
 using TrippleTrinity.MechaMorph.Token;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 
 namespace TrippleTrinity.MechaMorph.Ui
 {
     public class UpgradeUIManager : MonoBehaviour
     {
-        public TMP_Text tokenCountText;
-        public Button boosterUpgradeButton;
-        public Button areaDamageUpgradeButton;
-    
+        [SerializeField] private Button boosterUpgradeButton;
+        [SerializeField] private Button areaDamageUpgradeButton;
+
         private AreaDamageAbility _areaDamageAbility;
 
         private void Start()
         {
-            UpdateTokenUI();
-            boosterUpgradeButton.onClick.AddListener(UpgradeBoosterCooldown);
-            areaDamageUpgradeButton.onClick.AddListener(UpgradeAreaDamage);
-        
-            _areaDamageAbility = FindObjectOfType<AreaDamageAbility>();
-        }
+            boosterUpgradeButton?.onClick.AddListener(UpgradeBoosterCooldown);
+            areaDamageUpgradeButton?.onClick.AddListener(UpgradeAreaDamage);
 
-        private void UpdateTokenUI()
-        {
-            tokenCountText.text = "Tokens: " + UpgradeManager.Instance.GetUpgradeTokenCount();
+            _areaDamageAbility = FindObjectOfType<AreaDamageAbility>();
         }
 
         private void UpgradeBoosterCooldown()
@@ -33,7 +25,7 @@ namespace TrippleTrinity.MechaMorph.Ui
             if (UpgradeManager.Instance.UpgradeBoosterCooldown())
             {
                 Debug.Log("Booster cooldown upgraded!");
-                UpdateTokenUI();
+                UpgradePanel.Instance.UpdateTotalTokenDisplay(); // Update UI
             }
             else
             {
@@ -46,8 +38,8 @@ namespace TrippleTrinity.MechaMorph.Ui
             if (UpgradeManager.Instance.UpgradeAreaDamage())
             {
                 Debug.Log("Area damage ability upgraded!");
-                _areaDamageAbility.ApplyUpgrades(1); // Apply upgrade
-                UpdateTokenUI();
+                _areaDamageAbility?.ApplyUpgrades(1); // Apply upgrade effect
+                UpgradePanel.Instance.UpdateTotalTokenDisplay(); // Update UI
             }
             else
             {
