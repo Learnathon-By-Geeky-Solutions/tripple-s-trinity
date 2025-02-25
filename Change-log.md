@@ -12,4 +12,5 @@
 ## [2025-02-24]
 - Updating Object pooling system for bullet.
 - Adding UI in the Upgrade section.
-- Updated Lobby brunch for player ability update. 
+- Updated Lobby brunch for player ability update.
+- Competed Lobby section For 2 type Upgrade. (Testing)
