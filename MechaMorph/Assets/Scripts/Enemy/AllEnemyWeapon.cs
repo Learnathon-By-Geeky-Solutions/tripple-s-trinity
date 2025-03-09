@@ -1,17 +1,14 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-using  TrippleTrinity.MechaMorph.Weapons;
+using TrippleTrinity.MechaMorph.Weapons;
+
 namespace TrippleTrinity.MechaMorph.Enemy
 {
     public class AllEnemyWeapon : BaseGun
     {
         [SerializeField] private float damage;
-        [SerializeField] private Transform bulletPrefeb;
+        [SerializeField] private Transform bulletPrefab;
         [SerializeField] private Transform bulletSpawnPoint;
-       
-   
-
- 
 
         public new void Update()
         {
@@ -25,12 +22,19 @@ namespace TrippleTrinity.MechaMorph.Enemy
         protected override void Shoot()
         {
             Vector3 aimDirection = transform.forward.normalized;
-            Transform bulletTransform = Instantiate(bulletPrefeb, bulletSpawnPoint.position, Quaternion.LookRotation(aimDirection));
+            Transform bulletTransform = Instantiate(bulletPrefab, bulletSpawnPoint.position, Quaternion.LookRotation(aimDirection));
             
             BulletBehaviour bulletBehaviour = bulletTransform.GetComponent<BulletBehaviour>();
             if (bulletBehaviour != null)
             {
-                bulletBehaviour.SetDamage(damage);
+                BulletCollisionHandler bulletHandler = bulletTransform.GetComponent<BulletCollisionHandler>();
+                if (bulletHandler != null)
+                {
+                    bulletHandler.SetDamage(damage);
+
+                    // Enemy bullets should have "Enemy" as the shooter tag
+                    bulletHandler.SetShooter("Enemy");
+                }
             }
         }
     }
