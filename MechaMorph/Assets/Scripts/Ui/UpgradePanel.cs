@@ -8,12 +8,25 @@ namespace TrippleTrinity.MechaMorph.Ui
     {
         [SerializeField] private TextMeshProUGUI totalTokenText; // Assign in Inspector
 
+        public static UpgradePanel Instance { get; private set; }
+
+        private void Awake()
+        {
+            if (Instance == null)
+            {
+                Instance = this;
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
+        }
         private void Start()
         {
             UpdateTotalTokenDisplay();
         }
 
-        private void UpdateTotalTokenDisplay()
+        public void UpdateTotalTokenDisplay()
         {
             if (totalTokenText != null)
             {

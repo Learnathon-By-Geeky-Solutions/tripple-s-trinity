@@ -7,7 +7,7 @@ namespace TrippleTrinity.MechaMorph.Ui
     {
         public static TokenUIManager Instance { get; private set; }
 
-        [SerializeField] private TextMeshProUGUI tokenCountText; // Assign in Inspector
+        [SerializeField] private TMP_Text tokenCountText; // Assign in Inspector
 
         private void Awake()
         {
