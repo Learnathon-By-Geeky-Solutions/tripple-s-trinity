@@ -8,7 +8,7 @@ namespace TrippleTrinity.MechaMorph.Ability
     public class AreaDamageAbility : MonoBehaviour
     {
         [Header("Ability Settings")]
-        private readonly float _maxCooldown = 100f;
+        private float _maxCooldown = 100f;
         private float _currentCooldown;
 
         [Header("Cooldown Contributions")]
@@ -43,6 +43,15 @@ namespace TrippleTrinity.MechaMorph.Ability
                 ActivateAbility();
             }
         }
+
+        public void ApplyUpgrades(int upgradeLevel)
+        {
+            _maxCooldown -= 5 * upgradeLevel;
+            damageAmount += 10 * upgradeLevel;
+            damageRadius += 0.05f * upgradeLevel;
+        }
+        
+        
 
         public void CollectToken()
         {
