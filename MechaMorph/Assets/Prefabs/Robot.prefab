@@ -240,7 +240,7 @@ MonoBehaviour:
   damageAmount: 200
   maxTargets: 10
   isRobotForm: 0
-  inputActions: {fileID: -944628639613478452, guid: 7c2e3d5878aca784e927369e85786f08, type: 3}
+  areaDamageEffect: {fileID: 3906421606462360874, guid: dc85061f948aa4c48ab3cdbceda2486d, type: 3}
 --- !u!114 &3207395339312987363
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -261,7 +261,6 @@ MonoBehaviour:
     m_Bits: 8
   groundCheck: {fileID: 9208809207520315304}
   groundCheckRadius: 0.3
-  playerInput: {fileID: -944628639613478452, guid: 7c2e3d5878aca784e927369e85786f08, type: 3}
 --- !u!114 &3201564825044948721
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -498,9 +497,9 @@ MonoBehaviour:
   currentAmmo: 50
   nextTimeToFire: 2
   damage: 10
-  bulletPrefeb: {fileID: 821264732710663634, guid: a484627e1c855e24aa5bef53d4ae9f50, type: 3}
+  bulletPrefeb: {fileID: 3956043680047013727, guid: a484627e1c855e24aa5bef53d4ae9f50, type: 3}
   bulletSpawnPoint: {fileID: 7464443404145133954}
-  playerInput: {fileID: -944628639613478452, guid: 0388b01dea2dce54fa4564664ad47562, type: 3}
+  isAI: 0
 --- !u!1001 &3051932637573373734
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -613,9 +612,9 @@ MonoBehaviour:
   currentAmmo: 200
   nextTimeToFire: 10
   damage: 50
-  bulletPrefeb: {fileID: 821264732710663634, guid: a484627e1c855e24aa5bef53d4ae9f50, type: 3}
+  bulletPrefeb: {fileID: 3956043680047013727, guid: a484627e1c855e24aa5bef53d4ae9f50, type: 3}
   bulletSpawnPoint: {fileID: 7464443404145133954}
-  playerInput: {fileID: -944628639613478452, guid: 0388b01dea2dce54fa4564664ad47562, type: 3}
+  isAI: 0
 --- !u!1001 &3420581816933955398
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -728,6 +727,6 @@ MonoBehaviour:
   currentAmmo: 80
   nextTimeToFire: 5
   damage: 20
-  bulletPrefeb: {fileID: 821264732710663634, guid: a484627e1c855e24aa5bef53d4ae9f50, type: 3}
+  bulletPrefeb: {fileID: 3956043680047013727, guid: a484627e1c855e24aa5bef53d4ae9f50, type: 3}
   bulletSpawnPoint: {fileID: 7464443404145133954}
-  playerInput: {fileID: -944628639613478452, guid: 0388b01dea2dce54fa4564664ad47562, type: 3}
+  isAI: 0

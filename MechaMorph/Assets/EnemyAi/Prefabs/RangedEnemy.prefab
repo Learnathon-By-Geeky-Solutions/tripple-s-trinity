@@ -201,7 +201,7 @@ MonoBehaviour:
   currentAmmo: 2000
   nextTimeToFire: 1
   damage: 10
-  bulletPrefeb: {fileID: 821264732710663634, guid: a484627e1c855e24aa5bef53d4ae9f50, type: 3}
+  bulletPrefeb: {fileID: 3956043680047013727, guid: a484627e1c855e24aa5bef53d4ae9f50, type: 3}
   bulletSpawnPoint: {fileID: 1140334496339160065}
   isAI: 1
 --- !u!1 &7858453024276394966

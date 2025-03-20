@@ -6,7 +6,7 @@ namespace TrippleTrinity.MechaMorph.Weapons
     public class GunAbility : BaseGun
     {
         [SerializeField] private float damage;
-        [SerializeField] private Transform bulletPrefeb;
+        [SerializeField] private GameObject bulletPrefeb;
         [SerializeField] private Transform bulletSpawnPoint;
         [SerializeField] private bool isAI;  // New variable to differentiate Player & AI
 
@@ -44,9 +44,9 @@ namespace TrippleTrinity.MechaMorph.Weapons
         protected override void Shoot()
         {
             Vector3 aimDirection = transform.forward.normalized;
-            Transform bulletTransform = Instantiate(bulletPrefeb, bulletSpawnPoint.position, Quaternion.LookRotation(aimDirection));
+            GameObject bullet = Instantiate(bulletPrefeb, bulletSpawnPoint.position, Quaternion.LookRotation(aimDirection));
     
-            BulletBehaviour bulletBehaviour = bulletTransform.GetComponent<BulletBehaviour>();
+            BulletBehaviour bulletBehaviour = bullet.GetComponent<BulletBehaviour>();
     
             if (bulletBehaviour != null)
             {
