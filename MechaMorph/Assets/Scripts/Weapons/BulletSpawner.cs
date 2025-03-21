@@ -1,4 +1,4 @@
-using TrippleTrinity.MechaMorph.Weapons;
+﻿using TrippleTrinity.MechaMorph.Weapons;
 using UnityEngine;
 using UnityEngine.Pool;
 
@@ -14,11 +14,23 @@ namespace TrippleTrinity.MechaMorph
             gunAbility = GetComponent<GunAbility>();
             playerBulletPool = new ObjectPool<BulletBehaviour>(CreateBullet, OnTakeBulletFromPool, OnrturnBulletToPool, OnDestroyBullet, true, 500, 1000);
             enemyBulletPool = new ObjectPool<BulletBehaviour>(CreateBullet, OnTakeBulletFromPool, OnrturnBulletToPool, OnDestroyBullet, true, 500, 1000);
+            
+            // 🔥 Preload some bullets to prevent delay on first use
+            PreloadBullets(playerBulletPool, 10);
+            PreloadBullets(enemyBulletPool, 10);
+        }
+
+        // Function to preload bullets
+        private void PreloadBullets(ObjectPool<BulletBehaviour> pool, int amount)
+        {
+            for (int i = 0; i < amount; i++)
+            {
+                BulletBehaviour bullet = pool.Get();
+                pool.Release(bullet); // Immediately return to pool so it's ready for use
+            }
         }
 
 
-
-        
         private BulletBehaviour CreateBullet()
         {
             //Spwan new bullet.
