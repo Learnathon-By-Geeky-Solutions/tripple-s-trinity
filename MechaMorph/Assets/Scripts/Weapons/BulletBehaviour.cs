@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Pool;
 using TrippleTrinity.MechaMorph.Damage;
 using TrippleTrinity.MechaMorph.Health;
 
@@ -10,6 +11,7 @@ namespace TrippleTrinity.MechaMorph.Weapons
         private Rigidbody _rigidbody;
         private float _damage;
         private string _shooterTag;
+        private ObjectPool<BulletBehaviour> _pool;
 
         private void Awake()
         {
@@ -58,7 +60,13 @@ namespace TrippleTrinity.MechaMorph.Weapons
                 }
             }
 
-            Destroy(gameObject); // Destroy bullet after hit
+            //Destroy(gameObject); 
+            _pool.Release(this);
+        }
+
+        public void SetPool(ObjectPool<BulletBehaviour> pool)
+        {
+            _pool = pool;
         }
     }
 }
