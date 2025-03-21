@@ -18,11 +18,6 @@ namespace TrippleTrinity.MechaMorph.Weapons
             _rigidbody = GetComponent<Rigidbody>();
         }
 
-        private void Start()
-        {
-            //SetPhysicsVelocity();
-        }
-
         private void OnEnable()
         {
             SetPhysicsVelocity();

@@ -56,8 +56,8 @@ namespace TrippleTrinity.MechaMorph.Weapons
 
             // Select the correct bullet pool based on the shooter
             ObjectPool<BulletBehaviour> selectedPool = gameObject.CompareTag("Enemy")
-                ? bulletSpawner.enemyBulletPool
-                : bulletSpawner.playerBulletPool;
+                ? bulletSpawner.EnemyBulletPool
+                : bulletSpawner.PlayerBulletPool;
 
             if (selectedPool == null) return;
 

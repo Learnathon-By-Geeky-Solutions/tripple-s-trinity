@@ -1,23 +1,22 @@
-﻿using TrippleTrinity.MechaMorph.Weapons;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Pool;
 
-namespace TrippleTrinity.MechaMorph
+namespace TrippleTrinity.MechaMorph.Weapons
 {
     public class BulletSpawner : MonoBehaviour
     {
-        public ObjectPool<BulletBehaviour> playerBulletPool;
-        public ObjectPool<BulletBehaviour> enemyBulletPool;
-        private GunAbility gunAbility;
+        public ObjectPool<BulletBehaviour> PlayerBulletPool;
+        public ObjectPool<BulletBehaviour> EnemyBulletPool;
+        private GunAbility _gunAbility;
         void Start()
         {
-            gunAbility = GetComponent<GunAbility>();
-            playerBulletPool = new ObjectPool<BulletBehaviour>(CreateBullet, OnTakeBulletFromPool, OnrturnBulletToPool, OnDestroyBullet, true, 500, 1000);
-            enemyBulletPool = new ObjectPool<BulletBehaviour>(CreateBullet, OnTakeBulletFromPool, OnrturnBulletToPool, OnDestroyBullet, true, 500, 1000);
+            _gunAbility = GetComponent<GunAbility>();
+            PlayerBulletPool = new ObjectPool<BulletBehaviour>(CreateBullet, OnTakeBulletFromPool, OnReturnBulletToPool, OnDestroyBullet, true, 500, 1000);
+            EnemyBulletPool = new ObjectPool<BulletBehaviour>(CreateBullet, OnTakeBulletFromPool, OnReturnBulletToPool, OnDestroyBullet, true, 500, 1000);
             
-            // 🔥 Preload some bullets to prevent delay on first use
-            PreloadBullets(playerBulletPool, 10);
-            PreloadBullets(enemyBulletPool, 10);
+            //Preload some bullets to prevent delay on first use
+            PreloadBullets(PlayerBulletPool, 10);
+            PreloadBullets(EnemyBulletPool, 10);
         }
 
         // Function to preload bullets
@@ -33,13 +32,13 @@ namespace TrippleTrinity.MechaMorph
 
         private BulletBehaviour CreateBullet()
         {
-            //Spwan new bullet.
+            //Spawn new bullet.
             //Vector3 aimDirection = transform.forward.normalized;
-            BulletBehaviour bullet = Instantiate(gunAbility.BulletPrefab, gunAbility.BulletSpawnPoint.position, gunAbility.BulletSpawnPoint.rotation);
+            BulletBehaviour bullet = Instantiate(_gunAbility.BulletPrefab, _gunAbility.BulletSpawnPoint.position, _gunAbility.BulletSpawnPoint.rotation);
 
             //Assign the bullet pool
-            bullet.SetPool(playerBulletPool);
-            bullet.SetPool(enemyBulletPool);
+            bullet.SetPool(PlayerBulletPool);
+            bullet.SetPool(EnemyBulletPool);
 
             return bullet;
         }
@@ -48,14 +47,14 @@ namespace TrippleTrinity.MechaMorph
         private void OnTakeBulletFromPool(BulletBehaviour bullet)
         {
             //set transform and rotation.
-            bullet.transform.position = gunAbility.BulletSpawnPoint.position;
-            bullet.transform.right = gunAbility.BulletSpawnPoint.transform.right; //here can use rotation instade of right.
+            bullet.transform.position = _gunAbility.BulletSpawnPoint.position;
+            bullet.transform.right = _gunAbility.BulletSpawnPoint.transform.right; //here can use rotation instead of right.
 
             //Activate
             bullet.gameObject.SetActive(true);
         }
 
-        private void OnrturnBulletToPool(BulletBehaviour bullet)
+        private void OnReturnBulletToPool(BulletBehaviour bullet)
         {
             bullet.gameObject.SetActive(false);
         }
