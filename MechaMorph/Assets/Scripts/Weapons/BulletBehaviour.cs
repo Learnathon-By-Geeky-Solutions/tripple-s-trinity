@@ -20,9 +20,20 @@ namespace TrippleTrinity.MechaMorph.Weapons
 
         private void Start()
         {
-            _rigidbody.velocity = transform.forward * bulletSpeed;
+            //SetPhysicsVelocity();
         }
-        
+
+        private void OnEnable()
+        {
+            SetPhysicsVelocity();
+        }
+
+        private void SetPhysicsVelocity()
+        {
+            _rigidbody.velocity = transform.forward * bulletSpeed;
+
+        }
+
         public void SetDamage(float newDamage)
         {
             _damage = newDamage;
