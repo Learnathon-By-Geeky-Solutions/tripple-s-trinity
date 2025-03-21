@@ -6,12 +6,14 @@ namespace TrippleTrinity.MechaMorph
 {
     public class BulletSpawner : MonoBehaviour
     {
-        public ObjectPool<BulletBehaviour> pool;
+        public ObjectPool<BulletBehaviour> playerBulletPool;
+        public ObjectPool<BulletBehaviour> enemyBulletPool;
         private GunAbility gunAbility;
         void Start()
         {
             gunAbility = GetComponent<GunAbility>();
-            pool = new ObjectPool<BulletBehaviour>(CreateBullet, OnTakeBulletFromPool, OnrturnBulletToPool, OnDestroyBullet, true, 500, 1000);
+            playerBulletPool = new ObjectPool<BulletBehaviour>(CreateBullet, OnTakeBulletFromPool, OnrturnBulletToPool, OnDestroyBullet, true, 500, 1000);
+            enemyBulletPool = new ObjectPool<BulletBehaviour>(CreateBullet, OnTakeBulletFromPool, OnrturnBulletToPool, OnDestroyBullet, true, 500, 1000);
         }
 
 
@@ -24,7 +26,8 @@ namespace TrippleTrinity.MechaMorph
             BulletBehaviour bullet = Instantiate(gunAbility.BulletPrefab, gunAbility.BulletSpawnPoint.position, gunAbility.BulletSpawnPoint.rotation);
 
             //Assign the bullet pool
-            bullet.SetPool(pool);
+            bullet.SetPool(playerBulletPool);
+            bullet.SetPool(enemyBulletPool);
 
             return bullet;
         }

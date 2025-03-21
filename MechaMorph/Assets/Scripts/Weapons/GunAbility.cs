@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Pool;
 using TrippleTrinity.MechaMorph.InputHandling;  
 
 namespace TrippleTrinity.MechaMorph.Weapons
@@ -51,10 +52,16 @@ namespace TrippleTrinity.MechaMorph.Weapons
 
         protected override void Shoot()
         {
-            //Vector3 aimDirection = transform.forward.normalized;
-            //GameObject bullet = Instantiate(bulletPrefeb, bulletSpawnPoint.position, Quaternion.LookRotation(aimDirection));
+            if (bulletSpawner == null) return;
 
-            BulletBehaviour bulletBehaviour = bulletSpawner.pool.Get();
+            // Select the correct bullet pool based on the shooter
+            ObjectPool<BulletBehaviour> selectedPool = gameObject.CompareTag("Enemy")
+                ? bulletSpawner.enemyBulletPool
+                : bulletSpawner.playerBulletPool;
+
+            if (selectedPool == null) return;
+
+            BulletBehaviour bulletBehaviour = selectedPool.Get();
 
             if (bulletBehaviour != null)
             {
@@ -64,7 +71,7 @@ namespace TrippleTrinity.MechaMorph.Weapons
 
                 bulletBehaviour.SetDamage(damage);
 
-                // Assign the shooter based on whether it's an enemy or player
+                // Ensure the bullet knows its shooter type
                 string shooterTag = gameObject.CompareTag("Enemy") ? "Enemy" : "Player";
                 bulletBehaviour.SetShooter(shooterTag);
             }
