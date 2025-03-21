@@ -66,7 +66,7 @@ namespace TrippleTrinity.MechaMorph.Weapons
                 }
             }
 
-            //Destroy(gameObject); 
+            //Replace destroy to pool 
             _pool.Release(this);
         }
 

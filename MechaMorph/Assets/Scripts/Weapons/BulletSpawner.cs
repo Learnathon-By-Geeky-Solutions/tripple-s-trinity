@@ -33,7 +33,7 @@ namespace TrippleTrinity.MechaMorph.Weapons
         private BulletBehaviour CreateBullet()
         {
             //Spawn new bullet.
-            //Vector3 aimDirection = transform.forward.normalized;
+            
             BulletBehaviour bullet = Instantiate(_gunAbility.BulletPrefab, _gunAbility.BulletSpawnPoint.position, _gunAbility.BulletSpawnPoint.rotation);
 
             //Assign the bullet pool
