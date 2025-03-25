@@ -1,6 +1,6 @@
 using UnityEngine;
 using System;
-
+using TrippleTrinity.MechaMorph.Ui;
 namespace TrippleTrinity.MechaMorph.Damage
 {
     public class Damageable : MonoBehaviour
@@ -34,6 +34,8 @@ namespace TrippleTrinity.MechaMorph.Damage
 
         protected virtual void HandleDeath()
         {
+            //save game progress
+            ScoreManager.Instance.SaveScore();
             OnDeath?.Invoke();
             Destroy(gameObject);
         }
