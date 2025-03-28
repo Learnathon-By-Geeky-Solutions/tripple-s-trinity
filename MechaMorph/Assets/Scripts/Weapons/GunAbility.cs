@@ -1,5 +1,5 @@
 using UnityEngine;
-using TrippleTrinity.MechaMorph.InputHandling;  
+using TrippleTrinity.MechaMorph.InputHandling;
 
 namespace TrippleTrinity.MechaMorph.Weapons
 {
@@ -18,7 +18,7 @@ namespace TrippleTrinity.MechaMorph.Weapons
             {
                 if (InputHandler.Instance != null && InputHandler.Instance.IsFirePressed())
                 {
-                    TryShoot();
+                    TriggerShoot();  // Call the public TriggerShoot() method
                 }
 
                 if (InputHandler.Instance != null && InputHandler.Instance.IsReloadPressed())
@@ -33,14 +33,13 @@ namespace TrippleTrinity.MechaMorph.Weapons
             }
         }
 
-        public void AITryShoot()
+        
+        public void TriggerShoot()
         {
-            if (isAI)  // Only AI can call this method
-            {
-                TryShoot();
-            }
+            Shoot(); // Calls the protected Shoot() method
         }
 
+        // Protected Shoot() method for actual shooting logic
         protected override void Shoot()
         {
             Vector3 aimDirection = transform.forward.normalized;
@@ -57,6 +56,5 @@ namespace TrippleTrinity.MechaMorph.Weapons
                 bulletBehaviour.SetShooter(shooterTag);
             }
         }
-
     }
 }
