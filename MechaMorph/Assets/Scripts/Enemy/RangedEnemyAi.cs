@@ -7,15 +7,15 @@ namespace TrippleTrinity.MechaMorph.Enemy
     {
         [SerializeField] private float attackRange = 7f;
         [SerializeField] private float fireRate = 1f;
-        private float nextFireTime;
+        private float _nextFireTime;
 
-        private GunAbility gunAbility;
+        private GunAbility _gunAbility;
 
         protected override void Start()
         {
             base.Start();
-            gunAbility = GetComponent<GunAbility>(); // Get the GunAbility component
-            if (gunAbility == null)
+            _gunAbility = GetComponent<GunAbility>(); // Get the GunAbility component
+            if (_gunAbility == null)
             {
                 Debug.LogError("GunAbility component is missing on RangedEnemyAi!");
             }
@@ -25,7 +25,7 @@ namespace TrippleTrinity.MechaMorph.Enemy
         {
             base.Update();
 
-            if (targetPosition == null || gunAbility == null) return;
+            if (targetPosition == null || _gunAbility == null) return;
 
             float distanceToPlayer = Vector3.Distance(transform.position, targetPosition.position);
 
@@ -43,13 +43,12 @@ namespace TrippleTrinity.MechaMorph.Enemy
         {
             RotateTowardsTarget();
 
-            if (Time.time >= nextFireTime)
+            if (Time.time >= _nextFireTime)
             {
                 Debug.Log("Enemy is shooting!"); // Debugging
-                gunAbility.AITryShoot(); // ✅ Enemy fires ONLY using AI logic
-                nextFireTime = Time.time + fireRate;
+                _gunAbility.TriggerShoot(); // Call the public TriggerShoot method
+                _nextFireTime = Time.time + fireRate;
             }
         }
-
     }
 }
