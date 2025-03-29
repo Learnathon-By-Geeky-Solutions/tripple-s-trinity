@@ -49,7 +49,7 @@ namespace TrippleTrinity.MechaMorph.Ui
             // Display the collected upgrade tokens for the session
             if (finalTokenText != null)
             {
-                finalTokenText.text = $"Tokens: {UpgradeManager.Instance.GetUpgradeTokenCount()}";
+                finalTokenText.text = $"Token: {UpgradeManager.Instance.GetUpgradeTokenCount()}";
             }
         }
 

@@ -1,36 +1,27 @@
 using UnityEngine;
 using TrippleTrinity.MechaMorph.Damage;
-using TrippleTrinity.MechaMorph.Health;
 
 namespace TrippleTrinity.MechaMorph.Weapons
 {
     public class BulletDamageHandler : MonoBehaviour
     {
         private float _damage;
-        private string _shooterTag;
+        private int _targetLayer;
 
         public void Initialize(float damage, string shooterTag)
         {
             _damage = damage;
-            _shooterTag = shooterTag;
+            _targetLayer = LayerMask.NameToLayer(shooterTag == "Enemy" ? "Player" : "Enemy");
         }
 
         public void HandleCollision(Collider other)
         {
-            if (other.CompareTag(_shooterTag)) return; // Ignore shooter itself
+            if (other.gameObject.layer != _targetLayer) return; // Ignore unintended targets
 
-            if (_shooterTag == "Enemy" && other.CompareTag("Player"))
-            {
-                Damageable playerHealth = other.GetComponentInParent<PlayerHealth>();
-                playerHealth?.TakeDamage(_damage);
-                Debug.Log($"Enemy bullet hit Player! Dealt {_damage} damage.");
-            }
-            else if (_shooterTag == "Player" && other.CompareTag("Enemy"))
-            {
-                Damageable enemyHealth = other.GetComponent<Damageable>();
-                enemyHealth?.TakeDamage(_damage);
-                Debug.Log($"Player bullet hit Enemy! Dealt {_damage} damage.");
-            }
+            Damageable targetHealth = other.GetComponentInParent<Damageable>();
+            targetHealth?.TakeDamage(_damage);
+
+            Debug.Log($"Bullet hit {other.gameObject.name}! Dealt {_damage} damage.");
         }
     }
 }
