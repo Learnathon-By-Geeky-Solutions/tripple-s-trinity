@@ -7,7 +7,7 @@ namespace TrippleTrinity.MechaMorph.Ui
     {
         public static void PlayGame()
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+            SceneManager.LoadScene("MainScene");
         }
 
         public static void QuitGame()

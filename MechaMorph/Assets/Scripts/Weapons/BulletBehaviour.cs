@@ -12,10 +12,12 @@ namespace TrippleTrinity.MechaMorph.Weapons
         private float _damage;
         private string _shooterTag;
         private ObjectPool<BulletBehaviour> _pool;
+        private BulletDamageHandler _damageHandler;
 
         private void Awake()
         {
             _rigidbody = GetComponent<Rigidbody>();
+            _damageHandler = GetComponent<BulletDamageHandler>();
         }
 
         private void OnEnable()
@@ -73,6 +75,12 @@ namespace TrippleTrinity.MechaMorph.Weapons
         public void SetPool(ObjectPool<BulletBehaviour> pool)
         {
             _pool = pool;
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if (_damageHandler == null) return;
+            _damageHandler.HandleCollision(other);
+            Destroy(gameObject); // Destroy bullet after hit
         }
     }
 }

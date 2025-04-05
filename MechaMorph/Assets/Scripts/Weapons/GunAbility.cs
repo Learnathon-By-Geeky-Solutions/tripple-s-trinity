@@ -10,7 +10,7 @@ namespace TrippleTrinity.MechaMorph.Weapons
         [SerializeField] private BulletBehaviour bulletPrefeb;
         [SerializeField] private BulletSpawner bulletSpawner;
         [SerializeField] private Transform bulletSpawnPoint;
-        [SerializeField] private bool isAI;  // New variable to differentiate Player & AI
+        [SerializeField] private bool isAI;  // Differentiates Player & AI
 
         public BulletBehaviour BulletPrefab => bulletPrefeb;
         public Transform BulletSpawnPoint => bulletSpawnPoint;
@@ -27,7 +27,7 @@ namespace TrippleTrinity.MechaMorph.Weapons
             {
                 if (InputHandler.Instance != null && InputHandler.Instance.IsFirePressed())
                 {
-                    TryShoot();
+                    TriggerShoot();  // Call the public TriggerShoot() method
                 }
 
                 if (InputHandler.Instance != null && InputHandler.Instance.IsReloadPressed())
@@ -42,14 +42,12 @@ namespace TrippleTrinity.MechaMorph.Weapons
             }
         }
 
-        public void AITryShoot()
+        public void TriggerShoot()
         {
-            if (isAI)  // Only AI can call this method
-            {
-                TryShoot();
-            }
+            Shoot(); // Calls the protected Shoot() method
         }
 
+        // Protected Shoot() method for actual shooting logic
         protected override void Shoot()
         {
             if (bulletSpawner == null) return;
@@ -74,8 +72,15 @@ namespace TrippleTrinity.MechaMorph.Weapons
                 // Ensure the bullet knows its shooter type
                 string shooterTag = gameObject.CompareTag("Enemy") ? "Enemy" : "Player";
                 bulletBehaviour.SetShooter(shooterTag);
+            Vector3 aimDirection = transform.forward.normalized;
+            Transform bulletTransform = Instantiate(bulletPrefab, bulletSpawnPoint.position, Quaternion.LookRotation(aimDirection));
+    
+            BulletDamageHandler bulletDamageHandler = bulletTransform.GetComponent<BulletDamageHandler>();
+
+            if (bulletDamageHandler != null)
+            {
+                bulletDamageHandler.Initialize(damage, gameObject.CompareTag("Enemy") ? "Enemy" : "Player");
             }
         }
-
     }
 }
