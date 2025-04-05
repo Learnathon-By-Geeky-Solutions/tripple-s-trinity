@@ -28,7 +28,6 @@ namespace TrippleTrinity.MechaMorph.Weapons
         private void SetPhysicsVelocity()
         {
             _rigidbody.velocity = transform.forward * bulletSpeed;
-
         }
 
         public void SetDamage(float newDamage)
@@ -46,41 +45,17 @@ namespace TrippleTrinity.MechaMorph.Weapons
             // Ignore collision with the shooter itself
             if (other.CompareTag(_shooterTag)) return;
 
-            // If shooter is Enemy, bullet should damage Player
-            if (_shooterTag == "Enemy" && other.CompareTag("Player"))
+            if (_damageHandler != null)
             {
-                // Look for PlayerHealth in the parent
-                Damageable playerHealth = other.GetComponentInParent<PlayerHealth>();
-                if (playerHealth != null)
-                {
-                    playerHealth.TakeDamage(_damage);
-                    Debug.Log($"Enemy bullet hit Player! Dealt {_damage} damage.");
-                }
-            }
-            // If shooter is Player, bullet should damage Enemy
-            else if (_shooterTag == "Player" && other.CompareTag("Enemy"))
-            {
-                Damageable enemyHealth = other.GetComponent<Damageable>();
-                if (enemyHealth != null)
-                {
-                    enemyHealth.TakeDamage(_damage);
-                    Debug.Log($"Player bullet hit Enemy! Dealt {_damage} damage.");
-                }
+                _damageHandler.HandleCollision(other);
             }
 
-            //Replace destroy to pool 
-            _pool.Release(this);
+            _pool?.Release(this); // Return bullet to pool instead of destroying
         }
 
         public void SetPool(ObjectPool<BulletBehaviour> pool)
         {
             _pool = pool;
-
-        private void OnTriggerEnter(Collider other)
-        {
-            if (_damageHandler == null) return;
-            _damageHandler.HandleCollision(other);
-            Destroy(gameObject); // Destroy bullet after hit
         }
     }
 }

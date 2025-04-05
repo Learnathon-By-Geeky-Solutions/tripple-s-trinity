@@ -1,24 +1,24 @@
 using UnityEngine;
 using UnityEngine.Pool;
-using TrippleTrinity.MechaMorph.InputHandling;  
+using TrippleTrinity.MechaMorph.InputHandling;
 
 namespace TrippleTrinity.MechaMorph.Weapons
 {
     public class GunAbility : BaseGun
     {
         [SerializeField] private float damage;
-        [SerializeField] private BulletBehaviour bulletPrefeb;
+        [SerializeField] private BulletBehaviour bulletPrefab;
         [SerializeField] private BulletSpawner bulletSpawner;
         [SerializeField] private Transform bulletSpawnPoint;
         [SerializeField] private bool isAI;  // Differentiates Player & AI
 
-        public BulletBehaviour BulletPrefab => bulletPrefeb;
+        public BulletBehaviour BulletPrefab => bulletPrefab;
         public Transform BulletSpawnPoint => bulletSpawnPoint;
-
         private void Start()
         {
-            bulletSpawner = FindObjectOfType<BulletSpawner>(); 
+            bulletSpawner = FindObjectOfType<BulletSpawner>();
         }
+
         public override void Update()
         {
             base.Update();
@@ -27,7 +27,7 @@ namespace TrippleTrinity.MechaMorph.Weapons
             {
                 if (InputHandler.Instance != null && InputHandler.Instance.IsFirePressed())
                 {
-                    TriggerShoot();  // Call the public TriggerShoot() method
+                    Shoot();  // Call the protected Shoot() method
                 }
 
                 if (InputHandler.Instance != null && InputHandler.Instance.IsReloadPressed())
@@ -46,7 +46,6 @@ namespace TrippleTrinity.MechaMorph.Weapons
         {
             Shoot(); // Calls the protected Shoot() method
         }
-
         // Protected Shoot() method for actual shooting logic
         protected override void Shoot()
         {
@@ -67,19 +66,13 @@ namespace TrippleTrinity.MechaMorph.Weapons
                 bulletBehaviour.transform.rotation = bulletSpawnPoint.rotation;
                 bulletBehaviour.gameObject.SetActive(true);
 
-                bulletBehaviour.SetDamage(damage);
+                BulletDamageHandler bulletDamageHandler = bulletBehaviour.GetComponent<BulletDamageHandler>();
 
-                // Ensure the bullet knows its shooter type
-                string shooterTag = gameObject.CompareTag("Enemy") ? "Enemy" : "Player";
-                bulletBehaviour.SetShooter(shooterTag);
-            Vector3 aimDirection = transform.forward.normalized;
-            Transform bulletTransform = Instantiate(bulletPrefab, bulletSpawnPoint.position, Quaternion.LookRotation(aimDirection));
-    
-            BulletDamageHandler bulletDamageHandler = bulletTransform.GetComponent<BulletDamageHandler>();
-
-            if (bulletDamageHandler != null)
-            {
-                bulletDamageHandler.Initialize(damage, gameObject.CompareTag("Enemy") ? "Enemy" : "Player");
+                if (bulletDamageHandler != null)
+                {
+                    // Ensure the bullet knows its shooter type
+                    bulletDamageHandler.Initialize(damage, gameObject.CompareTag("Enemy") ? "Enemy" : "Player");
+                }
             }
         }
     }

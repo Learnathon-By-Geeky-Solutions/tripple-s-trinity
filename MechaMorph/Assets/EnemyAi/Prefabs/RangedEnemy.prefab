@@ -19,7 +19,6 @@ GameObject:
   - component: {fileID: 11478559154612520}
   - component: {fileID: 4276866378781949640}
   m_Layer: 0
-  m_Layer: 6
   m_Name: RangedEnemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -203,9 +202,8 @@ MonoBehaviour:
   currentAmmo: 2000
   nextTimeToFire: 1
   damage: 10
-  bulletPrefeb: {fileID: 3508257216494172928, guid: a484627e1c855e24aa5bef53d4ae9f50, type: 3}
+  bulletPrefab: {fileID: 3508257216494172928, guid: a484627e1c855e24aa5bef53d4ae9f50, type: 3}
   bulletSpawner: {fileID: 0}
-  bulletPrefab: {fileID: 821264732710663634, guid: a484627e1c855e24aa5bef53d4ae9f50, type: 3}
   bulletSpawnPoint: {fileID: 1140334496339160065}
   isAI: 1
 --- !u!114 &4276866378781949640

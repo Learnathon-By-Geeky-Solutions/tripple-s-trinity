@@ -8,12 +8,13 @@ namespace TrippleTrinity.MechaMorph.Weapons
         public ObjectPool<BulletBehaviour> PlayerBulletPool;
         public ObjectPool<BulletBehaviour> EnemyBulletPool;
         private GunAbility _gunAbility;
+
         void Start()
         {
             _gunAbility = GetComponent<GunAbility>();
             PlayerBulletPool = new ObjectPool<BulletBehaviour>(CreateBullet, OnTakeBulletFromPool, OnReturnBulletToPool, OnDestroyBullet, true, 500, 1000);
             EnemyBulletPool = new ObjectPool<BulletBehaviour>(CreateBullet, OnTakeBulletFromPool, OnReturnBulletToPool, OnDestroyBullet, true, 500, 1000);
-            
+
             //Preload some bullets to prevent delay on first use
             PreloadBullets(PlayerBulletPool, 10);
             PreloadBullets(EnemyBulletPool, 10);
@@ -29,11 +30,9 @@ namespace TrippleTrinity.MechaMorph.Weapons
             }
         }
 
-
         private BulletBehaviour CreateBullet()
         {
             //Spawn new bullet.
-            
             BulletBehaviour bullet = Instantiate(_gunAbility.BulletPrefab, _gunAbility.BulletSpawnPoint.position, _gunAbility.BulletSpawnPoint.rotation);
 
             //Assign the bullet pool
@@ -42,7 +41,6 @@ namespace TrippleTrinity.MechaMorph.Weapons
 
             return bullet;
         }
-
 
         private void OnTakeBulletFromPool(BulletBehaviour bullet)
         {
@@ -63,6 +61,5 @@ namespace TrippleTrinity.MechaMorph.Weapons
         {
             Destroy(bullet.gameObject);
         }
-       
     }
 }
