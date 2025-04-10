@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace TrippleTrinity.MechaMorph.Token
 {
-    public class TokenCollector : MonoBehaviour
+    public class TokenCollect : MonoBehaviour
     {
         private Damageable _playerHealth;
         private AreaDamageAbility _areaDamageAbility;
@@ -55,7 +55,6 @@ namespace TrippleTrinity.MechaMorph.Token
                 case TokenType.Upgrade:
                     if (UpgradeManager.Instance != null)
                     {
-                        UpgradeManager.Instance.AddUpgradePoint();
                         UpgradeManager.Instance.AddUpgradeToken();
                     }
                     else

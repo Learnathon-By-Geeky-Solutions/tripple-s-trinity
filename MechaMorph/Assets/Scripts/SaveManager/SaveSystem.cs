@@ -7,13 +7,9 @@ namespace TrippleTrinity.MechaMorph.SaveManager
     {
        private static string _savePath= Application.persistentDataPath+ "/save.json";
 
-       public static void SaveGame(int score, int tokenCount)
+       public static void SaveGame(GameData data)
        {
-           GameData data = new GameData
-           {
-                //score = score,
-               //tokenCount = tokenCount
-           };
+           
            string json = JsonUtility.ToJson(data);
            File.WriteAllText(_savePath, json);
            Debug.Log("Game Saved to: "+ _savePath);
@@ -24,13 +20,14 @@ namespace TrippleTrinity.MechaMorph.SaveManager
            if (File.Exists(_savePath))
            {
                string json = File.ReadAllText(_savePath);
-               GameData data = JsonUtility.FromJson<GameData>(json);
-               Debug.Log("Game Loaded from: "+ _savePath);
-               return data;
-           }
+                return JsonUtility.FromJson<GameData>(json);
+                /*GameData data = JsonUtility.FromJson<GameData>(json);
+                Debug.Log("Game Loaded from: "+ _savePath);
+                return data;*/
+            }
            else
            {
-               Debug.LogWarning("save file not found");
+               //Debug.LogWarning("save file not found");
                return null;
            }
        }

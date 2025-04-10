@@ -30,7 +30,7 @@ namespace TrippleTrinity.MechaMorph.Ui
         {
             if (totalTokenText != null)
             {
-                int totalTokens = UpgradeManager.Instance.GetTotalUpgradeTokenCount(); // Get total from PlayerPrefs
+                int totalTokens = UpgradeManager.Instance.GetTotalUpgradeTokenCount();
                 totalTokenText.text = $"Tokens: {totalTokens}";
             }
             else

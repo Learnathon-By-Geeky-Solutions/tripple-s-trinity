@@ -1,6 +1,6 @@
-
 using UnityEngine;
 using TrippleTrinity.MechaMorph.Ui;
+using TrippleTrinity.MechaMorph.Token;
 namespace TrippleTrinity.MechaMorph.SaveManager
 {
     public class LoadGameData : MonoBehaviour
@@ -8,15 +8,12 @@ namespace TrippleTrinity.MechaMorph.SaveManager
         private void Start()
         {
             GameData data = SaveSystem.LoadGame();
-            if (data != null)
-            {
-                //ScoreManager.Instance.LoadScore(data.score);
-               //TokenUIManager.Instance.LoadTokenCount(data.tokenCount);
-            }
-            else
-            {
-                Debug.Log("No saved data found. Starting new game.");
-            }
+
+            // Initialize managers
+            var upgradeManager = UpgradeManager.Instance;
+            var scoreManager = ScoreManager.Instance;
+
+            
         }
         
     }

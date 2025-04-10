@@ -13,7 +13,7 @@ namespace TrippleTrinity.MechaMorph.Token
         {
             if (other.CompareTag("Player")) // Ensure Player has the correct tag
             {
-                TokenCollector collector = other.GetComponent<TokenCollector>();
+                TokenCollect collector = other.GetComponent<TokenCollect>();
                 if (collector != null)
                 {
                     Debug.Log($"Player collected {tokenType} token with value {tokenValue}");

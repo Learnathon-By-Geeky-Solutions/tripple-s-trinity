@@ -13,45 +13,70 @@ namespace TrippleTrinity.MechaMorph.Ui
         [SerializeField] private TMP_Text areaDamageUpgradeCostText;
         [SerializeField] private TMP_Text coolDownUpgradeCostText;
 
-        private AreaDamageAbility _areaDamageAbility;
+        [SerializeField] private AreaDamageAbility _areaDamageAbility;
 
         private void Start()
         {
-            boosterUpgradeButton?.onClick.AddListener(UpgradeBoosterCooldown);
-            areaDamageUpgradeButton?.onClick.AddListener(UpgradeAreaDamage);
+            if (UpgradeManager.Instance == null)
+            {
+                Debug.LogError("UpgradeManager instance not found!");
+                return;
+            }
 
-            _areaDamageAbility = FindObjectOfType<AreaDamageAbility>();
+            if (_areaDamageAbility == null)
+            {
+                _areaDamageAbility = FindObjectOfType<AreaDamageAbility>();
+                if (_areaDamageAbility == null)
+                {
+                    Debug.LogError("AreaDamageAbility missing! Disabling upgrade functionality.");
+                    boosterUpgradeButton.interactable = false;
+                    areaDamageUpgradeButton.interactable = false;
+                    return;
+                }
+            }
 
             UpdateUI();
         }
 
         private void UpgradeBoosterCooldown()
         {
+            if (UpgradeManager.Instance == null || _areaDamageAbility == null)
+            {
+                Debug.LogError("Required components missing!");
+                return;
+            }
+
             if (UpgradeManager.Instance.UpgradeBoosterCooldown())
             {
-                int newUpgradeLevel = UpgradeManager.Instance.GetBoosterUpgradeCost();
-                Debug.Log($"Area damage ability upgraded to level {newUpgradeLevel}!");
+                // Use GetBoosterUpgradeLevel() instead of GetBoosterUpgradeCost()
+                int newUpgradeLevel = UpgradeManager.Instance.GetBoosterUpgradeLevel();
+                Debug.Log($"Booster upgraded to level {newUpgradeLevel}!");
 
                 _areaDamageAbility.ApplyUpgrades(newUpgradeLevel);
-
-                UpdateUI(); // Refresh UI after upgrade
+                UpdateUI();
             }
             else
             {
-                Debug.Log("Not enough tokens for area damage upgrade.");
+                Debug.Log("Not enough tokens for booster upgrade.");
             }
         }
 
         private void UpgradeAreaDamage()
         {
+            if (UpgradeManager.Instance == null || _areaDamageAbility == null)
+            {
+                Debug.LogError("Required components missing!");
+                return;
+            }
+
             if (UpgradeManager.Instance.UpgradeAreaDamage())
             {
-                int newUpgradeLevel = UpgradeManager.Instance.GetAreaDamageUpgradeCost();
-                Debug.Log($"Area damage ability upgraded to level {newUpgradeLevel}!");
+                // Use GetAreaDamageUpgradeLevel() instead of GetAreaDamageUpgradeCost()
+                int newUpgradeLevel = UpgradeManager.Instance.GetAreaDamageUpgradeLevel();
+                Debug.Log($"Area damage upgraded to level {newUpgradeLevel}!");
 
                 _areaDamageAbility.ApplyUpgrades(newUpgradeLevel);
-
-                UpdateUI(); // Refresh UI after upgrade
+                UpdateUI();
             }
             else
             {
@@ -60,8 +85,13 @@ namespace TrippleTrinity.MechaMorph.Ui
         }
         private void UpdateUI()
         {
-            areaDamageUpgradeCostText.text = $"Upgrade Cost: {UpgradeManager.Instance.GetAreaDamageUpgradeCost()}";
-            coolDownUpgradeCostText.text = $"Upgrade Cost:{UpgradeManager.Instance.GetBoosterUpgradeCost()}";
+            if (UpgradeManager.Instance == null) return;
+
+            if (areaDamageUpgradeCostText != null)
+                areaDamageUpgradeCostText.text = $"Upgrade Cost: {UpgradeManager.Instance.GetAreaDamageUpgradeCost()}";
+
+            if (coolDownUpgradeCostText != null)
+                coolDownUpgradeCostText.text = $"Upgrade Cost: {UpgradeManager.Instance.GetBoosterUpgradeCost()}";
         }
         
     }

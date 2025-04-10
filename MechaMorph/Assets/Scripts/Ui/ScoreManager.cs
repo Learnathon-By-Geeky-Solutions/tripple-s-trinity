@@ -7,8 +7,8 @@ namespace TrippleTrinity.MechaMorph.Ui
     public class ScoreManager : MonoBehaviour
     {
         private static ScoreManager _instance;
+        private GameData _gameData;
         private int _score;
-        private const string HighScoreKey = "HighScore";
 
         [SerializeField] private TextMeshProUGUI scoreText; 
         [SerializeField] private TextMeshProUGUI highScoreText; // UI for highest score
@@ -31,6 +31,7 @@ namespace TrippleTrinity.MechaMorph.Ui
             {
                 _instance = this;
                 DontDestroyOnLoad(gameObject);
+                _gameData = SaveSystem.LoadGame();
             }
             else
             {
@@ -40,8 +41,14 @@ namespace TrippleTrinity.MechaMorph.Ui
 
         private void Start()
         {
-            LoadScore();
             UpdateScoreUI();
+        }
+
+        public void SaveCurrentScore()
+        {
+            _gameData.score = _score;
+            _gameData.highScore = Mathf.Max(_score, _gameData.highScore);
+            SaveSystem.SaveGame(_gameData);
         }
 
         public void AddScore(int points)
@@ -51,15 +58,15 @@ namespace TrippleTrinity.MechaMorph.Ui
                 Debug.LogWarning("Cannot add negative points.");
                 return;
             }
-            _score += points;
+            _gameData.score += points;
 
             // Update the high score if the current score is greater
-            if (_score > PlayerPrefs.GetInt(HighScoreKey, 0))
+            if (_gameData.score > _gameData.highScore)
             {
-                PlayerPrefs.SetInt(HighScoreKey, _score);
-                PlayerPrefs.Save();
+                _gameData.highScore = _gameData.score;
             }
 
+            SaveSystem.SaveGame(_gameData); // Save all progress
             UpdateScoreUI();
         }
 
@@ -67,36 +74,27 @@ namespace TrippleTrinity.MechaMorph.Ui
         {
             if (scoreText != null)
             {
-                scoreText.text = $"Score: {_score}";
+                scoreText.text = $"Score: {_gameData.score}";
             }
 
             if (highScoreText != null)
             {
-                int highScore = PlayerPrefs.GetInt(HighScoreKey, 0);
-                highScoreText.text = $"Highest Score: {highScore}";
+                highScoreText.text = $"Highest Score: {_gameData.highScore}";
             }
         }
 
         public void ResetScore()
         {
-            _score = 0;
+            _gameData.score = 0;
             UpdateScoreUI();
+            SaveSystem.SaveGame(_gameData);
         }
 
         public int CurrentScore()
         {
-            return _score;
+            return _gameData.score;
         }
 
-        public void LoadScore()
-        {
-            _score = 0; // Start fresh for new gameplay
-            UpdateScoreUI();
-        }
-
-        public void SaveScore()
-        {
-            SaveSystem.SaveGame(_score, TokenUIManager.Instance.CurrentTokenCount());
-        }
+        
     }
 }

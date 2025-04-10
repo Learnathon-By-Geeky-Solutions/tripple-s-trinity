@@ -1,3 +1,4 @@
+using TrippleTrinity.MechaMorph.SaveManager;
 using TrippleTrinity.MechaMorph.Ui;
 using UnityEngine;
 
@@ -6,19 +7,7 @@ namespace TrippleTrinity.MechaMorph.Token
     public class UpgradeManager : MonoBehaviour
     {
         private static UpgradeManager _instance;
-        private int _upgradePoints;
-        private int _upgradeTokenCount;
-        private const string TotalTokensKey = "TotalTokens"; // Key for PlayerPrefs
-        private const string BoosterLevelKey = "BoosterUpgradeLevel";
-        private const string AreaDamageLevelKey = "AreaDamageUpgradeLevel";
-        private const string BoosterCostKey = "BoosterUpgradeCost";
-        private const string AreaDamageCostKey = "AreaDamageUpgradeCost";
-        
-        //upgrade levels and costs
-        private int _boosterUpgradeLevel;
-        private int _areaDamageUpgradeLevel;
-        private int _boosterUpgradeCost;
-        private int _areaDamageUpgradeCost;
+        private GameData _gameData;
         public static UpgradeManager Instance
         {
             get
@@ -33,13 +22,12 @@ namespace TrippleTrinity.MechaMorph.Token
 
         private void Awake()
         {
-            // Ensure this instance persists across scenes
             if (_instance == null)
             {
                 _instance = this;
                 DontDestroyOnLoad(gameObject);
-                LoadData(); // Reset the session token count
-                _upgradeTokenCount = 0;
+                _gameData = SaveSystem.LoadGame();
+                Debug.Log("Loaded upgrade data from save system");
             }
             else
             {
@@ -47,40 +35,25 @@ namespace TrippleTrinity.MechaMorph.Token
             }
         }
 
-        public void AddUpgradePoint()
-        {
-            _upgradePoints++;
-            Debug.Log($"Upgrade Points: {_upgradePoints}");
-        }
 
         public void AddUpgradeToken()
         {
-            _upgradeTokenCount++; // Increase session tokens only
-
-            // Update total tokens correctly
-            int totalTokens = PlayerPrefs.GetInt(TotalTokensKey, 0) + 1;
-            PlayerPrefs.SetInt(TotalTokensKey, totalTokens);
-            PlayerPrefs.Save();
-
-            Debug.Log($"Token Added! Session Tokens: {_upgradeTokenCount}, Total Tokens: {totalTokens}");
-
-            // Update UI to show session tokens
-            TokenUIManager.Instance?.UpdateTokenCount(_upgradeTokenCount);
+            _gameData.tokenCount++;
+            TokenUIManager.Instance?.UpdateTokenCount(_gameData.tokenCount);
+            SaveSystem.SaveGame(_gameData);
         }
 
-
+        
 
         public bool UpgradeBoosterCooldown()
         {
-            if (_upgradeTokenCount >= _boosterUpgradeCost)
+            if (_gameData.tokenCount >= _gameData.boosterUpgradeCost)
             {
-                _upgradeTokenCount -= _boosterUpgradeCost;
-                _boosterUpgradeLevel++;
-                _boosterUpgradeCost += 5;
+                _gameData.tokenCount -= _gameData.boosterUpgradeCost;
+                _gameData.boosterUpgradeLevel++;
+                _gameData.boosterUpgradeCost += 5;
 
-                SaveData();
-                
-                TokenUIManager.Instance?.UpdateTokenCount(_upgradeTokenCount);
+                SaveSystem.SaveGame(_gameData);
                 return true;
             }
             return false;
@@ -88,62 +61,50 @@ namespace TrippleTrinity.MechaMorph.Token
 
         public bool UpgradeAreaDamage()
         {
-            if (_upgradeTokenCount >= _areaDamageUpgradeCost)
+            if (_gameData.tokenCount >= _gameData.boosterUpgradeCost)
             {
-                _upgradeTokenCount -= _areaDamageUpgradeCost;
-                _areaDamageUpgradeLevel++;
-                _areaDamageUpgradeCost += 5;
+                _gameData.tokenCount -= _gameData.areaDamageUpgradeCost;
+                _gameData.areaDamageUpgradeLevel++;
+                _gameData.areaDamageUpgradeCost += 5;
 
-                SaveData();
-                TokenUIManager.Instance?.UpdateTokenCount(_upgradeTokenCount);
+                SaveSystem.SaveGame(_gameData);
                 return true;
             }
             return false;
         }
 
-        public int GetUpgradeTokenCount()
-        {
-            return _upgradeTokenCount;
-        }
-
         public int GetTotalUpgradeTokenCount()
         {
-            return PlayerPrefs.GetInt(TotalTokensKey, 0); // Get the total from PlayerPrefs
+            return _gameData.tokenCount; // Now gets from JSON-saved data
         }
+
+        public int GetUpgradeTokenCount()
+        {
+            return _gameData.tokenCount;
+        }
+
         public int GetBoosterUpgradeCost()
         {
-            return _boosterUpgradeCost;
+            return _gameData.boosterUpgradeCost;
         }
 
         public int GetAreaDamageUpgradeCost()
         {
-            return _areaDamageUpgradeCost;
+            return _gameData.areaDamageUpgradeCost;
         }
 
-        private void SaveData()
+        // New methods for UI to get upgrade levels
+        public int GetBoosterUpgradeLevel()
         {
-            PlayerPrefs.SetInt(BoosterLevelKey, _boosterUpgradeLevel);
-            PlayerPrefs.SetInt(AreaDamageLevelKey, _areaDamageUpgradeLevel);
-            PlayerPrefs.SetInt(BoosterCostKey, _boosterUpgradeCost);
-            PlayerPrefs.SetInt(AreaDamageCostKey, _areaDamageUpgradeCost);
-            PlayerPrefs.SetInt(TotalTokensKey, _upgradeTokenCount);
-            PlayerPrefs.Save();
+            return _gameData.boosterUpgradeLevel;
         }
 
-        private void LoadData()
+        public int GetAreaDamageUpgradeLevel()
         {
-            _boosterUpgradeLevel = PlayerPrefs.GetInt(BoosterLevelKey, 0);
-            _areaDamageUpgradeLevel = PlayerPrefs.GetInt(AreaDamageLevelKey, 0);
-            _boosterUpgradeCost = PlayerPrefs.GetInt(BoosterCostKey, 5);
-            _areaDamageUpgradeCost = PlayerPrefs.GetInt(AreaDamageCostKey, 5);
-
-            // Load only total tokens, but do NOT set _upgradeTokenCount from PlayerPrefs
-            int totalTokens = PlayerPrefs.GetInt(TotalTokensKey, 0);
-            _upgradeTokenCount = 0; // Always start session from 0
-
-            Debug.Log($"Loaded Total Tokens: {totalTokens}, Session Tokens Reset to: {_upgradeTokenCount}");
+            return _gameData.areaDamageUpgradeLevel;
         }
 
+        
 
     }
 }
