@@ -58,7 +58,7 @@ namespace TrippleTrinity.MechaMorph.Ui
                 Debug.Log("Not enough tokens for area damage upgrade.");
             }
         }
-        private void UpdateUI()
+        public void UpdateUI()
         {
             areaDamageUpgradeCostText.text = $"Upgrade Cost: {UpgradeManager.Instance.GetAreaDamageUpgradeCost()}";
             coolDownUpgradeCostText.text = $"Upgrade Cost:{UpgradeManager.Instance.GetBoosterUpgradeCost()}";

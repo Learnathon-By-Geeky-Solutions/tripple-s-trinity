@@ -1,6 +1,6 @@
 using TrippleTrinity.MechaMorph.Ui;
 using UnityEngine;
-
+using System.IO;
 namespace TrippleTrinity.MechaMorph.Token
 {
     public class UpgradeManager : MonoBehaviour
@@ -13,12 +13,13 @@ namespace TrippleTrinity.MechaMorph.Token
         private const string AreaDamageLevelKey = "AreaDamageUpgradeLevel";
         private const string BoosterCostKey = "BoosterUpgradeCost";
         private const string AreaDamageCostKey = "AreaDamageUpgradeCost";
-        
+        private const string highscoreKey = "Highscore";
         //upgrade levels and costs
         private int _boosterUpgradeLevel;
         private int _areaDamageUpgradeLevel;
         private int _boosterUpgradeCost;
         private int _areaDamageUpgradeCost;
+        private int _highscore;
         public static UpgradeManager Instance
         {
             get
@@ -58,7 +59,7 @@ namespace TrippleTrinity.MechaMorph.Token
             _upgradeTokenCount++; // Increase session tokens only
 
             // Update total tokens correctly
-            int totalTokens = PlayerPrefs.GetInt(TotalTokensKey, 0) + 1;
+            int totalTokens = PlayerPrefs.GetInt(TotalTokensKey, 0) +1;
             PlayerPrefs.SetInt(TotalTokensKey, totalTokens);
             PlayerPrefs.Save();
 
@@ -143,6 +144,29 @@ namespace TrippleTrinity.MechaMorph.Token
 
             Debug.Log($"Loaded Total Tokens: {totalTokens}, Session Tokens Reset to: {_upgradeTokenCount}");
         }
+        
+
+
+  //Reset ALl Upgrade
+  public void ResetAllUpgrades()
+  {
+      PlayerPrefs.DeleteKey(TotalTokensKey);
+      PlayerPrefs.DeleteKey(BoosterLevelKey);
+      PlayerPrefs.DeleteKey(AreaDamageLevelKey);
+      PlayerPrefs.DeleteKey(BoosterCostKey);
+      PlayerPrefs.DeleteKey(AreaDamageCostKey);
+      PlayerPrefs.DeleteKey(highscoreKey);
+
+      _upgradeTokenCount = 0;
+      _boosterUpgradeLevel = 0;
+      _areaDamageUpgradeLevel = 0;
+      _highscore = 0;
+      _boosterUpgradeCost = 5;
+      _areaDamageUpgradeCost = 5;
+      PlayerPrefs.Save();
+      TokenUIManager.Instance?.UpdateTokenCount(_upgradeTokenCount);
+      Debug.Log("Upgrades reset.");
+  }
 
 
     }

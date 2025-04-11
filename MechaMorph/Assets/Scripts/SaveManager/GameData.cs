@@ -1,12 +1,6 @@
-using System;
-
-namespace TrippleTrinity.MechaMorph.SaveManager
-
+[System.Serializable]
+public class GameData
 {
-    [Serializable]
-    public class GameData
-    {
-        public int score=0;
-        public int tokenCount=0;
-    }
+    public int score;
+    public int tokenCount;
 }
