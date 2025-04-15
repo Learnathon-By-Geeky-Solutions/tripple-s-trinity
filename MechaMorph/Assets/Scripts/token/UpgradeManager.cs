@@ -86,10 +86,11 @@ namespace TrippleTrinity.MechaMorph.Token
 
         public int GetUpgradeTokenCount() => _upgradeTokenCount;
 
-        public int GetTotalUpgradeTokenCount()
+        public static int GetTotalUpgradeTokenCount()
         {
             return PlayerPrefs.GetInt(TotalTokensKey, 0);
         }
+
 
         public int GetBoosterUpgradeCost() => _boosterUpgradeCost;
 
