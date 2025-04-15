@@ -7,9 +7,12 @@ namespace TrippleTrinity.MechaMorph.Control
     [RequireComponent(typeof(Rigidbody))]
     public class NewRobotController : MonoBehaviour
     {
+        [Header("Movement Settings")]
         [SerializeField] private float moveSpeed = 5f;
         [SerializeField] private float rotationSpeed = 10f;
         [SerializeField] private float jumpForce = 7f;
+
+        [Header("Ground Check Settings")]
         [SerializeField] private LayerMask groundLayer;
         [SerializeField] private Transform groundCheck;
         [SerializeField] private float groundCheckRadius = 0.3f;
@@ -19,23 +22,28 @@ namespace TrippleTrinity.MechaMorph.Control
 
         private void Awake()
         {
+            InitializeRigidbody();
+        }
+
+        private void FixedUpdate()
+        {
+            PerformMovementCycle();
+        }
+
+        private void InitializeRigidbody()
+        {
             _rb = GetComponent<Rigidbody>();
             _rb.freezeRotation = true;
             _rb.interpolation = RigidbodyInterpolation.Interpolate;
             _rb.collisionDetectionMode = CollisionDetectionMode.Continuous;
         }
 
-        private void FixedUpdate()
+        private void PerformMovementCycle()
         {
             CheckGrounded();
-            Move();
-            RotateToMouse();
-
-            if (InputHandler.Instance.IsJumpPressed() && _isGrounded)
-            {
-                Jump();
-                InputHandler.Instance.ResetJump();  // Reset after handling
-            }
+            HandleMovement();
+            HandleRotation();
+            HandleJump();
         }
 
         private void CheckGrounded()
@@ -43,12 +51,12 @@ namespace TrippleTrinity.MechaMorph.Control
             _isGrounded = Physics.CheckSphere(groundCheck.position, groundCheckRadius, groundLayer);
         }
 
-        private void Move()
+        private void HandleMovement()
         {
             Vector2 moveInput = InputHandler.Instance.GetMoveInput();
             Vector3 moveDirection = new Vector3(moveInput.x, 0, moveInput.y).normalized;
 
-            if (moveDirection.magnitude > 0.1f)
+            if (moveDirection.sqrMagnitude > 0.01f)
             {
                 _rb.velocity = new Vector3(moveDirection.x * moveSpeed, _rb.velocity.y, moveDirection.z * moveSpeed);
             }
@@ -58,38 +66,39 @@ namespace TrippleTrinity.MechaMorph.Control
             }
         }
 
-        private void RotateToMouse()
+        private void HandleRotation()
         {
-            Camera activeCamera = Camera.main;
-            if (activeCamera == null) return;
+            Camera cam = Camera.main;
+            if (cam == null) return;
 
-            Ray ray = activeCamera.ScreenPointToRay(Mouse.current.position.ReadValue());
-            if (Physics.Raycast(ray, out RaycastHit hitInfo))
+            Ray ray = cam.ScreenPointToRay(Mouse.current.position.ReadValue());
+            if (!Physics.Raycast(ray, out RaycastHit hitInfo)) return;
+
+            Vector3 direction = hitInfo.point - transform.position;
+            direction.y = 0;
+
+            if (direction.sqrMagnitude > 0.1f)
             {
-                Vector3 targetDirection = hitInfo.point - transform.position;
-                targetDirection.y = 0f;
-
-                if (targetDirection.sqrMagnitude > 0.1f)
-                {
-                    Quaternion targetRotation = Quaternion.LookRotation(targetDirection);
-                    _rb.rotation = Quaternion.Slerp(_rb.rotation, targetRotation, rotationSpeed * Time.fixedDeltaTime);
-                }
+                Quaternion targetRotation = Quaternion.LookRotation(direction);
+                _rb.rotation = Quaternion.Slerp(_rb.rotation, targetRotation, rotationSpeed * Time.fixedDeltaTime);
             }
         }
 
-        private void Jump()
+        private void HandleJump()
         {
+            if (!InputHandler.Instance.IsJumpPressed() || !_isGrounded) return;
+
             _rb.velocity = new Vector3(_rb.velocity.x, 0f, _rb.velocity.z);
             _rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+            InputHandler.Instance.ResetJump();
         }
 
         private void OnDrawGizmosSelected()
         {
-            if (groundCheck != null)
-            {
-                Gizmos.color = Color.green;
-                Gizmos.DrawWireSphere(groundCheck.position, groundCheckRadius);
-            }
+            if (groundCheck == null) return;
+
+            Gizmos.color = Color.green;
+            Gizmos.DrawWireSphere(groundCheck.position, groundCheckRadius);
         }
     }
 }

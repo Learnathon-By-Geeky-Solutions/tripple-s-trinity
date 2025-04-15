@@ -22,9 +22,8 @@ namespace TrippleTrinity.MechaMorph.Ability
 
         [Header("Form Settings")]
         [SerializeField] private bool isRobotForm;
-        
-        [SerializeField] private GameObject areaDamageEffect;
 
+        [SerializeField] private GameObject areaDamageEffect;
 
         private AreaCooldownBar _cooldownBar;
         private Collider[] _hitResults;
@@ -38,10 +37,11 @@ namespace TrippleTrinity.MechaMorph.Ability
 
         private void Update()
         {
-            if (isRobotForm && InputHandler.Instance.IsAbilityActivated() && IsAbilityReady())
-            {
-                ActivateAbility();
-            }
+            if (!isRobotForm) return;
+            if (!InputHandler.Instance.IsAbilityActivated()) return;
+            if (!IsAbilityReady()) return;
+
+            ActivateAbility();
         }
 
         public void ApplyUpgrades(int upgradeLevel)
@@ -50,8 +50,6 @@ namespace TrippleTrinity.MechaMorph.Ability
             damageAmount += 10 * upgradeLevel;
             damageRadius += 0.05f * upgradeLevel;
         }
-        
-        
 
         public void CollectToken()
         {
@@ -75,19 +73,25 @@ namespace TrippleTrinity.MechaMorph.Ability
             Debug.Log("Area Damage Ability Activated!");
             _currentCooldown = 0f;
             UpdateCooldownUI();
+            SpawnEffect();
+            ApplyAreaDamage();
+        }
 
-            // Spawn the particle effect at the player's position
+        private void SpawnEffect()
+        {
             if (areaDamageEffect != null)
             {
                 Instantiate(areaDamageEffect, transform.position, Quaternion.identity);
             }
+        }
 
+        private void ApplyAreaDamage()
+        {
             int hitCount = Physics.OverlapSphereNonAlloc(transform.position, damageRadius, _hitResults);
             int targetsHit = 0;
 
-            for (int i = 0; i < hitCount; i++)
+            for (int i = 0; i < hitCount && targetsHit < maxTargets; i++)
             {
-                if (targetsHit >= maxTargets) break;
                 if (_hitResults[i].CompareTag("Player")) continue;
 
                 Damageable damageable = _hitResults[i].GetComponent<Damageable>();
@@ -100,7 +104,6 @@ namespace TrippleTrinity.MechaMorph.Ability
 
             Debug.Log($"Area Damage hit {targetsHit} enemies.");
         }
-
 
         private void UpdateCooldownUI()
         {
