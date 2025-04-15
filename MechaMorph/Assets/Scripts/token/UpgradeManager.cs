@@ -5,40 +5,29 @@ namespace TrippleTrinity.MechaMorph.Token
 {
     public class UpgradeManager : MonoBehaviour
     {
-        private static UpgradeManager _instance;
+        public static UpgradeManager Instance { get; private set; }
+
         private int _upgradePoints;
         private int _upgradeTokenCount;
-        private const string TotalTokensKey = "TotalTokens"; // Key for PlayerPrefs
+
+        private const string TotalTokensKey = "TotalTokens";
         private const string BoosterLevelKey = "BoosterUpgradeLevel";
         private const string AreaDamageLevelKey = "AreaDamageUpgradeLevel";
         private const string BoosterCostKey = "BoosterUpgradeCost";
         private const string AreaDamageCostKey = "AreaDamageUpgradeCost";
-        
-        //upgrade levels and costs
+
         private int _boosterUpgradeLevel;
         private int _areaDamageUpgradeLevel;
         private int _boosterUpgradeCost;
         private int _areaDamageUpgradeCost;
-        public static UpgradeManager Instance
-        {
-            get
-            {
-                if (_instance == null)
-                {
-                    Debug.LogError("UpgradeManager instance is null.");
-                }
-                return _instance;
-            }
-        }
 
         private void Awake()
         {
-            // Ensure this instance persists across scenes
-            if (_instance == null)
+            if (Instance == null)
             {
-                _instance = this;
+                Instance = this;
                 DontDestroyOnLoad(gameObject);
-                LoadData(); // Reset the session token count
+                LoadData();
                 _upgradeTokenCount = 0;
             }
             else
@@ -55,20 +44,15 @@ namespace TrippleTrinity.MechaMorph.Token
 
         public void AddUpgradeToken()
         {
-            _upgradeTokenCount++; // Increase session tokens only
+            _upgradeTokenCount++;
 
-            // Update total tokens correctly
             int totalTokens = PlayerPrefs.GetInt(TotalTokensKey, 0) + 1;
             PlayerPrefs.SetInt(TotalTokensKey, totalTokens);
             PlayerPrefs.Save();
 
             Debug.Log($"Token Added! Session Tokens: {_upgradeTokenCount}, Total Tokens: {totalTokens}");
-
-            // Update UI to show session tokens
             TokenUIManager.Instance?.UpdateTokenCount(_upgradeTokenCount);
         }
-
-
 
         public bool UpgradeBoosterCooldown()
         {
@@ -79,7 +63,6 @@ namespace TrippleTrinity.MechaMorph.Token
                 _boosterUpgradeCost += 5;
 
                 SaveData();
-                
                 TokenUIManager.Instance?.UpdateTokenCount(_upgradeTokenCount);
                 return true;
             }
@@ -101,24 +84,16 @@ namespace TrippleTrinity.MechaMorph.Token
             return false;
         }
 
-        public int GetUpgradeTokenCount()
-        {
-            return _upgradeTokenCount;
-        }
+        public int GetUpgradeTokenCount() => _upgradeTokenCount;
 
         public int GetTotalUpgradeTokenCount()
         {
-            return PlayerPrefs.GetInt(TotalTokensKey, 0); // Get the total from PlayerPrefs
-        }
-        public int GetBoosterUpgradeCost()
-        {
-            return _boosterUpgradeCost;
+            return PlayerPrefs.GetInt(TotalTokensKey, 0);
         }
 
-        public int GetAreaDamageUpgradeCost()
-        {
-            return _areaDamageUpgradeCost;
-        }
+        public int GetBoosterUpgradeCost() => _boosterUpgradeCost;
+
+        public int GetAreaDamageUpgradeCost() => _areaDamageUpgradeCost;
 
         private void SaveData()
         {
@@ -126,7 +101,6 @@ namespace TrippleTrinity.MechaMorph.Token
             PlayerPrefs.SetInt(AreaDamageLevelKey, _areaDamageUpgradeLevel);
             PlayerPrefs.SetInt(BoosterCostKey, _boosterUpgradeCost);
             PlayerPrefs.SetInt(AreaDamageCostKey, _areaDamageUpgradeCost);
-            PlayerPrefs.SetInt(TotalTokensKey, _upgradeTokenCount);
             PlayerPrefs.Save();
         }
 
@@ -137,13 +111,8 @@ namespace TrippleTrinity.MechaMorph.Token
             _boosterUpgradeCost = PlayerPrefs.GetInt(BoosterCostKey, 5);
             _areaDamageUpgradeCost = PlayerPrefs.GetInt(AreaDamageCostKey, 5);
 
-            // Load only total tokens, but do NOT set _upgradeTokenCount from PlayerPrefs
-            int totalTokens = PlayerPrefs.GetInt(TotalTokensKey, 0);
-            _upgradeTokenCount = 0; // Always start session from 0
-
-            Debug.Log($"Loaded Total Tokens: {totalTokens}, Session Tokens Reset to: {_upgradeTokenCount}");
+            _upgradeTokenCount = 0; // Always reset session tokens
+            Debug.Log($"Loaded upgrades. Session Tokens Reset to: {_upgradeTokenCount}");
         }
-
-
     }
 }
