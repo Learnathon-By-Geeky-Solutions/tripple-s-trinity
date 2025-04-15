@@ -24,7 +24,7 @@ namespace TrippleTrinity.MechaMorph.Control
         private bool _isDashing;
         private bool _isCooldownActive;
         private ParticleSystem _activeDashEffect;
-        private Vector3 _dashDirection; // Store dash direction
+        private Vector3 _dashDirection;
 
         void Awake()
         {
@@ -33,21 +33,37 @@ namespace TrippleTrinity.MechaMorph.Control
 
         void FixedUpdate()
         {
+            HandleMovementAndDash();
+            FollowPlayerWithEffect();
+        }
+
+        private void HandleMovementAndDash()
+        {
             Vector2 moveInput = InputHandler.Instance.GetMoveInput();
             Vector3 movement = new Vector3(moveInput.x, 0, moveInput.y);
             _rb.AddForce(movement * movementSpeed);
 
-            if (InputHandler.Instance.IsDashPressed() && !_isDashing && !_isCooldownActive)
+            if (CanDash(movement))
             {
-                _dashDirection = movement.normalized; // Store direction before dashing
+                _dashDirection = movement.normalized;
                 PerformDash();
                 InputHandler.Instance.ResetDash();
             }
+        }
 
-            // Keep effect following player
+        private bool CanDash(Vector3 movement)
+        {
+            return InputHandler.Instance.IsDashPressed()
+                   && !_isDashing
+                   && !_isCooldownActive
+                   && movement.sqrMagnitude > 0.01f;
+        }
+
+        private void FollowPlayerWithEffect()
+        {
             if (_activeDashEffect != null)
             {
-                _activeDashEffect.transform.position = transform.position; // Follow player position
+                _activeDashEffect.transform.position = transform.position;
             }
         }
 
@@ -62,10 +78,26 @@ namespace TrippleTrinity.MechaMorph.Control
             float originalSpeed = movementSpeed;
             movementSpeed *= dashMultiplier;
 
-            // Spawn and orient the effect correctly
+            PlayDashEffects();
+
+            DashCooldownUI.Instance?.StartCooldown(dashCooldown);
+            yield return new WaitForSeconds(dashDuration);
+
+            movementSpeed = originalSpeed;
+            _isDashing = false;
+
+            StopAndDestroyEffect();
+
+            _isCooldownActive = true;
+            yield return new WaitForSeconds(dashCooldown);
+            _isCooldownActive = false;
+        }
+
+        private void PlayDashEffects()
+        {
             if (dashParticleEffect != null && _dashDirection != Vector3.zero)
             {
-                _activeDashEffect = Instantiate(dashParticleEffect, transform.position, Quaternion.LookRotation(-_dashDirection)); // Flipped direction
+                _activeDashEffect = Instantiate(dashParticleEffect, transform.position, Quaternion.LookRotation(-_dashDirection));
                 _activeDashEffect.Play();
             }
 
@@ -73,24 +105,15 @@ namespace TrippleTrinity.MechaMorph.Control
             {
                 _audioSource.PlayOneShot(dashSound);
             }
+        }
 
-            DashCooldownUI.Instance?.StartCooldown(dashCooldown);
-
-            yield return new WaitForSeconds(dashDuration);
-
-            movementSpeed = originalSpeed;
-            _isDashing = false;
-
-            // Stop and destroy the effect after dash
+        private void StopAndDestroyEffect()
+        {
             if (_activeDashEffect != null)
             {
                 _activeDashEffect.Stop();
                 Destroy(_activeDashEffect.gameObject, _activeDashEffect.main.duration);
             }
-
-            _isCooldownActive = true;
-            yield return new WaitForSeconds(dashCooldown);
-            _isCooldownActive = false;
         }
 
         public void OnTransformToBall()
