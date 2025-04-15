@@ -25,14 +25,15 @@ namespace TrippleTrinity.MechaMorph.Ui
 
             if (_areaDamageAbility == null)
             {
-                _areaDamageAbility = FindObjectOfType<AreaDamageAbility>();
+                Debug.LogError("AreaDamageAbility missing! Disabling upgrade functionality.");
+                /*_areaDamageAbility = FindObjectOfType<AreaDamageAbility>();
                 if (_areaDamageAbility == null)
                 {
                     Debug.LogError("AreaDamageAbility missing! Disabling upgrade functionality.");
                     boosterUpgradeButton.interactable = false;
                     areaDamageUpgradeButton.interactable = false;
                     return;
-                }
+                }*/
             }
 
             UpdateUI();
