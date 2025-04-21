@@ -7,7 +7,7 @@ namespace TrippleTrinity.MechaMorph.SaveManager
         private static GameManager _instance;
         public static GameManager Instance => _instance;
 
-        private int score;
+         private int score;
         private int tokenCount;
 
         public int Score
@@ -21,7 +21,6 @@ namespace TrippleTrinity.MechaMorph.SaveManager
             get => tokenCount;
             set => tokenCount = value;
         }
-
         private void Awake()
         {
             if (_instance == null)
