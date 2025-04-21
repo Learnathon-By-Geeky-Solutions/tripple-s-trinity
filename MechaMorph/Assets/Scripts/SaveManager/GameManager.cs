@@ -4,20 +4,19 @@ namespace TrippleTrinity.MechaMorph.SaveManager
 {
     public class GameManager : MonoBehaviour
     {
-        private static GameManager _instance;
-        public static GameManager Instance => _instance;
+        public static GameManager Instance { get; private set; }
 
         public int Score { get; set; }
         public int TokenCount { get; set; }
 
         private void Awake()
         {
-            if (_instance == null)
+            if (Instance == null)
             {
-                _instance = this;
+                Instance = this;
                 DontDestroyOnLoad(gameObject);
             }
-            else
+            else if (Instance != this)
             {
                 Destroy(gameObject);
             }
