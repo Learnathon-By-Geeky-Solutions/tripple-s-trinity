@@ -6,14 +6,14 @@ namespace TrippleTrinity.MechaMorph.SaveManager
 {
     public class DeleteData : MonoBehaviour
     {
-        private bool isReset = false;
+        private readonly bool  isReset = false;
 
         public bool IsReset
         {
             get => isReset;
         }
 
-        public void DeleteEverything()
+        public static void DeleteEverything()
         {
             SaveSystem.DeleteGame(); // Delete the save.json file
             if (UpgradeManager.Instance != null)

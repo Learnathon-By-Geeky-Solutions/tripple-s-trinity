@@ -19,7 +19,6 @@ namespace TrippleTrinity.MechaMorph.Enemy
 
             agent.stoppingDistance = stoppingDistance;
             agent.isStopped = false;
-       
         }
 
         private new void Update()

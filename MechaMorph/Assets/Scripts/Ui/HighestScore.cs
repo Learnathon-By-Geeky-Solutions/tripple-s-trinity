@@ -1,7 +1,7 @@
 using UnityEngine;
 using TMPro;
 
-namespace TrippleTrinity.MechaMorph
+namespace TrippleTrinity.MechaMorph.Ui
 {
     public class HighestScore : MonoBehaviour
     {

@@ -1,9 +1,7 @@
-using UnityEngine;
 namespace TrippleTrinity.MechaMorph.SaveManager
 {
-    public class LoadGameData : MonoBehaviour
+    public interface ILoadGameData
     {
-       
-        
+        void LoadData(GameData data);
     }
 }
