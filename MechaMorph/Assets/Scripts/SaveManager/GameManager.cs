@@ -21,7 +21,6 @@ namespace TrippleTrinity.MechaMorph.SaveManager
             get => tokenCount;
             set => tokenCount = value;
         }
-
         private void Awake()
         {
             if (_instance == null)
