@@ -81,13 +81,17 @@ namespace TrippleTrinity.MechaMorph.Ui
 
         public void LoadScore()
         {
-            _score = 0; // Start fresh for new gameplay
+            _score = PlayerPrefs.GetInt("LastScore", 0); // Load last saved score or default to 0
             UpdateScoreUI();
         }
 
+
         public void SaveScore()
         {
+            PlayerPrefs.SetInt("LastScore", _score); // Save current score
+            PlayerPrefs.Save();
             SaveSystem.SaveGame(_score, TokenUIManager.Instance.CurrentTokenCount());
         }
+
     }
 }
