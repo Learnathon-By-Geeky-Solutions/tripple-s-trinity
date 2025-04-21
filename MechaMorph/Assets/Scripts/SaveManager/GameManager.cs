@@ -7,7 +7,7 @@ namespace TrippleTrinity.MechaMorph.SaveManager
         private static GameManager _instance;
         public static GameManager Instance => _instance;
 
-         private int score;
+        private int score;
         private int tokenCount;
 
         public int Score
