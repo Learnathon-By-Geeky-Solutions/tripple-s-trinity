@@ -1,5 +1,7 @@
 using UnityEngine;
 
+namespace TrippleTrinity.MechaMorph.SaveManager
+{
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
@@ -21,4 +23,5 @@ public class GameManager : MonoBehaviour
         tokenCount = 0;
         Debug.Log("Game values reset.");
     }
+}
 }

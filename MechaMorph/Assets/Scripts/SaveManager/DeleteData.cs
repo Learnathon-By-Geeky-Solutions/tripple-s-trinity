@@ -1,28 +1,31 @@
 using UnityEngine;
-using TrippleTrinity.MechaMorph.SaveManager;
 using TrippleTrinity.MechaMorph.Token;
 using UnityEngine.SceneManagement;
-public class DeleteData : MonoBehaviour
+
+namespace TrippleTrinity.MechaMorph.SaveManager
 {
-    private bool _isReset = false;
-    
-    public bool IsReset
+    public class DeleteData : MonoBehaviour
     {
-       get=> _isReset;
-    }
+        private bool isReset = false;
 
-    public void DeleteEverything()
-    {
-        SaveSystem.DeleteGame(); // Delete the save.json file
-        if (UpgradeManager.Instance != null)
+        public bool IsReset
         {
-            UpgradeManager.Instance.ResetAllUpgrades(); // Reset PlayerPrefs and in-memory data
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-
+            get => isReset;
         }
-        else
+
+        public void DeleteEverything()
         {
-            Debug.LogWarning("UpgradeManager instance is null!");
+            SaveSystem.DeleteGame(); // Delete the save.json file
+            if (UpgradeManager.Instance != null)
+            {
+                UpgradeManager.Instance.ResetAllUpgrades(); // Reset PlayerPrefs and in-memory data
+                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+
+            }
+            else
+            {
+                Debug.LogWarning("UpgradeManager instance is null!");
+            }
         }
     }
 }
