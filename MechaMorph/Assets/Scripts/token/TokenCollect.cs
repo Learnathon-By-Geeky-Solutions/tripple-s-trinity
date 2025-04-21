@@ -6,20 +6,20 @@ namespace TrippleTrinity.MechaMorph.Token
 {
     public class TokenCollector : MonoBehaviour
     {
-        private Damageable _playerHealth;
-        private AreaDamageAbility _areaDamageAbility;
+        private Damageable playerHealth;
+        private AreaDamageAbility areaDamageAbility;
 
         private void Start()
         {
-            _playerHealth = GetComponentInParent<Damageable>(); // Get from Parent
-            _areaDamageAbility = FindObjectOfType<AreaDamageAbility>();
+            playerHealth = GetComponentInParent<Damageable>(); // Get from Parent
+            areaDamageAbility = FindObjectOfType<AreaDamageAbility>();
 
-            Debug.Log($"TokenCollector initialized. Player Health Component: {_playerHealth}");
+            Debug.Log($"TokenCollector initialized. Player Health Component: {playerHealth}");
 
-            if (_playerHealth == null)
+            if (playerHealth == null)
                 Debug.LogWarning("TokenCollector: Damageable component missing on Player.");
 
-            if (_areaDamageAbility == null)
+            if (areaDamageAbility == null)
                 Debug.LogWarning("TokenCollector: AreaDamageAbility not found in scene.");
         }
 
@@ -30,10 +30,10 @@ namespace TrippleTrinity.MechaMorph.Token
             switch (type)
             {
                 case TokenType.Health:
-                    if (_playerHealth != null)
+                    if (playerHealth != null)
                     {
                         Debug.Log($"Applying Heal: {value}");
-                        _playerHealth.Heal(value);
+                        playerHealth.Heal(value);
                     }
                     else
                     {
@@ -42,9 +42,9 @@ namespace TrippleTrinity.MechaMorph.Token
                     break;
 
                 case TokenType.Cooldown:
-                    if (_areaDamageAbility != null)
+                    if (areaDamageAbility != null)
                     {
-                        _areaDamageAbility.CollectToken(); // Calls Area Damage cooldown
+                        areaDamageAbility.CollectToken(); // Calls Area Damage cooldown
                     }
                     else
                     {

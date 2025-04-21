@@ -68,7 +68,7 @@ namespace TrippleTrinity.MechaMorph.Enemy
         {
             if (targetPosition == null) return;
 
-            // 🔧 Now 'direction' is correctly assigned
+            //  Now 'direction' is correctly assigned
             Direction = (targetPosition.position - transform.position).normalized;
             Quaternion targetRotation = Quaternion.LookRotation(Direction);
             transform.rotation = Quaternion.Slerp(

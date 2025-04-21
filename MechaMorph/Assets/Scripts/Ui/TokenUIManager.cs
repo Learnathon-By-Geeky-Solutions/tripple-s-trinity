@@ -9,8 +9,8 @@ namespace TrippleTrinity.MechaMorph.Ui
 
         [SerializeField] private TMP_Text tokenCountText; // Assign in Inspector
 
-        private int currentGameTokens = 0; // Tokens earned in the current session
-        private int totalTokens = 0; // Total saved tokens
+        private int currentGameTokens ; // Tokens earned in the current session
+        private int totalTokens ; // Total saved tokens
 
         private void Awake()
         {
@@ -23,12 +23,6 @@ namespace TrippleTrinity.MechaMorph.Ui
             {
                 Destroy(gameObject);
             }
-        }
-
-        private void Start()
-        {
-            //LoadTotalTokens(); // Load total tokens when the UI starts
-            //UpdateTokenCount(currentGameTokens); // Show session tokens
         }
 
         public void UpdateTokenCount(int count)
@@ -67,19 +61,7 @@ namespace TrippleTrinity.MechaMorph.Ui
 
             ResetTokenCount(); // Ensure new game starts from 0
         }
-
-        private void LoadTotalTokens()
-        {
-            totalTokens = PlayerPrefs.GetInt("TotalTokens", 0);
-            Debug.Log($"Loaded Total Tokens: {totalTokens}");
-
-            // Make sure UI updates correctly in the menu
-            if (tokenCountText != null)
-            {
-                tokenCountText.text = $"Tokens: {totalTokens}";
-            }
-        }
-
+        
         
         public int CurrentTokenCount()
         {

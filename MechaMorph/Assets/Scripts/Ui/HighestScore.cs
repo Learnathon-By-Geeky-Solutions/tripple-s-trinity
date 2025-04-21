@@ -1,7 +1,7 @@
 using UnityEngine;
 using TMPro;
 
-namespace TrippleTrinity.MechaMorph
+namespace TrippleTrinity.MechaMorph.Ui
 {
     public class HighestScore : MonoBehaviour
     {
@@ -10,6 +10,7 @@ namespace TrippleTrinity.MechaMorph
         private void Start()
         {
             int highScore = PlayerPrefs.GetInt("HighScore", 0);
+
             if (highScoreText != null)
             {
                 highScoreText.text = $"Highest Score: {highScore}";
