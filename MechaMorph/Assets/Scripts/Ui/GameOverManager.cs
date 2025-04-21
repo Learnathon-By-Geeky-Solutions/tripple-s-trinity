@@ -53,7 +53,7 @@ namespace TrippleTrinity.MechaMorph.Ui
             }
         }
 
-        public void RestartGame()
+        public  static void RestartGame()
         {
             Time.timeScale = 1f;
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); // Reload the current scene

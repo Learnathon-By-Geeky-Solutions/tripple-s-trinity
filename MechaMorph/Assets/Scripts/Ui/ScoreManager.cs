@@ -6,30 +6,19 @@ namespace TrippleTrinity.MechaMorph.Ui
 {
     public class ScoreManager : MonoBehaviour
     {
-        private static ScoreManager _instance;
+        public static ScoreManager Instance { get; private set; }
+
         private int _score;
         private const string HighScoreKey = "HighScore";
 
-        [SerializeField] private TextMeshProUGUI scoreText; 
-        [SerializeField] private TextMeshProUGUI highScoreText; // UI for highest score
-        
-        public static ScoreManager Instance 
-        { 
-            get
-            {
-                if (_instance == null)
-                {
-                    Debug.LogError("ScoreManager instance is null.");
-                }
-                return _instance;
-            }
-        }
+        [SerializeField] private TextMeshProUGUI scoreText;
+        [SerializeField] private TextMeshProUGUI highScoreText;
 
         private void Awake()
         {
-            if (_instance == null)
+            if (Instance == null)
             {
-                _instance = this;
+                Instance = this;
                 DontDestroyOnLoad(gameObject);
             }
             else
@@ -51,10 +40,12 @@ namespace TrippleTrinity.MechaMorph.Ui
                 Debug.LogWarning("Cannot add negative points.");
                 return;
             }
+
             _score += points;
 
             // Update the high score if the current score is greater
-            if (_score > PlayerPrefs.GetInt(HighScoreKey, 0))
+            int currentHigh = PlayerPrefs.GetInt(HighScoreKey, 0);
+            if (_score > currentHigh)
             {
                 PlayerPrefs.SetInt(HighScoreKey, _score);
                 PlayerPrefs.Save();

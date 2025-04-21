@@ -6,7 +6,7 @@ namespace TrippleTrinity.MechaMorph.Ui
 {
     public class UpgradePanel : MonoBehaviour
     {
-        [SerializeField] private TextMeshProUGUI totalTokenText; // Assign in Inspector
+        [SerializeField] private TextMeshProUGUI totalTokenText;
 
         public static UpgradePanel Instance { get; private set; }
 
@@ -21,6 +21,7 @@ namespace TrippleTrinity.MechaMorph.Ui
                 Destroy(gameObject);
             }
         }
+
         private void Start()
         {
             UpdateTotalTokenDisplay();
@@ -30,7 +31,7 @@ namespace TrippleTrinity.MechaMorph.Ui
         {
             if (totalTokenText != null)
             {
-                int totalTokens = UpgradeManager.Instance.GetTotalUpgradeTokenCount(); // Get total from PlayerPrefs
+                int totalTokens = UpgradeManager.GetTotalUpgradeTokenCount(); // ✅ Use static access
                 totalTokenText.text = $"Tokens: {totalTokens}";
             }
             else

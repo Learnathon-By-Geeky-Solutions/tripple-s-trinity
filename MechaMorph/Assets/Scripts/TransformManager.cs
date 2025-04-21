@@ -17,85 +17,74 @@ namespace TrippleTrinity.MechaMorph
         [SerializeField] private AreaDamageAbility areaDamageAbility;
 
         [Header("Health System")]
-        [SerializeField] private PlayerHealth playerHealth;  // Reference to PlayerHealth
+        [SerializeField] private PlayerHealth playerHealth;
 
         private bool _isBallForm = true;
 
-        private void Start()
-        {
-            SetBallForm();
-        }
+        private void Start() => SwitchToBallForm();
 
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.T)) 
+            if (Input.GetKeyDown(KeyCode.T))
             {
-                if (_isBallForm)
-                {
-                    SetRobotForm();
-                }
-                else
-                {
-                    SetBallForm();
-                }
+                if (_isBallForm) SwitchToRobotForm();
+                else SwitchToBallForm();
             }
         }
 
-        private void SetBallForm()
+        private void SwitchToBallForm()
         {
-            ballVisual.transform.position = robotVisual.transform.position;
-            ballVisual.transform.rotation = robotVisual.transform.rotation;
+            CopyTransform(robotVisual.transform, ballVisual.transform);
+            ToggleVisuals(ballVisual, robotVisual);
+            ToggleControllers(ballController, robotController);
 
-            ballVisual.SetActive(true);  // Activate Ball form
-            robotVisual.SetActive(false); // Deactivate Robot form
+            InvokeBallTransformCallback();
+            _isBallForm = true;
 
-            if (ballController != null)
-            {
-                ballController.enabled = true;
-                var method = ballController.GetType().GetMethod("OnTransformToBall");
-                method?.Invoke(ballController, null);  // Call method if it exists (on transformation)
-            }
-
-            if (robotController != null)
-            {
-                robotController.enabled = false; // Disable Robot controller
-            }
-
-            _isBallForm = true; // Mark player in Ball form
-
-            // Notify other systems
-            areaDamageAbility?.SetRobotForm(false);  // Disable robot-specific abilities
-            playerHealth?.SwitchForm(PlayerHealth.PlayerForm.Ball);  // Update PlayerHealth form to Ball
+            NotifySystems(isRobot: false);
         }
 
-        private void SetRobotForm()
+        private void SwitchToRobotForm()
         {
-            robotVisual.transform.position = ballVisual.transform.position;
-            robotVisual.transform.rotation = ballVisual.transform.rotation;
+            CopyTransform(ballVisual.transform, robotVisual.transform);
+            ToggleVisuals(robotVisual, ballVisual);
+            ToggleControllers(robotController, ballController);
 
-            ballVisual.SetActive(false); // Deactivate Ball form
-            robotVisual.SetActive(true); // Activate Robot form
+            _isBallForm = false;
 
-            if (ballController != null)
-            {
-                ballController.enabled = false; // Disable Ball controller
-            }
-
-            if (robotController != null)
-            {
-                robotController.enabled = true; // Enable Robot controller
-            }
-
-            _isBallForm = false; // Mark player in Robot form
-
-            // Notify other systems
-            areaDamageAbility?.SetRobotForm(true);  // Enable robot-specific abilities
-            playerHealth?.SwitchForm(PlayerHealth.PlayerForm.Robot);  // Update PlayerHealth form to Robot
+            NotifySystems(isRobot: true);
         }
 
-        public bool IsBallForm()
+        private void CopyTransform(Transform from, Transform to)
         {
-            return _isBallForm;
+            to.position = from.position;
+            to.rotation = from.rotation;
         }
+
+        private void ToggleVisuals(GameObject enableObj, GameObject disableObj)
+        {
+            enableObj.SetActive(true);
+            disableObj.SetActive(false);
+        }
+
+        private void ToggleControllers(MonoBehaviour enableCtrl, MonoBehaviour disableCtrl)
+        {
+            if (disableCtrl != null) disableCtrl.enabled = false;
+            if (enableCtrl != null) enableCtrl.enabled = true;
+        }
+
+        private void InvokeBallTransformCallback()
+        {
+            var method = ballController?.GetType().GetMethod("OnTransformToBall");
+            method?.Invoke(ballController, null);
+        }
+
+        private void NotifySystems(bool isRobot)
+        {
+            areaDamageAbility?.SetRobotForm(isRobot);
+            playerHealth?.SwitchForm(isRobot ? PlayerHealth.PlayerForm.Robot : PlayerHealth.PlayerForm.Ball);
+        }
+
+        public bool IsBallForm() => _isBallForm;
     }
 }

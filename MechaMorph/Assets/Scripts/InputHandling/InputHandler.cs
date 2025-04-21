@@ -36,7 +36,34 @@ namespace TrippleTrinity.MechaMorph.InputHandling
                 return;
             }
 
-            // Initialize all actions
+            InitializeInputActions();
+        }
+
+        private void OnEnable()
+        {
+            BindMoveInput(_robotMoveAction);
+            BindMoveInput(_ballMoveAction);
+            BindJumpInput();
+            BindDashInput();
+
+            EnableAction(_activateAbilityAction);
+            EnableAction(_fireAction);
+            EnableAction(_reloadAction);
+        }
+
+        private void OnDisable()
+        {
+            _robotMoveAction?.Disable();
+            _ballMoveAction?.Disable();
+            _jumpAction?.Disable();
+            _dashAction?.Disable();
+            _activateAbilityAction?.Disable();
+            _fireAction?.Disable();
+            _reloadAction?.Disable();
+        }
+
+        private void InitializeInputActions()
+        {
             _robotMoveAction = robotInput.FindAction("RMove");
             _ballMoveAction = ballInput.FindAction("Move");
             _jumpAction = robotInput.FindAction("Jump");
@@ -45,79 +72,57 @@ namespace TrippleTrinity.MechaMorph.InputHandling
             _fireAction = combatInput.FindAction("Fire");
             _reloadAction = combatInput.FindAction("Reloading");
 
-            if (_robotMoveAction == null || _jumpAction == null || _dashAction == null || _activateAbilityAction == null || _fireAction == null || _reloadAction == null)
+            if (_robotMoveAction == null || _jumpAction == null || _dashAction == null || 
+                _activateAbilityAction == null || _fireAction == null || _reloadAction == null)
             {
                 Debug.LogError("Some input actions are missing in InputActionAsset!");
             }
         }
 
-        private void OnEnable()
+        private void BindMoveInput(InputAction moveAction)
         {
-            if (_robotMoveAction != null)
-            {
-                _robotMoveAction.performed += ctx => _moveInput = ctx.ReadValue<Vector2>();
-                _robotMoveAction.canceled += _ => _moveInput = Vector2.zero;
-                _robotMoveAction.Enable();
-            }
-            if (_ballMoveAction != null)
-            {
-                _ballMoveAction.performed += ctx => _moveInput = ctx.ReadValue<Vector2>();
-                _ballMoveAction.canceled += _ => _moveInput = Vector2.zero;
-                _ballMoveAction.Enable();
-            }
+            if (moveAction == null) return;
 
-            if (_jumpAction != null)
-            {
-                _jumpAction.performed += _ => _jumpPressed = true;
-                _jumpAction.Enable();
-            }
+            moveAction.performed += ctx => _moveInput = ctx.ReadValue<Vector2>();
+            moveAction.canceled += _ => _moveInput = Vector2.zero;
+            moveAction.Enable();
+        }
 
-            if (_dashAction != null)
-            {
-                _dashAction.performed += _ =>
-                {
-                    _dashPressed = true;
-                    Debug.Log("Dash Button Pressed");
-                };
-                _dashAction.Enable();
-            }
+        private void BindJumpInput()
+        {
+            if (_jumpAction == null) return;
 
-            if (_activateAbilityAction != null)
-            {
-                _activateAbilityAction.Enable();
-            }
+            _jumpAction.performed += _ => _jumpPressed = true;
+            _jumpAction.Enable();
+        }
 
-            if (_fireAction != null)
-            {
-                _fireAction.Enable();
-            }
+        private void BindDashInput()
+        {
+            if (_dashAction == null) return;
 
-            if (_reloadAction != null)
+            _dashAction.performed += _ =>
             {
-                _reloadAction.Enable();
+                _dashPressed = true;
+                Debug.Log("Dash Button Pressed");
+            };
+            _dashAction.Enable();
+        }
+
+        private void EnableAction(InputAction action)
+        {
+            if (action != null)
+            {
+                action.Enable();
             }
         }
 
-        private void OnDisable()
-        {
-            _robotMoveAction?.Disable();
-            _jumpAction?.Disable();
-            _dashAction?.Disable();
-            _activateAbilityAction?.Disable();
-            _fireAction?.Disable();
-            _reloadAction?.Disable();
-        }
-
+        // Public Getters
         public Vector2 GetMoveInput() => _moveInput;
         public bool IsJumpPressed() => _jumpPressed;
-        public bool IsDashPressed()
-        {
-            return _dashPressed;
-        }
-
-        public bool IsAbilityActivated() => _activateAbilityAction.triggered;
-        public bool IsFirePressed() => _fireAction.triggered;
-        public bool IsReloadPressed() => _reloadAction.triggered;
+        public bool IsDashPressed() => _dashPressed;
+        public bool IsAbilityActivated() => _activateAbilityAction?.triggered ?? false;
+        public bool IsFirePressed() => _fireAction?.triggered ?? false;
+        public bool IsReloadPressed() => _reloadAction?.triggered ?? false;
 
         public void ResetJump() => _jumpPressed = false;
         public void ResetDash()
