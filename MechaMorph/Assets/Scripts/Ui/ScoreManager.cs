@@ -81,7 +81,7 @@ namespace TrippleTrinity.MechaMorph.Ui
 
         public void LoadScore()
         {
-            _score = PlayerPrefs.GetInt("LastScore", 0); // Load last saved score or default to 0
+            _score = 0; // Load last saved score or default to 0
             UpdateScoreUI();
         }
 

@@ -8,7 +8,7 @@ namespace TrippleTrinity.MechaMorph.Enemy
         [SerializeField] private float attackRange = 7f;
         [SerializeField] private float fireRate = 1f;
         private float _nextFireTime;
-
+        [SerializeField] private AudioClip _fireSound;
         private GunAbility _gunAbility;
 
         protected override void Start()
@@ -31,6 +31,7 @@ namespace TrippleTrinity.MechaMorph.Enemy
 
             if (distanceToPlayer <= attackRange)
             {
+                AudioSource.PlayClipAtPoint(_fireSound, transform.position,0.4f);
                 AttackPlayer();
             }
             else

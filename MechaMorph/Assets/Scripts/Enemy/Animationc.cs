@@ -23,11 +23,11 @@ namespace TrippleTrinity.MechaMorph.Enemy
 
         private new void Update()
         {
-            player = GameObject.FindGameObjectWithTag("Player").transform;
-            if (player == null)
+
+            if (player != null)
             {
                 GameObject found = GameObject.FindGameObjectWithTag("Player");
-                if (found != null)
+                if (player != null && found != null)
                 {
                     player = found.transform;
                 }
@@ -35,19 +35,20 @@ namespace TrippleTrinity.MechaMorph.Enemy
                 {
                     return; // Player hasn't spawned yet
                 }
-            }
 
-            float distance = Vector3.Distance(player.position, transform.position);
 
-            if (animator != null && agent != null)
-            {
-                if (distance <= stoppingDistance)
+                float distance = Vector3.Distance(player.position, transform.position);
+
+                if (animator != null && agent != null)
                 {
-                    HittingAnimation();
-                }
-                else
-                {
-                    MovingAnimation();
+                    if (distance <= stoppingDistance)
+                    {
+                        HittingAnimation();
+                    }
+                    else
+                    {
+                        MovingAnimation();
+                    }
                 }
             }
         }

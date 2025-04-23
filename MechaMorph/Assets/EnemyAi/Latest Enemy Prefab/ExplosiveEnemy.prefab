@@ -730,6 +730,7 @@ MonoBehaviour:
   moveRotationSpeed: 45
   stoppingDistance: 3
   explosionEffect: {fileID: 6803596885632055626, guid: 6735bdc291ca3ae4e90a5004d3231f8e, type: 3}
+  _audioClip: {fileID: 8300000, guid: 9796b1be1c33ed948805f1b1fb97c2d3, type: 3}
 --- !u!54 &4222414080385284839
 Rigidbody:
   m_ObjectHideFlags: 0
