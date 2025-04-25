@@ -2,7 +2,7 @@ using UnityEngine;
 using TrippleTrinity.MechaMorph.Ability;
 using TrippleTrinity.MechaMorph.Token;
 using TrippleTrinity.MechaMorph.Damage;
-
+using TrippleTrinity.MechaMorph.SoundManager_main.SoundManager_main;
 namespace TrippleTrinity.MechaMorph.Health
 {
     public class PlayerHealth : Damageable
@@ -11,7 +11,6 @@ namespace TrippleTrinity.MechaMorph.Health
 
         [SerializeField] private PlayerForm currentForm = PlayerForm.Ball;
         [SerializeField] private bool shouldDropToken;
-
         private TokenSpawner _tokenSpawner;
         private AreaDamageAbility _areaDamageAbility;
 
@@ -28,6 +27,8 @@ namespace TrippleTrinity.MechaMorph.Health
 
         protected override void HandleDeath()
         {
+            //Player Deatg Sound
+            SoundManager.PlaySound(SoundType.PlayerDeath);
             base.HandleDeath();
             Debug.Log("Player has died!");
 
