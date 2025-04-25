@@ -1,3 +1,4 @@
+using TrippleTrinity.MechaMorph.SoundManager_main.SoundManager_main;
 using UnityEngine;
 using TrippleTrinity.MechaMorph.Weapons;
 
@@ -8,9 +9,7 @@ namespace TrippleTrinity.MechaMorph.Enemy
         [SerializeField] private float attackRange = 7f;
         [SerializeField] private float fireRate = 1f;
         private float _nextFireTime;
-        [SerializeField] private AudioClip _fireSound;
         private GunAbility _gunAbility;
-
         protected override void Start()
         {
             base.Start();
@@ -31,7 +30,8 @@ namespace TrippleTrinity.MechaMorph.Enemy
 
             if (distanceToPlayer <= attackRange)
             {
-                AudioSource.PlayClipAtPoint(_fireSound, transform.position,0.4f);
+
+                
                 AttackPlayer();
             }
             else
@@ -47,6 +47,7 @@ namespace TrippleTrinity.MechaMorph.Enemy
             if (Time.time >= _nextFireTime)
             {
                 Debug.Log("Enemy is shooting!"); // Debugging
+
                 _gunAbility.TriggerShoot(); // Call the public TriggerShoot method
                 _nextFireTime = Time.time + fireRate;
             }

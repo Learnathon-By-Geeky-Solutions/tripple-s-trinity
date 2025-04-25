@@ -24,8 +24,9 @@ namespace TrippleTrinity.MechaMorph.Weapons
         {
             if (_damageHandler == null) return;
             _damageHandler.HandleCollision(other);
-            Instantiate(_bulletParticle, transform.position, Quaternion.identity);
-            AudioSource.PlayClipAtPoint(_bulletParticleSound, transform.position,0.7f);
+            GameObject particle = Instantiate(_bulletParticle, transform.position, Quaternion.identity);
+            Destroy(particle,particle.GetComponent<ParticleSystem>().main.duration);
+            if(_bulletParticleSound!=null) AudioSource.PlayClipAtPoint(_bulletParticleSound, transform.position,0.7f);
             Destroy(gameObject); // Destroy bullet after hit
         }
     }

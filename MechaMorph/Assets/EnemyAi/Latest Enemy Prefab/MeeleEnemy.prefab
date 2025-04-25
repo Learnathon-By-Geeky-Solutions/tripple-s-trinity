@@ -6864,7 +6864,7 @@ MonoBehaviour:
   bullet: {fileID: 0}
   moveRotationSpeed: 45
   player: {fileID: 0}
-  stoppingDistance: 5
+  stoppingDistance: 3
 --- !u!114 &9040773401710632497
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -10,7 +10,8 @@ namespace TrippleTrinity.MechaMorph.SoundManager_main.SoundManager_main
         KeepHitting,
         Slide,
         Walking,
-        PlayerDeath
+        PlayerDeath,
+        RangedEnemySound
         
     }
 }

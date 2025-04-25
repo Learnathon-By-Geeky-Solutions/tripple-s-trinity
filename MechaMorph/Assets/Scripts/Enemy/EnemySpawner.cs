@@ -61,12 +61,8 @@ namespace TrippleTrinity.MechaMorph.Enemy
 
         private IEnumerator SpawnLoop()
         {
-         
                 yield return new WaitForSeconds(spawnDelay);
-
-                
-                    SpawnEnemy();
-                
+                SpawnEnemy();
         }
 
         private void SpawnEnemy()

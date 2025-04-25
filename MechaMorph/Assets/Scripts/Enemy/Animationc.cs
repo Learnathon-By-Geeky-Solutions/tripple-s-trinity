@@ -6,19 +6,19 @@ namespace TrippleTrinity.MechaMorph.Enemy
     public class Animationc : EnemyAi
     {
         private Animator animator;
-        private NavMeshAgent agent;
+        private NavMeshAgent agent1;
         [SerializeField] private Transform player;
         [SerializeField] private float stoppingDistance = 5f;
         private static readonly int KeepHittingHash = Animator.StringToHash("Keep Hitting");
         private static readonly int BlendTreeHash = Animator.StringToHash("Blend Tree");
         private new void Start()
         {
-            agent = GetComponent<NavMeshAgent>();
+            agent1 = GetComponent<NavMeshAgent>();
             animator = GetComponent<Animator>();
             player = GameObject.FindGameObjectWithTag("Player").transform;
 
-            agent.stoppingDistance = stoppingDistance;
-            agent.isStopped = false;
+            agent1.stoppingDistance = stoppingDistance;
+            agent1.isStopped = false;
         }
 
         private new void Update()
@@ -39,7 +39,7 @@ namespace TrippleTrinity.MechaMorph.Enemy
 
                 float distance = Vector3.Distance(player.position, transform.position);
 
-                if (animator != null && agent != null)
+                if (animator != null && agent1 != null)
                 {
                     if (distance <= stoppingDistance)
                     {
@@ -55,8 +55,8 @@ namespace TrippleTrinity.MechaMorph.Enemy
 
         public void HittingAnimation()
         {
-            agent.isStopped = false;
-            agent.SetDestination(player.position);
+            agent1.isStopped = false;
+            agent1.SetDestination(player.position);
 
             animator.SetTrigger(KeepHittingHash);
             animator.ResetTrigger(BlendTreeHash);
@@ -64,7 +64,7 @@ namespace TrippleTrinity.MechaMorph.Enemy
         public void MovingAnimation()
         {
             MoveTowardsTarget();
-            agent.isStopped = true;
+            agent1.isStopped = true;
             animator.SetTrigger(BlendTreeHash);
             animator.ResetTrigger(KeepHittingHash);
         }

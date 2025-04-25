@@ -10,7 +10,7 @@ namespace TrippleTrinity.MechaMorph.Enemy
         [SerializeField] private GameObject explosionEffect;
         private static readonly int IdleHash = Animator.StringToHash("Idle");
         private static readonly int WalkHash = Animator.StringToHash("walk");
-        [SerializeField] private AudioClip _audioClip;
+        [SerializeField] private AudioClip audioClip;
         protected override void Start()
         {
             base.Start(); // Call EnemyAi's Start()
@@ -63,7 +63,7 @@ namespace TrippleTrinity.MechaMorph.Enemy
         {
             if(explosionEffect!=null)
             { 
-                AudioSource.PlayClipAtPoint(_audioClip, transform.position,1f);
+                AudioSource.PlayClipAtPoint(audioClip, transform.position,1f);
                 //Particle Effect
                 Instantiate(explosionEffect,transform.position,transform.rotation);
                 

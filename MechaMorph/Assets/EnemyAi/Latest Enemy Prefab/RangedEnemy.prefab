@@ -162,7 +162,6 @@ MonoBehaviour:
   moveRotationSpeed: 45
   attackRange: 10
   fireRate: 0.2
-  _fireSound: {fileID: 8300000, guid: dd49fbd4318218947a92071386997ed9, type: 3}
 --- !u!195 &6024040280922919973
 NavMeshAgent:
   m_ObjectHideFlags: 0

@@ -28,8 +28,17 @@ MonoBehaviour:
     mixer: {fileID: 0}
     sounds:
     - {fileID: 8300000, guid: 73bd53662a2b34141a8e43c6c9188f07, type: 3}
+  - name: Walking
+    volume: 1
+    mixer: {fileID: 0}
+    sounds: []
   - name: PlayerDeath
     volume: 1
     mixer: {fileID: 0}
     sounds:
     - {fileID: 8300000, guid: 9b6a4a2ec0b822a44b638c4b7cf71c85, type: 3}
+  - name: RangedEnemySound
+    volume: 1
+    mixer: {fileID: 0}
+    sounds:
+    - {fileID: 8300000, guid: dd49fbd4318218947a92071386997ed9, type: 3}
