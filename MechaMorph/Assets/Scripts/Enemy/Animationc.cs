@@ -6,28 +6,28 @@ namespace TrippleTrinity.MechaMorph.Enemy
     public class Animationc : EnemyAi
     {
         private Animator animator;
-        private NavMeshAgent agent;
+        private NavMeshAgent agent1;
         [SerializeField] private Transform player;
         [SerializeField] private float stoppingDistance = 5f;
         private static readonly int KeepHittingHash = Animator.StringToHash("Keep Hitting");
         private static readonly int BlendTreeHash = Animator.StringToHash("Blend Tree");
         private new void Start()
         {
-            agent = GetComponent<NavMeshAgent>();
+            agent1 = GetComponent<NavMeshAgent>();
             animator = GetComponent<Animator>();
             player = GameObject.FindGameObjectWithTag("Player").transform;
 
-            agent.stoppingDistance = stoppingDistance;
-            agent.isStopped = false;
+            agent1.stoppingDistance = stoppingDistance;
+            agent1.isStopped = false;
         }
 
         private new void Update()
         {
-            player = GameObject.FindGameObjectWithTag("Player").transform;
-            if (player == null)
+
+            if (player != null)
             {
                 GameObject found = GameObject.FindGameObjectWithTag("Player");
-                if (found != null)
+                if (player != null && found != null)
                 {
                     player = found.transform;
                 }
@@ -35,27 +35,28 @@ namespace TrippleTrinity.MechaMorph.Enemy
                 {
                     return; // Player hasn't spawned yet
                 }
-            }
 
-            float distance = Vector3.Distance(player.position, transform.position);
 
-            if (animator != null && agent != null)
-            {
-                if (distance <= stoppingDistance)
+                float distance = Vector3.Distance(player.position, transform.position);
+
+                if (animator != null && agent1 != null)
                 {
-                    HittingAnimation();
-                }
-                else
-                {
-                    MovingAnimation();
+                    if (distance <= stoppingDistance)
+                    {
+                        HittingAnimation();
+                    }
+                    else
+                    {
+                        MovingAnimation();
+                    }
                 }
             }
         }
 
         public void HittingAnimation()
         {
-            agent.isStopped = false;
-            agent.SetDestination(player.position);
+            agent1.isStopped = false;
+            agent1.SetDestination(player.position);
 
             animator.SetTrigger(KeepHittingHash);
             animator.ResetTrigger(BlendTreeHash);
@@ -63,7 +64,7 @@ namespace TrippleTrinity.MechaMorph.Enemy
         public void MovingAnimation()
         {
             MoveTowardsTarget();
-            agent.isStopped = true;
+            agent1.isStopped = true;
             animator.SetTrigger(BlendTreeHash);
             animator.ResetTrigger(KeepHittingHash);
         }
