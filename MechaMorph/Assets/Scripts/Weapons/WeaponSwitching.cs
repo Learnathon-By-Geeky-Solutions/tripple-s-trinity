@@ -5,10 +5,12 @@ namespace TrippleTrinity.MechaMorph.Weapons
     public class WeaponSwitching : MonoBehaviour
     {
         public GameObject[] weapons; 
-        private int _currentWeaponIndex; 
+        private int _currentWeaponIndex;
+        private GunUIManager _gunUIManager;
 
         void Start()
         {
+            _gunUIManager = GunUIManager.Instance;
             SwitchWeapon(_currentWeaponIndex);
         }
 
@@ -49,7 +51,7 @@ namespace TrippleTrinity.MechaMorph.Weapons
 
             weapons[newWeaponIndex].SetActive(true);
 
-            Debug.Log("Switched to weapon: " + weapons[newWeaponIndex].name);
+            _gunUIManager?.UpdateGunName(weapons[newWeaponIndex].name);
         }
     }
 }
