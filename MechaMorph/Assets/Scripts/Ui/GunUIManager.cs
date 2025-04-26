@@ -6,24 +6,45 @@ namespace TrippleTrinity.MechaMorph
 {
     public class GunUIManager : MonoBehaviour
     {
-        public static GunUIManager Instance;
+        private static GunUIManager _instance;
 
         [SerializeField] private TextMeshProUGUI gunNameText;
         [SerializeField] private TextMeshProUGUI gunStatusText;
         private Coroutine hideCoroutine;
 
+        public static GunUIManager Instance
+        {
+            get
+            {
+                if (_instance == null)
+                {
+                    Debug.LogError("GunUIManager instance is null.");
+                }
+                return _instance;
+            }
+            private set
+            {
+                _instance = value;
+            }
+        }
+
         private void Awake()
         {
-            if (Instance == null)
+            if (_instance == null)
+            {
                 Instance = this;
+            }
+            else
+            {
+                Destroy(gameObject); // Optional safety
+            }
         }
 
         public void UpdateGunName(string message)
         {
             gunNameText.text = message;
-            gunNameText.alpha = 1f; 
+            gunNameText.alpha = 1f;
 
-            
             if (hideCoroutine != null)
                 StopCoroutine(hideCoroutine);
 
@@ -34,11 +55,11 @@ namespace TrippleTrinity.MechaMorph
         {
             gunStatusText.text = message;
         }
+
         private IEnumerator HideGunLogAfterDelay(float delay)
         {
             yield return new WaitForSeconds(delay);
 
-            // Optional: fade-out effect
             float fadeDuration = 1f;
             float t = 0f;
 
