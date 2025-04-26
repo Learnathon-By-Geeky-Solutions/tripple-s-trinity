@@ -15,5 +15,15 @@
 - Updated Lobby brunch for player ability update.
 ## [2025-02-25]
 - Competed Lobby section For 2 type Upgrade. (Testing)
+- Changes in Explosive and Meele Enemy
 ## [2025-03-21]
 - Complete Object pooling for player and enemy bullet.
+## [2025-03-25]
+- Highest score and Token
+## [2025-03-21]
+- Enemy issue fixes
+- New Enemy issue fixes
+- Sonar Issue Fixed
+## [2025-03-25]
+- Sound and Particle Effect Updated
+
