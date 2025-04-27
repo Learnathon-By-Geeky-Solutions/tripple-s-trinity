@@ -6,7 +6,12 @@ namespace TrippleTrinity.MechaMorph.Ui
 {
     public class SettingsManager : MonoBehaviour
     {
-        // Start is called before the first frame update
+        public TMP_Dropdown graphichDropDown;
+
+        public void ChangeGraphicsQuality()
+        {
+            QualitySettings.SetQualityLevel(graphichDropDown.value);
+        }
         void Start()
         {
         
