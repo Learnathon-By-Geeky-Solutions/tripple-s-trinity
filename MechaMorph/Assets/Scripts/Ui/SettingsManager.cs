@@ -6,11 +6,11 @@ namespace TrippleTrinity.MechaMorph.Ui
 {
     public class SettingsManager : MonoBehaviour
     {
-        public TMP_Dropdown graphichDropDown;
+        public TMP_Dropdown graphicsDropDown;
 
         public void ChangeGraphicsQuality()
         {
-            QualitySettings.SetQualityLevel(graphichDropDown.value);
+            QualitySettings.SetQualityLevel(graphicsDropDown.value, true);
         }
         void Start()
         {

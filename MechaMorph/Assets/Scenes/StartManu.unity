@@ -2063,7 +2063,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5add5e7587965c04b9d75a8d075598a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  graphichDropDown: {fileID: 326406902}
+  graphicsDropDown: {fileID: 326406902}
 --- !u!1 &398176517
 GameObject:
   m_ObjectHideFlags: 0
