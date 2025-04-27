@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641275, b: 0.5748172, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1073,7 +1073,7 @@ MonoBehaviour:
   m_Center: {x: 0, y: 2, z: 0}
   m_LayerMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 8
   m_UseGeometry: 0
   m_DefaultArea: 0
   m_GenerateLinks: 0
@@ -1084,7 +1084,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.6666667
   m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 23800000, guid: e868d15542c88b84fb5249dfcf3880fa, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: 0eaca8da6cd9103419bc6428fff42a02, type: 2}
   m_BuildHeightMesh: 0
 --- !u!4 &272240308
 Transform:
@@ -1712,7 +1712,7 @@ Transform:
   m_GameObject: {fileID: 635673471}
   serializedVersion: 2
   m_LocalRotation: {x: -0.42261827, y: -0, z: -0, w: 0.9063079}
-  m_LocalPosition: {x: 0.09106095, y: -4.125554, z: 16.598358}
+  m_LocalPosition: {x: 0.10636348, y: -4.125554, z: 16.598358}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2889,7 +2889,7 @@ Transform:
   m_GameObject: {fileID: 963194225}
   serializedVersion: 2
   m_LocalRotation: {x: 0.42261827, y: 0, z: 0, w: 0.9063079}
-  m_LocalPosition: {x: -0.09106095, y: 12.165837, z: -7.508859}
+  m_LocalPosition: {x: -0.10636348, y: 12.165837, z: -7.5088587}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3173,7 +3173,7 @@ MonoBehaviour:
   m_Center: {x: 0, y: 2, z: 0}
   m_LayerMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 8
   m_UseGeometry: 0
   m_DefaultArea: 0
   m_GenerateLinks: 0
@@ -3184,7 +3184,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.02
   m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 23800000, guid: e0bb067d42caeff48bb655e2e70accfb, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: b19bd1d206489ab40af12ba9e4249f0a, type: 2}
   m_BuildHeightMesh: 0
 --- !u!4 &1026347819
 Transform:
@@ -3603,7 +3603,7 @@ Transform:
   m_GameObject: {fileID: 1173084218}
   serializedVersion: 2
   m_LocalRotation: {x: 0.42261827, y: 0, z: 0, w: 0.9063079}
-  m_LocalPosition: {x: -0.09106095, y: 12.165837, z: -7.508859}
+  m_LocalPosition: {x: -0.10636348, y: 12.165837, z: -7.5088587}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4326,6 +4326,10 @@ PrefabInstance:
       propertyPath: m_GenerateLinks
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3289660862682978959, guid: f844f4bff8951674b9aaa13bef0b5d3c, type: 3}
+      propertyPath: m_LayerMask.m_Bits
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 8899593285648909938, guid: f844f4bff8951674b9aaa13bef0b5d3c, type: 3}
       propertyPath: m_LocalPosition.x
       value: -2.3765073
@@ -4869,6 +4873,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 100000, guid: c685db5bd3a0f9b4d8ddb667b78d772f, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 100020, guid: c685db5bd3a0f9b4d8ddb667b78d772f, type: 3}
       propertyPath: m_Name
       value: Gladiator Low Poly Arena
