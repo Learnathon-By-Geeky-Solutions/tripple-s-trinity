@@ -11,6 +11,8 @@ namespace TrippleTrinity.MechaMorph.Ui
         public void ChangeGraphicsQuality()
         {
             QualitySettings.SetQualityLevel(graphicsDropDown.value, true);
+            Debug.Log("Current Graphics Quality: " + QualitySettings.names[QualitySettings.GetQualityLevel()]);
+
         }
         void Start()
         {
