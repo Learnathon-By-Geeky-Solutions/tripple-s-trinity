@@ -6,19 +6,28 @@ namespace TrippleTrinity.MechaMorph.Weapons
     public class GunAbility : BaseGun
     {
         [SerializeField] private float damage;
-        [SerializeField] private Transform bulletPrefab; // Fixed typo in variable name
+        [SerializeField] private Transform bulletPrefab;
         [SerializeField] private Transform bulletSpawnPoint;
         [SerializeField] private bool isAI;  // Differentiates Player & AI
+
+        [Header("Effects")]
+        [SerializeField] private AudioSource fireAudioSource;    // Fire sound
+        [SerializeField] private AudioClip fireSoundClip;
+
+        [Header("Muzzle Flash")]
+        [SerializeField] private GameObject muzzleFlashPrefab;    // Muzzle flash prefab from BigRookGames
+        [SerializeField] private Transform muzzleFlashSpawnPoint; // Where to spawn muzzle flash
+        [SerializeField] private float muzzleFlashDuration = 0.5f; // Time before destroying flash
 
         public override void Update()
         {
             base.Update();
 
-            if (!isAI) // Only Player checks for input
+            if (!isAI)
             {
                 if (InputHandler.Instance != null && InputHandler.Instance.IsFirePressed())
                 {
-                    TriggerShoot();  // Call the public TriggerShoot() method
+                    TriggerShoot();
                 }
 
                 if (InputHandler.Instance != null && InputHandler.Instance.IsReloadPressed())
@@ -35,21 +44,47 @@ namespace TrippleTrinity.MechaMorph.Weapons
 
         public void TriggerShoot()
         {
-            Shoot(); // Calls the protected Shoot() method
+            Shoot();
         }
 
-        // Protected Shoot() method for actual shooting logic
         protected override void Shoot()
         {
+            if (CurrentAmmo <= 0)
+                return;
+
+            // Instantiate bullet
             Vector3 aimDirection = transform.forward.normalized;
             Transform bulletTransform = Instantiate(bulletPrefab, bulletSpawnPoint.position, Quaternion.LookRotation(aimDirection));
     
             BulletDamageHandler bulletDamageHandler = bulletTransform.GetComponent<BulletDamageHandler>();
-
             if (bulletDamageHandler != null)
             {
                 bulletDamageHandler.Initialize(damage, gameObject.CompareTag("Enemy") ? "Enemy" : "Player");
             }
+
+            PlayFireSound();
+            PlayMuzzleFlash();
+
+            CurrentAmmo--;
         }
+
+        private void PlayFireSound()
+        {
+            if (fireAudioSource != null && fireSoundClip != null)
+            {
+                fireAudioSource.PlayOneShot(fireSoundClip);
+            }
+        }
+
+        private void PlayMuzzleFlash()
+        {
+            if (muzzleFlashPrefab != null && muzzleFlashSpawnPoint != null)
+            {
+                Quaternion spawnRotation = muzzleFlashSpawnPoint.rotation * Quaternion.Euler(0f, -90f, 0f); // Add -90° on Y-axis
+                GameObject flashInstance = Instantiate(muzzleFlashPrefab, muzzleFlashSpawnPoint.position, spawnRotation, muzzleFlashSpawnPoint);
+                Destroy(flashInstance, muzzleFlashDuration);
+            }
+        }
+
     }
 }
