@@ -42,3 +42,8 @@ MonoBehaviour:
     mixer: {fileID: 0}
     sounds:
     - {fileID: 8300000, guid: dd49fbd4318218947a92071386997ed9, type: 3}
+  - name: BossEnemyShoot
+    volume: 1
+    mixer: {fileID: 0}
+    sounds:
+    - {fileID: 8300000, guid: 1a44b22f504968c419965a4aa502e25d, type: 3}

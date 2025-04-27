@@ -5,18 +5,30 @@ namespace TrippleTrinity.MechaMorph.Enemy
 {
     public class BossEnemy : EnemyAi
     {
+        private Animator animator;
         private readonly float xVal = 15f, yVal = 0f, zVal = 22f;
         private bool isTeleporting;
-
+        private static readonly int WalkHash = Animator.StringToHash("WalkAndShoot");
+        private static readonly int TeleportHash = Animator.StringToHash("Teleport");
         protected override void Update()
-        {
-          base.Update();
+        { 
+            if (targetPosition == null || Agent == null ) return;
+            base.Update();
+           
             if (!isTeleporting)
             {
                 StartCoroutine(TeleportRoutine());
             }
         }
 
+         void BossAnimation()
+        {
+            if (IsStopped())
+            {
+                animator.SetTrigger(WalkHash);
+                
+            }
+        }
         void Disappear()
         {
             Vector3 destination = Boss_Destination();

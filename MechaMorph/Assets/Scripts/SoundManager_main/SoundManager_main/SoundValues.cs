@@ -11,7 +11,9 @@ namespace TrippleTrinity.MechaMorph.SoundManager_main.SoundManager_main
         Slide,
         Walking,
         PlayerDeath,
-        RangedEnemySound
+        RangedEnemySound,
+        BossEnemyShoot
+        
         
     }
 }

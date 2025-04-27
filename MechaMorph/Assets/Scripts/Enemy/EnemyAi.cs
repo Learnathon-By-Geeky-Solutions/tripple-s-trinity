@@ -48,13 +48,21 @@ namespace TrippleTrinity.MechaMorph.Enemy
                 targetPosition = playerObject.transform;
             }
 
-            if (targetPosition != null)
+            if (targetPosition != null && !IsStopped())
             {
                 RotateTowardsTarget();
                 MoveTowardsTarget();
             }
         }
 
+        protected virtual bool IsStopped()
+        {
+            if (agent!=null &&  agent.isStopped)
+            {
+                return true;
+            }
+            return false;
+        }
         protected virtual void MoveTowardsTarget()
         {
             if (targetPosition == null) return;
