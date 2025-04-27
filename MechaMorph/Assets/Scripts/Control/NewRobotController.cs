@@ -7,6 +7,8 @@ namespace TrippleTrinity.MechaMorph.Control
     [RequireComponent(typeof(Rigidbody))]
     public class NewRobotController : MonoBehaviour
     {
+        private Animator _animator;
+        
         [Header("Movement Settings")]
         [SerializeField] private float moveSpeed = 5f;
         [SerializeField] private float rotationSpeed = 10f;
@@ -23,6 +25,7 @@ namespace TrippleTrinity.MechaMorph.Control
         private void Awake()
         {
             InitializeRigidbody();
+            _animator = GetComponentInChildren<Animator>();
         }
 
         private void FixedUpdate()
@@ -56,7 +59,9 @@ namespace TrippleTrinity.MechaMorph.Control
             Vector2 moveInput = InputHandler.Instance.GetMoveInput();
             Vector3 moveDirection = new Vector3(moveInput.x, 0, moveInput.y).normalized;
 
-            if (moveDirection.sqrMagnitude > 0.01f)
+            bool isWalking = moveDirection.sqrMagnitude > 0.01f;
+
+            if (isWalking)
             {
                 _rb.velocity = new Vector3(moveDirection.x * moveSpeed, _rb.velocity.y, moveDirection.z * moveSpeed);
             }
@@ -64,7 +69,14 @@ namespace TrippleTrinity.MechaMorph.Control
             {
                 _rb.velocity = new Vector3(0, _rb.velocity.y, 0);
             }
+
+            if (_animator != null)
+            {
+                _animator.SetBool("isWalking", isWalking);
+            }
         }
+
+
 
         private void HandleRotation()
         {
@@ -91,7 +103,14 @@ namespace TrippleTrinity.MechaMorph.Control
             _rb.velocity = new Vector3(_rb.velocity.x, 0f, _rb.velocity.z);
             _rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             InputHandler.Instance.ResetJump();
+
+            if (_animator != null)
+            {
+                _animator.SetTrigger("Jump");
+            }
         }
+
+
 
         private void OnDrawGizmosSelected()
         {
