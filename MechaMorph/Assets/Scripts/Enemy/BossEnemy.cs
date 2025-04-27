@@ -5,12 +5,12 @@ namespace TrippleTrinity.MechaMorph.Enemy
 {
     public class BossEnemy : EnemyAi
     {
-        private readonly float xVal = 5f, yVal = 5f, zVal = 5f;
+        private readonly float xVal = 15f, yVal = 0f, zVal = 22f;
         private bool isTeleporting;
 
         protected override void Update()
         {
-          
+          base.Update();
             if (!isTeleporting)
             {
                 StartCoroutine(TeleportRoutine());
@@ -37,12 +37,8 @@ namespace TrippleTrinity.MechaMorph.Enemy
             float yPos = Random.Range(-yVal, yVal);
             float zPos = Random.Range(-zVal, zVal);
 
-            if (Vector3.Distance(Direction, transform.position) <= 5f)
-            {
-                return new Vector3(xPos, yPos, zPos);
-            }
-
-            return transform.position;
+            Vector3 randomOffset = new Vector3(xPos, yPos, zPos);
+            return transform.position+randomOffset;
         }
 
         IEnumerator TeleportRoutine()
