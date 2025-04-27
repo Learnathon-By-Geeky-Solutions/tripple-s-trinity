@@ -1,5 +1,6 @@
 using System.Collections;
 using TrippleTrinity.MechaMorph.Control;
+using TrippleTrinity.MechaMorph.Ui;
 using UnityEngine;
 
 namespace TrippleTrinity.MechaMorph.Weapons

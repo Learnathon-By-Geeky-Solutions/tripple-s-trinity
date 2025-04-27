@@ -1,8 +1,8 @@
-using UnityEngine;
-using TMPro;
 using System.Collections;
+using TMPro;
+using UnityEngine;
 
-namespace TrippleTrinity.MechaMorph
+namespace TrippleTrinity.MechaMorph.Ui
 {
     public class GunUIManager : MonoBehaviour
     {
@@ -10,7 +10,7 @@ namespace TrippleTrinity.MechaMorph
 
         [SerializeField] private TextMeshProUGUI gunNameText;
         [SerializeField] private TextMeshProUGUI gunStatusText;
-        private Coroutine hideCoroutine;
+        private Coroutine _hideCoroutine;
 
         public static GunUIManager Instance
         {
@@ -22,10 +22,7 @@ namespace TrippleTrinity.MechaMorph
                 }
                 return _instance;
             }
-            private set
-            {
-                _instance = value;
-            }
+            private set => _instance = value;
         }
 
         private void Awake()
@@ -45,10 +42,10 @@ namespace TrippleTrinity.MechaMorph
             gunNameText.text = message;
             gunNameText.alpha = 1f;
 
-            if (hideCoroutine != null)
-                StopCoroutine(hideCoroutine);
+            if (_hideCoroutine != null)
+                StopCoroutine(_hideCoroutine);
 
-            hideCoroutine = StartCoroutine(HideGunLogAfterDelay(0.5f));
+            _hideCoroutine = StartCoroutine(HideGunLogAfterDelay(0.5f));
         }
 
         public void UpdateGunStatus(string message)
