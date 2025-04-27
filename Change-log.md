@@ -24,6 +24,8 @@
 - Enemy issue fixes
 - New Enemy issue fixes
 - Sonar Issue Fixed
-## [2025-03-25]
+## [2025-04-25]
 - Sound and Particle Effect Updated
+## [2025-04-25]
+- Settings Panel updated.
 
