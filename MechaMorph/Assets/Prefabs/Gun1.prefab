@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 5004679593679151759}
   - component: {fileID: 5040716567068284473}
   - component: {fileID: 1941829305468742262}
-  - component: {fileID: -7849465080907893265}
   m_Layer: 0
   m_Name: Gun1
   m_TagString: Untagged
@@ -106,19 +105,3 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &-7849465080907893265
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6450036794256980827}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e728e14b8aa57c34190a32a3b2e63014, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damage: 10
-  range: 20
-  fireRate: 15
-  impactForce: 50

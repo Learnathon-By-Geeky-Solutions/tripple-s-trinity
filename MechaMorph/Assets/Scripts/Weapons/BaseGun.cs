@@ -11,14 +11,22 @@ namespace TrippleTrinity.MechaMorph.Weapons
 
 
         [SerializeField] private float currentAmmo; 
-        protected float CurrentAmmo => currentAmmo;
+        protected float CurrentAmmo
+        {
+            get => currentAmmo;
+            set => currentAmmo = value;
+        }
+
         [SerializeField] private float nextTimeToFire;
+
+        private GunUIManager gunUIManager;
 
         private bool _isReloading;
 
         private void Start()
         {
             currentAmmo = Gundata.MagazineSize;
+            gunUIManager = GunUIManager.Instance;
 
             transform.root.GetComponent<NewRobotController>();
 
@@ -41,7 +49,7 @@ namespace TrippleTrinity.MechaMorph.Weapons
         {
             _isReloading = true;
 
-            Debug.Log(Gundata.GunName + " is reloading....");
+            gunUIManager?.UpdateGunStatus(Gundata.GunName + " is reloading....");
 
             yield return new WaitForSeconds(Gundata.ReloadTime);
 
