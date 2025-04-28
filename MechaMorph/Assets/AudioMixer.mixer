@@ -33,6 +33,39 @@ AudioMixerEffectController:
   m_SendTarget: {fileID: 0}
   m_EnableWetMix: 0
   m_Bypass: 0
+--- !u!243 &-3350190359338169576
+AudioMixerGroupController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Lobby
+  m_AudioMixer: {fileID: 24100000}
+  m_GroupID: af25aa80db31e10469cc88c77361f2d8
+  m_Children: []
+  m_Volume: 7c7709e96bb479d49964fd03f067b864
+  m_Pitch: 63985fadf4af2f848af0ba3958b7a09f
+  m_Send: 00000000000000000000000000000000
+  m_Effects:
+  - {fileID: -1979011562676409818}
+  m_UserColorIndex: 0
+  m_Mute: 0
+  m_Solo: 0
+  m_BypassEffects: 0
+--- !u!244 &-1979011562676409818
+AudioMixerEffectController:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_EffectID: d9a88059b3aff3f4c9c62cc739ae2fe3
+  m_EffectName: Attenuation
+  m_MixLevel: 6abc1ee781c5ae44aa94422fe73ad6f7
+  m_Parameters: []
+  m_SendTarget: {fileID: 0}
+  m_EnableWetMix: 0
+  m_Bypass: 0
 --- !u!241 &24100000
 AudioMixerController:
   m_ObjectHideFlags: 0
@@ -48,12 +81,21 @@ AudioMixerController:
   m_SuspendThreshold: -80
   m_EnableSuspend: 1
   m_UpdateMode: 0
-  m_ExposedParameters: []
+  m_ExposedParameters:
+  - guid: 7c7709e96bb479d49964fd03f067b864
+    name: LobbyVol
+  - guid: 32dcd895d05a7d346932c2e1688389ca
+    name: MasterVol
+  - guid: d7563620b40c3a54eb149671b0062f9c
+    name: MusicVol
+  - guid: 04a2c21bbc6b5e84d91e754c165c12f6
+    name: SFXVol
   m_AudioMixerGroupViews:
   - guids:
     - add3b87473db2824a84913b4ca9b58a4
     - 8ebf7c70c3abed54da168dece14ee999
     - 56aacf026f32e8647bd171e03d87d802
+    - af25aa80db31e10469cc88c77361f2d8
     name: View
   m_CurrentViewIndex: 0
   m_TargetSnapshot: {fileID: 24500006}
@@ -69,6 +111,7 @@ AudioMixerGroupController:
   m_Children:
   - {fileID: -5125312727905413854}
   - {fileID: 5429342372077086866}
+  - {fileID: -3350190359338169576}
   m_Volume: 32dcd895d05a7d346932c2e1688389ca
   m_Pitch: 73927c1ff80c2cd449546ebd1db835c2
   m_Send: 00000000000000000000000000000000

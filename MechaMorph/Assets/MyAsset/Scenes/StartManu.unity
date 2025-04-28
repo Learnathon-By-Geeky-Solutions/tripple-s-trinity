@@ -1680,8 +1680,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1979596087}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 1}
+  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: -3, y: 0}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -2216,6 +2216,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   graphicsDropDown: {fileID: 326406902}
+  masterVol: {fileID: 1787973725}
+  musicVol: {fileID: 698135041}
+  sfxVol: {fileID: 2073777676}
+  lobbyVol: {fileID: 1787973725}
+  mainAudioMixer: {fileID: 24100000, guid: 2ac56d62dc57ace4388f822fb44f4b8f, type: 2}
 --- !u!1 &398176517
 GameObject:
   m_ObjectHideFlags: 0
@@ -3120,7 +3125,7 @@ RectTransform:
   m_Father: {fileID: 2003955613}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -3188,7 +3193,7 @@ AudioSource:
   m_GameObject: {fileID: 609123508}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -3350190359338169576, guid: 2ac56d62dc57ace4388f822fb44f4b8f, type: 2}
   m_audioClip: {fileID: 8300000, guid: dbc0f6e5c4028b446835fd78ace31f47, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
@@ -4061,13 +4066,25 @@ MonoBehaviour:
   m_FillRect: {fileID: 730609808}
   m_HandleRect: {fileID: 773102230}
   m_Direction: 0
-  m_MinValue: 0
-  m_MaxValue: 1
+  m_MinValue: -80
+  m_MaxValue: 0
   m_WholeNumbers: 0
   m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 393594683}
+        m_TargetAssemblyTypeName: TrippleTrinity.MechaMorph.Ui.SettingsManager, com.trippletrinity.mechamorph
+        m_MethodName: ChangeMusicVol
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &702388798
 GameObject:
   m_ObjectHideFlags: 0
@@ -4459,7 +4476,7 @@ RectTransform:
   m_Father: {fileID: 176554227}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -4569,8 +4586,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 312966089}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 1}
+  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: -3, y: 0}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -6194,8 +6211,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1712288742}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 1}
+  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: -3, y: 0}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -8706,13 +8723,25 @@ MonoBehaviour:
   m_FillRect: {fileID: 588466608}
   m_HandleRect: {fileID: 1270442751}
   m_Direction: 0
-  m_MinValue: 0
-  m_MaxValue: 1
+  m_MinValue: -80
+  m_MaxValue: 0
   m_WholeNumbers: 0
   m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 393594683}
+        m_TargetAssemblyTypeName: TrippleTrinity.MechaMorph.Ui.SettingsManager, com.trippletrinity.mechamorph
+        m_MethodName: ChangeLobbyVol
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1806722191
 GameObject:
   m_ObjectHideFlags: 0
@@ -10810,13 +10839,25 @@ MonoBehaviour:
   m_FillRect: {fileID: 2094342630}
   m_HandleRect: {fileID: 321541737}
   m_Direction: 0
-  m_MinValue: 0
-  m_MaxValue: 1
+  m_MinValue: -80
+  m_MaxValue: 0
   m_WholeNumbers: 0
   m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 393594683}
+        m_TargetAssemblyTypeName: TrippleTrinity.MechaMorph.Ui.SettingsManager, com.trippletrinity.mechamorph
+        m_MethodName: ChangeSFXVol
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &2094342629
 GameObject:
   m_ObjectHideFlags: 0
@@ -10850,7 +10891,7 @@ RectTransform:
   m_Father: {fileID: 1045453797}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -10927,7 +10968,7 @@ AudioSource:
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 128
+  Priority: 140
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500
