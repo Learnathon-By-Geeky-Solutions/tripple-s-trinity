@@ -1,8 +1,9 @@
 using TMPro;
-using UnityEngine;
 using TrippleTrinity.MechaMorph.SaveManager;
+using TrippleTrinity.MechaMorph.Ui;
+using UnityEngine;
 
-namespace TrippleTrinity.MechaMorph.Ui
+namespace TrippleTrinity.MechaMorph.MyAsset.Scripts.Ui
 {
     public class ScoreManager : MonoBehaviour
     {
@@ -43,7 +44,6 @@ namespace TrippleTrinity.MechaMorph.Ui
 
             _score += points;
 
-            // Update the high score if the current score is greater
             int currentHigh = PlayerPrefs.GetInt(HighScoreKey, 0);
             if (_score > currentHigh)
             {
@@ -58,15 +58,16 @@ namespace TrippleTrinity.MechaMorph.Ui
         {
             if (scoreText != null)
             {
-                scoreText.text = $"Score: {_score}";
+                scoreText.text = $"<color=#004DFF>Score: {_score:D2}</color>";
             }
 
             if (highScoreText != null)
             {
                 int highScore = PlayerPrefs.GetInt(HighScoreKey, 0);
-                highScoreText.text = $"Highest Score: {highScore}";
+                highScoreText.text = $"Highest Score: {highScore:D2}</color>";
             }
         }
+
 
         public void ResetScore()
         {
@@ -81,10 +82,9 @@ namespace TrippleTrinity.MechaMorph.Ui
 
         public void LoadScore()
         {
-            _score = 0; // Load last saved score or default to 0
+            _score = 0; // Reset or load saved score if needed
             UpdateScoreUI();
         }
-
 
         public void SaveScore()
         {
@@ -92,6 +92,5 @@ namespace TrippleTrinity.MechaMorph.Ui
             PlayerPrefs.Save();
             SaveSystem.SaveGame(_score, TokenUIManager.Instance.CurrentTokenCount());
         }
-
     }
 }
