@@ -18,7 +18,7 @@ namespace TrippleTrinity.MechaMorph.Enemy
         private  bool isBossSpwaned;
         private int phaseLevel=0;
         private GameObject currentBoss;
-        private float negativeCounter = 300f;
+        [SerializeField]private float negativeCounter = 300f;
         [SerializeField] private TextMeshProUGUI text;
         void Start()
         {
