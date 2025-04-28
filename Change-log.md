@@ -35,6 +35,8 @@
 - Boss Enemy Final
 - Sci Fi Arena Final
 - Sound & Audio Final
+- New Type of UI
+
 
 
 
