@@ -29,7 +29,8 @@ namespace TrippleTrinity.MechaMorph.Enemy
             timeCounter += Time.deltaTime;
             counter += Time.deltaTime;
             negativeCounter -= Time.deltaTime;
-            BossSpawnUI();
+            if(!isBossSpwaned)  BossSpawnUI();
+           
             if (timeCounter >= 30f && phaseLevel == 0) // 5-10 min
             {
                 spawnDelay = 3f;
