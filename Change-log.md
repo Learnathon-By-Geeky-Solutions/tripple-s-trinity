@@ -28,4 +28,12 @@
 - Sound and Particle Effect Updated
 ## [2025-04-25]
 - Settings Panel updated.
+##[ 2025-04-27]
+- Boss Enemy
+- Sci Fi Arena
+##[ 2025-04-28]
+- Boss Enemy Final
+- Sci Fi Arena Final
+- Sound & Audio Final
+
 
