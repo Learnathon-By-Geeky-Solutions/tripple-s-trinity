@@ -15,13 +15,13 @@ GameObject:
   - component: {fileID: 8898834135400804481}
   - component: {fileID: 8092132072495083454}
   - component: {fileID: 6899350910026972029}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: ball
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &4711839821739533900
 Transform:
   m_ObjectHideFlags: 0
@@ -65,7 +65,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 1004a2fd2e0779f4297f122793f20c06, type: 2}
+  - {fileID: 2100000, guid: f99c2f606e487bd4ba7c619b09a10f39, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -151,8 +151,10 @@ MonoBehaviour:
   dashMultiplier: 2
   dashDuration: 0.5
   dashCooldown: 4
-  dashParticleEffect: {fileID: 0}
+  dashParticleEffect: {fileID: 5268402624360273130, guid: a460cd24d6262524ba08c0ef28577a83, type: 3}
   dashSound: {fileID: 0}
+  ballRollSound: {fileID: 8300000, guid: 10e3c101eb57bf04c9ad5204516c9b70, type: 3}
+  rollSoundThreshold: 50
 --- !u!114 &6899350910026972029
 MonoBehaviour:
   m_ObjectHideFlags: 0
