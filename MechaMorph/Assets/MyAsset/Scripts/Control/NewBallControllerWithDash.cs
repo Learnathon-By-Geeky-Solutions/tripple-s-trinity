@@ -3,7 +3,7 @@ using TrippleTrinity.MechaMorph.InputHandling;
 using TrippleTrinity.MechaMorph.Ui;
 using UnityEngine;
 
-namespace TrippleTrinity.MechaMorph.Control
+namespace TrippleTrinity.MechaMorph.MyAsset.Scripts.Control
 {
     public class NewBallControllerWithDash : MonoBehaviour
     {
@@ -18,6 +18,8 @@ namespace TrippleTrinity.MechaMorph.Control
         [Header("Effects")]
         [SerializeField] private ParticleSystem dashParticleEffect;
         [SerializeField] private AudioClip dashSound;
+        [SerializeField] private AudioClip ballRollSound;  // Ball roll sound clip
+        [SerializeField] private float rollSoundThreshold = 50f;  // Minimum speed to play sound
 
         private Rigidbody _rb;
         private AudioSource _audioSource;
@@ -25,6 +27,8 @@ namespace TrippleTrinity.MechaMorph.Control
         private bool _isCooldownActive;
         private ParticleSystem _activeDashEffect;
         private Vector3 _dashDirection;
+
+        private bool _isRolling;  // Flag to check if the ball is rolling
 
         void Awake()
         {
@@ -35,6 +39,7 @@ namespace TrippleTrinity.MechaMorph.Control
         {
             HandleMovementAndDash();
             FollowPlayerWithEffect();
+            ManageRollSound();  // Manage sound based on movement/rotation
         }
 
         private void HandleMovementAndDash()
@@ -49,6 +54,9 @@ namespace TrippleTrinity.MechaMorph.Control
                 PerformDash();
                 InputHandler.Instance.ResetDash();
             }
+
+            // Check if the ball is moving or rotating, above the threshold
+            _isRolling = (movement.sqrMagnitude > rollSoundThreshold || _rb.angularVelocity.sqrMagnitude > rollSoundThreshold);
         }
 
         private bool CanDash(Vector3 movement)
@@ -134,6 +142,21 @@ namespace TrippleTrinity.MechaMorph.Control
             if (_audioSource == null)
             {
                 _audioSource = gameObject.AddComponent<AudioSource>();
+            }
+        }
+
+        // Manage ball roll sound (play while moving, stop when stationary)
+        private void ManageRollSound()
+        {
+            if (_isRolling && !_audioSource.isPlaying)
+            {
+                _audioSource.clip = ballRollSound;
+                _audioSource.loop = true;  // Loop the sound while moving
+                _audioSource.Play();
+            }
+            else if (!_isRolling && _audioSource.isPlaying)
+            {
+                _audioSource.Stop();  // Stop the sound if the ball stops moving
             }
         }
     }

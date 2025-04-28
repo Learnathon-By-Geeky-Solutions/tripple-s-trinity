@@ -1,14 +1,14 @@
-using UnityEngine;
 using TrippleTrinity.MechaMorph.InputHandling;
+using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace TrippleTrinity.MechaMorph.Control
+namespace TrippleTrinity.MechaMorph.MyAsset.Scripts.Control
 {
     [RequireComponent(typeof(Rigidbody))]
     public class NewRobotController : MonoBehaviour
     {
         private Animator _animator;
-        
+
         [Header("Movement Settings")]
         [SerializeField] private float moveSpeed = 5f;
         [SerializeField] private float rotationSpeed = 10f;
@@ -19,6 +19,10 @@ namespace TrippleTrinity.MechaMorph.Control
         [SerializeField] private Transform groundCheck;
         [SerializeField] private float groundCheckRadius = 0.3f;
 
+        [Header("Sound Settings")]
+        [SerializeField] private AudioClip walkSound;  // Walking sound
+        private AudioSource _audioSource;  // AudioSource to play the sound
+
         private Rigidbody _rb;
         private bool _isGrounded;
 
@@ -26,6 +30,7 @@ namespace TrippleTrinity.MechaMorph.Control
         {
             InitializeRigidbody();
             _animator = GetComponentInChildren<Animator>();
+            _audioSource = GetComponent<AudioSource>();  // Initialize AudioSource component
         }
 
         private void FixedUpdate()
@@ -59,15 +64,17 @@ namespace TrippleTrinity.MechaMorph.Control
             Vector2 moveInput = InputHandler.Instance.GetMoveInput();
             Vector3 moveDirection = new Vector3(moveInput.x, 0, moveInput.y).normalized;
 
-            bool isWalking = moveDirection.sqrMagnitude > 0.01f;
+            bool isWalking = moveDirection.sqrMagnitude > 0.01f;  // Check if movement input is greater than a small threshold
 
             if (isWalking)
             {
                 _rb.velocity = new Vector3(moveDirection.x * moveSpeed, _rb.velocity.y, moveDirection.z * moveSpeed);
+                PlayWalkingSound();
             }
             else if (_isGrounded)
             {
-                _rb.velocity = new Vector3(0, _rb.velocity.y, 0);
+                _rb.velocity = new Vector3(0, _rb.velocity.y, 0);  // Stop the movement
+                StopWalkingSound();  // Stop the sound if not walking
             }
 
             if (_animator != null)
@@ -76,7 +83,23 @@ namespace TrippleTrinity.MechaMorph.Control
             }
         }
 
+        private void PlayWalkingSound()
+        {
+            if (!_audioSource.isPlaying && walkSound != null)  // Only play if it's not already playing
+            {
+                _audioSource.clip = walkSound;
+                _audioSource.loop = true;  // Loop the sound while walking
+                _audioSource.Play();
+            }
+        }
 
+        private void StopWalkingSound()
+        {
+            if (_audioSource.isPlaying)  // Stop the sound if it is playing
+            {
+                _audioSource.Stop();
+            }
+        }
 
         private void HandleRotation()
         {
@@ -109,8 +132,6 @@ namespace TrippleTrinity.MechaMorph.Control
                 _animator.SetTrigger("Jump");
             }
         }
-
-
 
         private void OnDrawGizmosSelected()
         {
