@@ -1476,7 +1476,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 2000
   scoreValue: 500
-  shouldDropToken: 0
+  shouldDropToken: 1
 --- !u!114 &8219317531165154777
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1496,6 +1496,7 @@ MonoBehaviour:
   bulletPrefab: {fileID: 821264732710663634, guid: a484627e1c855e24aa5bef53d4ae9f50, type: 3}
   bulletSpawnPoint: {fileID: 8462858390834182625}
   isAI: 1
+  fireDelay: 0.2
   fireAudioSource: {fileID: -8166925919946470620}
   fireSoundClip: {fileID: 8300000, guid: 1a44b22f504968c419965a4aa502e25d, type: 3}
   muzzleFlashPrefab: {fileID: 1336949550903370, guid: 4543ab5e3d405ec40a8d4e9aa5165030, type: 3}
