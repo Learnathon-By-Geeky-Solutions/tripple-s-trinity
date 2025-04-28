@@ -1,5 +1,5 @@
 using System.Collections;
-using TrippleTrinity.MechaMorph.Control;
+using TrippleTrinity.MechaMorph.MyAsset.Scripts.Control;
 using TrippleTrinity.MechaMorph.Ui;
 using UnityEngine;
 

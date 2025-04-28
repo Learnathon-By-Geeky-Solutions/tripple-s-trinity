@@ -1,9 +1,10 @@
+using System.Collections;
 using TrippleTrinity.MechaMorph.Ability;
-using TrippleTrinity.MechaMorph.Control;
 using TrippleTrinity.MechaMorph.Health;
+using TrippleTrinity.MechaMorph.MyAsset.Scripts.Control;
 using UnityEngine;
 
-namespace TrippleTrinity.MechaMorph
+namespace TrippleTrinity.MechaMorph.MyAsset.Scripts
 {
     public class TransformManager : MonoBehaviour
     {
@@ -19,17 +20,37 @@ namespace TrippleTrinity.MechaMorph
         [Header("Health System")]
         [SerializeField] private PlayerHealth playerHealth;
 
+        [Header("Sound Settings")]
+        [SerializeField] private AudioClip transformSound;
+        [SerializeField] private AudioSource audioSource;
+
+        [Header("Transform Delay Settings")]
+        [SerializeField] private float transformDelay = 0.2f;
+
         private bool _isBallForm = true;
 
-        private void Start() => SwitchToBallForm();
+        private void Start()
+        {
+            SwitchToBallForm();
+        }
 
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.T))
             {
-                if (_isBallForm) SwitchToRobotForm();
-                else SwitchToBallForm();
+                PlayTransformSound(); // Play sound immediately
+                StartCoroutine(TransformWithDelay());
             }
+        }
+
+        private IEnumerator TransformWithDelay()
+        {
+            yield return new WaitForSeconds(transformDelay);
+
+            if (_isBallForm)
+                SwitchToRobotForm();
+            else
+                SwitchToBallForm();
         }
 
         private void SwitchToBallForm()
@@ -83,6 +104,15 @@ namespace TrippleTrinity.MechaMorph
         {
             areaDamageAbility?.SetRobotForm(isRobot);
             playerHealth?.SwitchForm(isRobot ? PlayerHealth.PlayerForm.Robot : PlayerHealth.PlayerForm.Ball);
+        }
+
+        private void PlayTransformSound()
+        {
+            if (audioSource != null && transformSound != null)
+            {
+                audioSource.pitch = 1.0f;
+                audioSource.PlayOneShot(transformSound);
+            }
         }
 
         public bool IsBallForm() => _isBallForm;
