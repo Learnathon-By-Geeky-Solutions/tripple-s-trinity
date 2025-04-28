@@ -1,7 +1,8 @@
-using UnityEngine;
 using TrippleTrinity.MechaMorph.InputHandling;
+using TrippleTrinity.MechaMorph.Weapons;
+using UnityEngine;
 
-namespace TrippleTrinity.MechaMorph.Weapons
+namespace TrippleTrinity.MechaMorph.MyAsset.Scripts.Weapons
 {
     public class GunAbility : BaseGun
     {
@@ -9,6 +10,10 @@ namespace TrippleTrinity.MechaMorph.Weapons
         [SerializeField] private Transform bulletPrefab;
         [SerializeField] private Transform bulletSpawnPoint;
         [SerializeField] private bool isAI;  // Differentiates Player & AI
+
+        [Header("Fire Settings")]
+        [SerializeField] private float fireDelay = 0.2f; // Time between shots
+        private float lastFireTime;
 
         [Header("Effects")]
         [SerializeField] private AudioSource fireAudioSource;    // Fire sound
@@ -44,7 +49,11 @@ namespace TrippleTrinity.MechaMorph.Weapons
 
         public void TriggerShoot()
         {
-            Shoot();
+            if (Time.time >= lastFireTime + fireDelay)
+            {
+                Shoot();
+                lastFireTime = Time.time;
+            }
         }
 
         protected override void Shoot()
@@ -55,7 +64,7 @@ namespace TrippleTrinity.MechaMorph.Weapons
             // Instantiate bullet
             Vector3 aimDirection = transform.forward.normalized;
             Transform bulletTransform = Instantiate(bulletPrefab, bulletSpawnPoint.position, Quaternion.LookRotation(aimDirection));
-    
+
             BulletDamageHandler bulletDamageHandler = bulletTransform.GetComponent<BulletDamageHandler>();
             if (bulletDamageHandler != null)
             {
@@ -85,6 +94,5 @@ namespace TrippleTrinity.MechaMorph.Weapons
                 Destroy(flashInstance, muzzleFlashDuration);
             }
         }
-
     }
 }
