@@ -1,7 +1,7 @@
-using UnityEngine;
 using TrippleTrinity.MechaMorph.InputHandling;
+using UnityEngine;
 
-namespace TrippleTrinity.MechaMorph.Animation
+namespace TrippleTrinity.MechaMorph.MyAsset.Scripts.Animation
 {
     public class JumpAnimation : MonoBehaviour
     {
