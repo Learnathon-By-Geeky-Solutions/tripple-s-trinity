@@ -265,6 +265,7 @@ MonoBehaviour:
   groundCheck: {fileID: 9208809207520315304}
   groundCheckRadius: 1
   walkSound: {fileID: 8300000, guid: a09a391788730f24d991073579a0bf3b, type: 3}
+  jumpSound: {fileID: 8300000, guid: f2f32ebd03180ba4db21f27d0726d49a, type: 3}
 --- !u!114 &3201564825044948721
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -291,7 +292,7 @@ AudioSource:
   m_PlayOnAwake: 0
   m_Volume: 0.4
   m_Pitch: 1
-  Loop: 1
+  Loop: 0
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
