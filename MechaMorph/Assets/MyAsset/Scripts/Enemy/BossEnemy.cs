@@ -5,12 +5,12 @@ namespace TrippleTrinity.MechaMorph.Enemy
 {
     public class BossEnemy : EnemyAi
     {
-        private readonly float xVal = 20f, yVal = 0f, zVal = 20f;
+        private readonly float xVal = 5f, yVal = 5f, zVal = 5f;
         private bool isTeleporting;
-        
+
         protected override void Update()
         {
-            base.Update();
+          
             if (!isTeleporting)
             {
                 StartCoroutine(TeleportRoutine());
@@ -30,18 +30,19 @@ namespace TrippleTrinity.MechaMorph.Enemy
                 Debug.LogWarning("Agent is not on a NavMesh. Cannot warp.");
             }
         }
-        
+
         Vector3 Boss_Destination()
         {
             float xPos = Random.Range(-xVal, xVal);
             float yPos = Random.Range(-yVal, yVal);
             float zPos = Random.Range(-zVal, zVal);
 
-            
-            Vector3 destination= new Vector3(xPos, yPos, zPos);
-            
+            if (Vector3.Distance(Direction, transform.position) <= 5f)
+            {
+                return new Vector3(xPos, yPos, zPos);
+            }
 
-            return transform.position+destination;
+            return transform.position;
         }
 
         IEnumerator TeleportRoutine()
@@ -54,6 +55,5 @@ namespace TrippleTrinity.MechaMorph.Enemy
             // Perform teleportation
             Disappear();
         }
-        
     }
 }

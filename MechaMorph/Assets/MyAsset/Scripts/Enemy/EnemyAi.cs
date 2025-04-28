@@ -55,15 +55,6 @@ namespace TrippleTrinity.MechaMorph.Enemy
             }
         }
 
-        protected virtual bool IsStopped()
-        {
-            if (agent.isStopped == true)
-            {
-                return true;
-            }
-
-            return false;
-        }
         protected virtual void MoveTowardsTarget()
         {
             if (targetPosition == null) return;
