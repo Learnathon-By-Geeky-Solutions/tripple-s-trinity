@@ -6,7 +6,7 @@ namespace TrippleTrinity.MechaMorph.MyAsset.Scripts.SaveManager
     {
         public static GameModeManager Instance { get; private set; }
 
-        public string CurrentMode { get; private set; } = "Medium"; // default
+        public string CurrentMode { get; private set; } = "Easy"; // default
 
         private void Awake()
         {
