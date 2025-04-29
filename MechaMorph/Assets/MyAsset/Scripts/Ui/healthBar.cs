@@ -1,8 +1,8 @@
+using TrippleTrinity.MechaMorph.Damage;
 using UnityEngine;
 using UnityEngine.UI;
-using TrippleTrinity.MechaMorph.Damage;
 
-namespace TrippleTrinity.MechaMorph.Ui
+namespace TrippleTrinity.MechaMorph.MyAsset.Scripts.Ui
 {
     public class HealthBar : MonoBehaviour
     {
