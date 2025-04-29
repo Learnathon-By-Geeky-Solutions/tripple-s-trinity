@@ -1,6 +1,7 @@
 using TMPro;
 using UnityEngine;
-using System.Collections; // Needed for Coroutine
+using System.Collections;
+using TrippleTrinity.MechaMorph.MyAsset.Scripts.SaveManager;
 
 namespace TrippleTrinity.MechaMorph.MyAsset.Scripts.Ui
 {
@@ -8,19 +9,18 @@ namespace TrippleTrinity.MechaMorph.MyAsset.Scripts.Ui
     {
         public static TokenUIManager Instance { get; private set; }
 
-        [SerializeField] private TMP_Text tokenCountText; // Assign in Inspector
+        [SerializeField] private TMP_Text tokenCountText;
 
-        private int _currentGameTokens; // Tokens earned in the current session
-        private int _totalTokens; // Total saved tokens
+        private int _currentGameTokens;
+        private int _totalTokens;
 
         private void Awake()
         {
             if (Instance == null)
             {
                 Instance = this;
-                // LoadTotalTokens(); // If you plan to load saved tokens later
-                
-                // Initialize the UI with 0 tokens
+                DontDestroyOnLoad(gameObject);
+                LoadTotalTokens();
                 _currentGameTokens = 0;
                 UpdateTokenCount(_currentGameTokens);
             }
@@ -32,24 +32,18 @@ namespace TrippleTrinity.MechaMorph.MyAsset.Scripts.Ui
 
         public void UpdateTokenCount(int count)
         {
-            _currentGameTokens = count; // Ensure current session tokens are updated
-
+            _currentGameTokens = count;
             if (tokenCountText != null)
             {
-                // Update text color and format
                 tokenCountText.text = $"<color=#004DFF>Tokens: {_currentGameTokens:D2}</color>";
-                Debug.Log($"UI Updated: Tokens = {_currentGameTokens}");
-
-                // Start the pop animation
-                StopAllCoroutines(); // In case previous animation still running
+                StopAllCoroutines();
                 StartCoroutine(AnimateTokenText());
             }
-
         }
 
         public void ResetTokenCount()
         {
-            _currentGameTokens = 0; // Reset the variable to ensure session tokens start at 0
+            _currentGameTokens = 0;
             UpdateTokenCount(0);
         }
 
@@ -60,37 +54,41 @@ namespace TrippleTrinity.MechaMorph.MyAsset.Scripts.Ui
 
         public void SaveFinalTokenCount()
         {
-            _totalTokens += _currentGameTokens; // Add session tokens to total
-            PlayerPrefs.SetInt("TotalTokens", _totalTokens);
-            PlayerPrefs.Save();
+            _totalTokens += _currentGameTokens;
+
+            GameData currentSave = SaveSystem.LoadGame() ?? new GameData();
+            currentSave.tokenCount = _totalTokens;
+            currentSave.highScore = ScoreManager.Instance.CurrentScore;
+
+            SaveSystem.SaveGame();
+
             Debug.Log($"Game Over! Total Tokens Saved: {_totalTokens}");
-
-            ResetTokenCount(); // Ensure new game starts from 0
+            ResetTokenCount();
         }
 
-        public int CurrentTokenCount()
+        public int CurrentTokenCount() => _currentGameTokens;
+        public int GetTotalTokens() => _totalTokens;
+
+        private void LoadTotalTokens()
         {
-            return _currentGameTokens;
+            GameData data = SaveSystem.LoadGame();
+            _totalTokens = data?.tokenCount ?? 0;
         }
 
-        public int GetTotalTokens()
-        {
-            return _totalTokens;
-        }
-
-        // ===== Animation Coroutine =====
         private IEnumerator AnimateTokenText()
         {
             Vector3 originalScale = tokenCountText.transform.localScale;
-
-            // Scale up a little
             tokenCountText.transform.localScale = originalScale * 1.2f;
-
-            // Wait for a short time
             yield return new WaitForSeconds(0.1f);
-
-            // Scale back to normal
             tokenCountText.transform.localScale = originalScale;
         }
+
+        // 🔧 Fix: Add LoadTokenCount method
+        public void LoadTokenCount(int count)
+        {
+            _currentGameTokens = count;
+            UpdateTokenCount(count);
+        }
+        
     }
 }

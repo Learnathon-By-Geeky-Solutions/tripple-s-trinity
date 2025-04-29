@@ -1,25 +1,26 @@
 using TrippleTrinity.MechaMorph.Ability;
 using TrippleTrinity.MechaMorph.Damage;
+using TrippleTrinity.MechaMorph.MyAsset.Scripts.Token;
 using UnityEngine;
 
-namespace TrippleTrinity.MechaMorph.Token
+namespace TrippleTrinity.MechaMorph.MyAsset.Scripts.token
 {
     public class TokenCollector : MonoBehaviour
     {
-        private Damageable playerHealth;
-        private AreaDamageAbility areaDamageAbility;
+        private Damageable _playerHealth;
+        private AreaDamageAbility _areaDamageAbility;
 
         private void Start()
         {
-            playerHealth = GetComponentInParent<Damageable>(); // Get from Parent
-            areaDamageAbility = FindObjectOfType<AreaDamageAbility>();
+            _playerHealth = GetComponentInParent<Damageable>(); // Get from Parent
+            _areaDamageAbility = FindObjectOfType<AreaDamageAbility>();
 
-            Debug.Log($"TokenCollector initialized. Player Health Component: {playerHealth}");
+            Debug.Log($"TokenCollector initialized. Player Health Component: {_playerHealth}");
 
-            if (playerHealth == null)
+            if (_playerHealth == null)
                 Debug.LogWarning("TokenCollector: Damageable component missing on Player.");
 
-            if (areaDamageAbility == null)
+            if (_areaDamageAbility == null)
                 Debug.LogWarning("TokenCollector: AreaDamageAbility not found in scene.");
         }
 
@@ -30,10 +31,10 @@ namespace TrippleTrinity.MechaMorph.Token
             switch (type)
             {
                 case TokenType.Health:
-                    if (playerHealth != null)
+                    if (_playerHealth != null)
                     {
                         Debug.Log($"Applying Heal: {value}");
-                        playerHealth.Heal(value);
+                        _playerHealth.Heal(value);
                     }
                     else
                     {
@@ -42,9 +43,9 @@ namespace TrippleTrinity.MechaMorph.Token
                     break;
 
                 case TokenType.Cooldown:
-                    if (areaDamageAbility != null)
+                    if (_areaDamageAbility != null)
                     {
-                        areaDamageAbility.CollectToken(); // Calls Area Damage cooldown
+                        _areaDamageAbility.CollectToken(); // Calls Area Damage cooldown
                     }
                     else
                     {
@@ -55,8 +56,7 @@ namespace TrippleTrinity.MechaMorph.Token
                 case TokenType.Upgrade:
                     if (UpgradeManager.Instance != null)
                     {
-                        UpgradeManager.Instance.AddUpgradePoint();
-                        UpgradeManager.Instance.AddUpgradeToken();
+                        UpgradeManager.Instance.AddUpgradeToken(); // Only this is needed now
                     }
                     else
                     {

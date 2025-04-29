@@ -1,6 +1,7 @@
+using TrippleTrinity.MechaMorph.MyAsset.Scripts.Ui;
 using UnityEngine;
 
-namespace TrippleTrinity.MechaMorph.SaveManager
+namespace TrippleTrinity.MechaMorph.MyAsset.Scripts.SaveManager
 {
     public class GameManager : MonoBehaviour
     {
@@ -15,10 +16,31 @@ namespace TrippleTrinity.MechaMorph.SaveManager
             {
                 Instance = this;
                 DontDestroyOnLoad(gameObject);
+
+                LoadGameData(); // 👈 Load saved data when the game starts
             }
             else if (Instance != this)
             {
                 Destroy(gameObject);
+            }
+        }
+
+        private void LoadGameData()
+        {
+            GameData data = SaveSystem.LoadGame();
+
+            if (data != null)
+            {
+                Score = data.score;
+                TokenCount = data.tokenCount;
+
+                ScoreManager.Instance?.SetScore(data.score);
+                TokenUIManager.Instance?.LoadTokenCount(data.tokenCount);
+                UpgradeManager.Instance?.LoadUpgradeLevels(data.areaDamageLevel, data.boosterCooldownLevel);
+            }
+            else
+            {
+                Debug.Log("No saved game data found.");
             }
         }
 

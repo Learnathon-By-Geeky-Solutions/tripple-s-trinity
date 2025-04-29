@@ -1,7 +1,10 @@
-using UnityEngine;
 using TMPro;
+using TrippleTrinity.MechaMorph.MyAsset.Scripts.SaveManager;
+using UnityEngine;
 
-namespace TrippleTrinity.MechaMorph.Ui
+// Needed to access SaveSystem
+
+namespace TrippleTrinity.MechaMorph.MyAsset.Scripts.Ui
 {
     public class HighestScore : MonoBehaviour
     {
@@ -9,8 +12,7 @@ namespace TrippleTrinity.MechaMorph.Ui
 
         private void Start()
         {
-            int highScore = PlayerPrefs.GetInt("HighScore", 0);
-
+            int highScore = SaveSystem.LoadGame()?.highScore ?? 0;
             if (highScoreText != null)
             {
                 highScoreText.text = $"Highest Score: {highScore}";

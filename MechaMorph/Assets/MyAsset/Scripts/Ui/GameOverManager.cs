@@ -1,12 +1,14 @@
+using System.Collections;
+using TMPro;
+using TrippleTrinity.MechaMorph.Damage;
+using TrippleTrinity.MechaMorph.MyAsset.Scripts.SaveManager;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using TMPro;
-using System.Collections;
-using TrippleTrinity.MechaMorph.Damage;
-using TrippleTrinity.MechaMorph.MyAsset.Scripts.Ui;
-using TrippleTrinity.MechaMorph.Token; // Import for UpgradeManager
+using UpgradeManager = TrippleTrinity.MechaMorph.MyAsset.Scripts.Ui.UpgradeManager;
 
-namespace TrippleTrinity.MechaMorph.Ui
+// Import for UpgradeManager
+
+namespace TrippleTrinity.MechaMorph.MyAsset.Scripts.Ui
 {
     public class GameOverManager : MonoBehaviour
     {
@@ -38,23 +40,26 @@ namespace TrippleTrinity.MechaMorph.Ui
 
         private void ShowGameOverScreen()
         {
+            // Save the game when the game over screen is shown
+            SaveSystem.SaveGame(); // Call SaveGame here to save progress before showing the screen
+            
             gameOverPanel.SetActive(true);
             Time.timeScale = 0f;
 
             // Display the final score
             if (finalScoreText != null && _scoreManager != null)
             {
-                finalScoreText.text = $"Score: {_scoreManager.CurrentScore()}";
+                finalScoreText.text = $"Score: {_scoreManager.CurrentScore}";
             }
 
             // Display the collected upgrade tokens for the session
             if (finalTokenText != null)
             {
-                finalTokenText.text = $"Token: {UpgradeManager.Instance.GetUpgradeTokenCount()}";
+                finalTokenText.text = $"Token: {TokenUIManager.Instance.CurrentTokenCount()}";
             }
         }
 
-        public  static void RestartGame()
+        public static void RestartGame()
         {
             Time.timeScale = 1f;
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); // Reload the current scene

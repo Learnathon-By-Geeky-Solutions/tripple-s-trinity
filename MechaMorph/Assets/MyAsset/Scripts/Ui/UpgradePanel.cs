@@ -1,6 +1,7 @@
 using TMPro;
 using TrippleTrinity.MechaMorph.Token;
 using UnityEngine;
+using UpgradeManager = TrippleTrinity.MechaMorph.MyAsset.Scripts.Ui.UpgradeManager;
 
 namespace TrippleTrinity.MechaMorph.Ui
 {

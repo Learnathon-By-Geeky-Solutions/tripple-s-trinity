@@ -1,18 +1,17 @@
-using System;
 using TrippleTrinity.MechaMorph.MyAsset.Scripts.Ui;
 using UnityEngine;
-using TrippleTrinity.MechaMorph.Token;
 using UnityEngine.SceneManagement;
+using UpgradeManager = TrippleTrinity.MechaMorph.MyAsset.Scripts.Ui.UpgradeManager;
 
-namespace TrippleTrinity.MechaMorph.SaveManager
+namespace TrippleTrinity.MechaMorph.MyAsset.Scripts.SaveManager
 {
     public class DeleteData : MonoBehaviour
     {
-        private readonly bool  isReset = false;
+        private readonly bool  _isReset = false;
         private ScoreManager scoreManager;
         public bool IsReset
         {
-            get => isReset;
+            get => _isReset;
         }
 
         private void Start()
@@ -26,7 +25,7 @@ namespace TrippleTrinity.MechaMorph.SaveManager
 
             if (UpgradeManager.Instance != null)
             {
-                UpgradeManager.Instance.ResetAllUpgrades(); // Reset PlayerPrefs and in-memory data
+                UpgradeManager.Instance.ResetAllUpgrades(); // 
 
                 if (ScoreManager.Instance != null)
                 {

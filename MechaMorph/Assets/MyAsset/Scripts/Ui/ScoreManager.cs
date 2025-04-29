@@ -1,5 +1,5 @@
 using TMPro;
-using TrippleTrinity.MechaMorph.SaveManager;
+using TrippleTrinity.MechaMorph.MyAsset.Scripts.SaveManager;
 using TrippleTrinity.MechaMorph.Ui;
 using UnityEngine;
 
@@ -7,29 +7,22 @@ namespace TrippleTrinity.MechaMorph.MyAsset.Scripts.Ui
 {
     public class ScoreManager : MonoBehaviour
     {
-        private static ScoreManager _instance;
-       
+        public static ScoreManager Instance { get; private set; }
+
         private int _score;
-        private const string HighScoreKey = "HighScore";
         private int _highscore;
+
         [SerializeField] private TextMeshProUGUI scoreText;
         [SerializeField] private TextMeshProUGUI highScoreText;
-        public static ScoreManager Instance
-        {
-        get
-        {
-            if (_instance == null)
-            {
-                Debug.LogError("ScoreManager instance is null.");
-            }
-            return _instance;
-        }
-        }
+
+        public int CurrentScore => _score;
+        public int HighScore => _highscore;
+
         private void Awake()
         {
-            if (_instance == null)
+            if (Instance == null)
             {
-                _instance = this;
+                Instance = this;
                 DontDestroyOnLoad(gameObject);
             }
             else
@@ -40,7 +33,7 @@ namespace TrippleTrinity.MechaMorph.MyAsset.Scripts.Ui
 
         private void Start()
         {
-            LoadScore();
+            LoadScoreFromSave();
             UpdateScoreUI();
         }
 
@@ -53,13 +46,8 @@ namespace TrippleTrinity.MechaMorph.MyAsset.Scripts.Ui
             }
 
             _score += points;
-
-            int currentHigh = PlayerPrefs.GetInt(HighScoreKey, 0);
-            if (_score > currentHigh)
-            {
-                PlayerPrefs.SetInt(HighScoreKey, _score);
-                PlayerPrefs.Save();
-            }
+            if (_score > _highscore)
+                _highscore = _score;
 
             UpdateScoreUI();
         }
@@ -67,42 +55,44 @@ namespace TrippleTrinity.MechaMorph.MyAsset.Scripts.Ui
         private void UpdateScoreUI()
         {
             if (scoreText != null)
-            {
                 scoreText.text = $"<color=#004DFF>Score: {_score:D2}</color>";
-            }
 
             if (highScoreText != null)
-            {
-                int highScore = PlayerPrefs.GetInt(HighScoreKey, 0);
-                highScoreText.text = $"Highest Score: {highScore:D2}</color>";
-            }
+                highScoreText.text = $"Highest Score: {_highscore:D2}";
         }
-
 
         public void ResetScore()
         {
-            
-            PlayerPrefs.DeleteKey(HighScoreKey);
             _score = 0;
             UpdateScoreUI();
         }
 
-        public int CurrentScore()
+        public void LoadScoreFromSave()
         {
-            return _score;
+            GameData data = SaveSystem.LoadGame();
+            _score = data?.score ?? 0;
+            _highscore = data?.highScore ?? 0;
         }
 
-        public void LoadScore()
+        public void SaveScoreToFile()
         {
-            _score = 0; // Reset or load saved score if needed
+            SaveSystem.SaveGame();
+        }
+
+        // 🔧 Fix: Add SetScore method
+        public void SetScore(int score)
+        {
+            _score = score;
+            if (_score > _highscore)
+                _highscore = _score;
+            UpdateScoreUI();
+        }
+        public void LoadScore(int score, int highScore)
+        {
+            _score = score;
+            _highscore = highScore;
             UpdateScoreUI();
         }
 
-        public void SaveScore()
-        {
-            PlayerPrefs.SetInt("LastScore", _score); // Save current score
-            PlayerPrefs.Save();
-            SaveSystem.SaveGame(_score, TokenUIManager.Instance.CurrentTokenCount());
-        }
     }
 }

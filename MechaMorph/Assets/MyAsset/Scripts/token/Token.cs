@@ -1,6 +1,7 @@
+using TrippleTrinity.MechaMorph.Token;
 using UnityEngine;
 
-namespace TrippleTrinity.MechaMorph.Token
+namespace TrippleTrinity.MechaMorph.MyAsset.Scripts.token
 {
     public enum TokenType { Health, Cooldown, Upgrade }
 

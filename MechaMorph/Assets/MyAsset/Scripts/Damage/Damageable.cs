@@ -36,7 +36,7 @@ namespace TrippleTrinity.MechaMorph.Damage
         protected virtual void HandleDeath()
         {
             //save game progress
-            ScoreManager.Instance.SaveScore();
+            ScoreManager.Instance.SaveScoreToFile();
             TokenUIManager.Instance.CurrentTokenCount();
             OnDeath?.Invoke();
             Destroy(gameObject);
