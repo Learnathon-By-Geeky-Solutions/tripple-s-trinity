@@ -19,7 +19,6 @@ namespace TrippleTrinity.MechaMorph.Token
         private int _areaDamageUpgradeLevel;
         private int _boosterUpgradeCost;
         private int _areaDamageUpgradeCost;
-        
         public static UpgradeManager Instance
         {
             get
@@ -152,7 +151,9 @@ namespace TrippleTrinity.MechaMorph.Token
       _areaDamageUpgradeLevel = 0;
       _boosterUpgradeCost = 5;
       _areaDamageUpgradeCost = 5;
+    
       PlayerPrefs.Save();
+    
       TokenUIManager.Instance?.UpdateTokenCount(_upgradeTokenCount);
       Debug.Log("Upgrades reset.");
   }

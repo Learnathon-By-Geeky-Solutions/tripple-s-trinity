@@ -44,10 +44,7 @@ namespace TrippleTrinity.MechaMorph.MyAsset.Scripts.Ui
                 StopAllCoroutines(); // In case previous animation still running
                 StartCoroutine(AnimateTokenText());
             }
-            else
-            {
-                Debug.LogError("TokenUIManager: tokenCountText is not assigned!");
-            }
+
         }
 
         public void ResetTokenCount()
