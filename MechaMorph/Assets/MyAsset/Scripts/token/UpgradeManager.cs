@@ -46,7 +46,6 @@ namespace TrippleTrinity.MechaMorph.Token
                 Destroy(gameObject);
             }
         }
-
         public void AddUpgradePoint()
         {
             _upgradePoints++;

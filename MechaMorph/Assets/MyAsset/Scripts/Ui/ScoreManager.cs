@@ -20,7 +20,7 @@ namespace TrippleTrinity.MechaMorph.MyAsset.Scripts.Ui
         {
             if (_instance == null)
             {
-                Debug.LogError("UpgradeManager instance is null.");
+                Debug.LogError("ScoreManager instance is null.");
             }
             return _instance;
         }
