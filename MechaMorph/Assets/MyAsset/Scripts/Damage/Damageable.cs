@@ -37,6 +37,7 @@ namespace TrippleTrinity.MechaMorph.Damage
         {
             //save game progress
             ScoreManager.Instance.SaveScore();
+            TokenUIManager.Instance.CurrentTokenCount();
             OnDeath?.Invoke();
             Destroy(gameObject);
         }
