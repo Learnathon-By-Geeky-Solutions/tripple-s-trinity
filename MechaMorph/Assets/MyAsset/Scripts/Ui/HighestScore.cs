@@ -15,7 +15,7 @@ namespace TrippleTrinity.MechaMorph.Ui
             {
                 if (highScoreText != null)
                 {
-                    highScoreText.text = $"Highest Score: {gameData.score}";
+                    highScoreText.text = $"Highest Score: {gameData.highScore}";
 
                 }
                 
