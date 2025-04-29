@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using TrippleTrinity.MechaMorph.SaveManager;
 
 namespace TrippleTrinity.MechaMorph.Ui
 {
@@ -9,11 +10,15 @@ namespace TrippleTrinity.MechaMorph.Ui
 
         private void Start()
         {
-            int highScore = PlayerPrefs.GetInt("HighScore", 0);
-
-            if (highScoreText != null)
+            GameData gameData = SaveSystem.LoadGame();
+            if (gameData != null)
             {
-                highScoreText.text = $"Highest Score: {highScore}";
+                if (highScoreText != null)
+                {
+                    highScoreText.text = $"Highest Score: {gameData.score}";
+
+                }
+                
             }
         }
     }

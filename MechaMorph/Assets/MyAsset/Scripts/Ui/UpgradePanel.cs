@@ -31,7 +31,7 @@ namespace TrippleTrinity.MechaMorph.Ui
         {
             if (totalTokenText != null)
             {
-                int totalTokens = UpgradeManager.GetTotalUpgradeTokenCount(); // ✅ Use static access
+                int totalTokens = UpgradeManager.Instance.GetTotalUpgradeTokenCount();
                 totalTokenText.text = $"Tokens: {totalTokens}";
             }
             else

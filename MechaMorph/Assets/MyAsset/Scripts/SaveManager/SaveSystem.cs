@@ -6,10 +6,11 @@ namespace TrippleTrinity.MechaMorph.SaveManager
     public static class SaveSystem
     {
         private static string _savePath = Application.persistentDataPath + "/save.json";
+        private static readonly string upgradePath = Application.persistentDataPath + "/upgrades.json";
 
-        public static void SaveGame(int score, int tokenCount)
+
+        public static void SaveGame(GameData data)
         {
-            GameData data = new GameData { score = score, tokenCount = tokenCount };
             string json = JsonUtility.ToJson(data);
             File.WriteAllText(_savePath, json);
             Debug.Log("Game Saved to: " + _savePath);
@@ -37,6 +38,31 @@ namespace TrippleTrinity.MechaMorph.SaveManager
             {
                 File.Delete(_savePath);
                 Debug.Log("Game Deleted from: " + _savePath);
+            }
+        }
+
+        public static void SaveUpgrades(UpgradeData data)
+        {
+            string json = JsonUtility.ToJson(data, true);
+            File.WriteAllText(upgradePath, json);
+        }
+
+        public static UpgradeData LoadUpgrades()
+        {
+            if (File.Exists(upgradePath))
+            {
+                string json = File.ReadAllText(upgradePath);
+                return JsonUtility.FromJson<UpgradeData>(json);
+            }
+
+            return null;
+        }
+
+        public static void DeleteUpgradeData()
+        {
+            if (File.Exists(upgradePath))
+            {
+                File.Delete(upgradePath);
             }
         }
     }

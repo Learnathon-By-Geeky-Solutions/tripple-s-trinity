@@ -10,7 +10,7 @@ namespace TrippleTrinity.MechaMorph.MyAsset.Scripts.Ui
         public static ScoreManager Instance { get; private set; }
 
         private int _score;
-        private const string HighScoreKey = "HighScore";
+        private int _highScore;
 
         [SerializeField] private TextMeshProUGUI scoreText;
         [SerializeField] private TextMeshProUGUI highScoreText;
@@ -44,11 +44,11 @@ namespace TrippleTrinity.MechaMorph.MyAsset.Scripts.Ui
 
             _score += points;
 
-            int currentHigh = PlayerPrefs.GetInt(HighScoreKey, 0);
-            if (_score > currentHigh)
+            // Check if new score is higher than previous high score
+            if (_score > _highScore)
             {
-                PlayerPrefs.SetInt(HighScoreKey, _score);
-                PlayerPrefs.Save();
+                _highScore = _score;
+                SaveScore(); //save highscore
             }
 
             UpdateScoreUI();
@@ -63,17 +63,12 @@ namespace TrippleTrinity.MechaMorph.MyAsset.Scripts.Ui
 
             if (highScoreText != null)
             {
-                int highScore = PlayerPrefs.GetInt(HighScoreKey, 0);
-                highScoreText.text = $"Highest Score: {highScore:D2}</color>";
+                highScoreText.text = $"Highest Score: {_highScore:D2}</color>";
             }
         }
 
 
-        public void ResetScore()
-        {
-            _score = 0;
-            UpdateScoreUI();
-        }
+        
 
         public int CurrentScore()
         {
@@ -82,15 +77,37 @@ namespace TrippleTrinity.MechaMorph.MyAsset.Scripts.Ui
 
         public void LoadScore()
         {
-            _score = 0; // Reset or load saved score if needed
+            GameData data = SaveSystem.LoadGame();
+            _score = 0;
+
+            if (data != null)
+            {
+                _highScore = data.highScore; //Load high score from JSON
+            }
+            else
+            {
+                
+                _highScore = 0;
+            }
+
             UpdateScoreUI();
         }
 
         public void SaveScore()
         {
-            PlayerPrefs.SetInt("LastScore", _score); // Save current score
-            PlayerPrefs.Save();
-            SaveSystem.SaveGame(_score, TokenUIManager.Instance.CurrentTokenCount());
+            if(_score > _highScore)
+            {
+                _highScore = _score;
+            }
+
+            GameData data = new GameData
+            {
+                highScore = _highScore,
+                tokenCount = TokenUIManager.Instance.CurrentTokenCount()
+            };
+
+            SaveSystem.SaveGame(data);
+            Debug.Log("Score Saved Successfully.");
         }
     }
 }

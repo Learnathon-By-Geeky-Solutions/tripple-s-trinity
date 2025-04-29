@@ -5,5 +5,6 @@ namespace TrippleTrinity.MechaMorph.SaveManager
     {
         public int score;
         public int tokenCount;
+        public int highScore;
     }
 }
