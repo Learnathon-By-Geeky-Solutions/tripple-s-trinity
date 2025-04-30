@@ -1,7 +1,7 @@
 using UnityEngine;
 using System;
 using TrippleTrinity.MechaMorph.MyAsset.Scripts.Ui;
-using TrippleTrinity.MechaMorph.Ui;
+
 namespace TrippleTrinity.MechaMorph.Damage
 {
     public class Damageable : MonoBehaviour

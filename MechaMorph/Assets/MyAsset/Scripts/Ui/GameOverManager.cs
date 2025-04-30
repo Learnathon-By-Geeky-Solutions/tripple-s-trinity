@@ -1,12 +1,13 @@
+using System.Collections;
+using TMPro;
+using TrippleTrinity.MechaMorph.Damage;
+using TrippleTrinity.MechaMorph.Token;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using TMPro;
-using System.Collections;
-using TrippleTrinity.MechaMorph.Damage;
-using TrippleTrinity.MechaMorph.MyAsset.Scripts.Ui;
-using TrippleTrinity.MechaMorph.Token; // Import for UpgradeManager
 
-namespace TrippleTrinity.MechaMorph.Ui
+// Import for UpgradeManager
+
+namespace TrippleTrinity.MechaMorph.MyAsset.Scripts.Ui
 {
     public class GameOverManager : MonoBehaviour
     {

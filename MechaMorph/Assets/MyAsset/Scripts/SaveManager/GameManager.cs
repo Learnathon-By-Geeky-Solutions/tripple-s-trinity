@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace TrippleTrinity.MechaMorph.SaveManager
+namespace TrippleTrinity.MechaMorph.MyAsset.Scripts.SaveManager
 {
     public class GameManager : MonoBehaviour
     {

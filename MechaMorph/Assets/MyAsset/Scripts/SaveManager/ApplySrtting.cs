@@ -1,20 +1,23 @@
+using TrippleTrinity.MechaMorph.SaveManager;
 using UnityEngine;
 using UnityEngine.Audio;
-using TrippleTrinity.MechaMorph.SaveManager;
 
-public class ApplySettingsOnStart : MonoBehaviour
+namespace TrippleTrinity.MechaMorph.MyAsset.Scripts.SaveManager
 {
-    [SerializeField] private AudioMixer mainMixer;
-
-    void Start()
+    public class ApplySettingsOnStart : MonoBehaviour
     {
-        SettingsData settings = SaveSystem.LoadSettings();
+        [SerializeField] private AudioMixer mainMixer;
 
-        mainMixer.SetFloat("MasterVol", settings.masterVolume);
-        mainMixer.SetFloat("MusicVol", settings.musicVolume);
-        mainMixer.SetFloat("SFXVol", settings.sfxVolume);
-        mainMixer.SetFloat("LobbyVol", settings.lobbyVolume);
+        void Start()
+        {
+            SettingsData settings = SaveSystem.LoadSettings();
 
-        QualitySettings.SetQualityLevel(settings.graphicsQualityIndex, true);
+            mainMixer.SetFloat("MasterVol", settings.masterVolume);
+            mainMixer.SetFloat("MusicVol", settings.musicVolume);
+            mainMixer.SetFloat("SFXVol", settings.sfxVolume);
+            mainMixer.SetFloat("LobbyVol", settings.lobbyVolume);
+
+            QualitySettings.SetQualityLevel(settings.graphicsQualityIndex, true);
+        }
     }
 }

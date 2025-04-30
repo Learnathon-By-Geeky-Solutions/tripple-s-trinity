@@ -1,4 +1,4 @@
-namespace TrippleTrinity.MechaMorph
+namespace TrippleTrinity.MechaMorph.MyAsset.Scripts.SaveManager
 {
     [System.Serializable]
     public class UpgradeData

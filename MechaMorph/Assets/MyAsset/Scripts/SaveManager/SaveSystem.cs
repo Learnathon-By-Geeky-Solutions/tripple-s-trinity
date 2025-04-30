@@ -1,8 +1,8 @@
 using System.IO;
-using TrippleTrinity.MechaMorph.MyAsset.Scripts.SaveManager;
+using TrippleTrinity.MechaMorph.SaveManager;
 using UnityEngine;
 
-namespace TrippleTrinity.MechaMorph.SaveManager
+namespace TrippleTrinity.MechaMorph.MyAsset.Scripts.SaveManager
 {
     public static class SaveSystem
     {

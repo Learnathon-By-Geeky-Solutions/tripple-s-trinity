@@ -1,8 +1,7 @@
-using System.Collections;
 using TMPro;
 using UnityEngine;
 
-namespace TrippleTrinity.MechaMorph.Ui
+namespace TrippleTrinity.MechaMorph.MyAsset.Scripts.Ui
 {
     public class GunUIManager : MonoBehaviour
     {

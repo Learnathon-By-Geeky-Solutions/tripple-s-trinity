@@ -1,7 +1,6 @@
 using TMPro;
 using TrippleTrinity.MechaMorph.MyAsset.Scripts.SaveManager;
 using TrippleTrinity.MechaMorph.SaveManager;
-using TrippleTrinity.MechaMorph.Ui;
 using UnityEngine;
 
 namespace TrippleTrinity.MechaMorph.MyAsset.Scripts.Ui

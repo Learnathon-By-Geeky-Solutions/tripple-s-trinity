@@ -2,7 +2,7 @@ using TMPro;
 using TrippleTrinity.MechaMorph.Token;
 using UnityEngine;
 
-namespace TrippleTrinity.MechaMorph.Ui
+namespace TrippleTrinity.MechaMorph.MyAsset.Scripts.Ui
 {
     public class UpgradePanel : MonoBehaviour
     {

@@ -1,10 +1,10 @@
+using TMPro;
 using TrippleTrinity.MechaMorph.Ability;
 using TrippleTrinity.MechaMorph.Token;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 
-namespace TrippleTrinity.MechaMorph.Ui
+namespace TrippleTrinity.MechaMorph.MyAsset.Scripts.Ui
 {
     public class UpgradeUIManager : MonoBehaviour
     {
