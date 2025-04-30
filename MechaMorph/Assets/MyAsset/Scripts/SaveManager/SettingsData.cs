@@ -1,4 +1,5 @@
 using System;
+using TrippleTrinity.MechaMorph.MyAsset.Scripts.SaveManager;
 
 namespace TrippleTrinity.MechaMorph.SaveManager
 {
@@ -10,6 +11,7 @@ namespace TrippleTrinity.MechaMorph.SaveManager
         public float sfxVolume;
         public float lobbyVolume;
         public int graphicsQualityIndex;
+
+        public DifficultyMode gameMode = DifficultyMode.Easy; // ✅ Add this
     }
 }
-

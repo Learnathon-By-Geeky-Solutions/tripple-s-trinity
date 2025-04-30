@@ -1,6 +1,7 @@
 using TMPro;
 using UnityEngine;
 using System.Collections;
+using TrippleTrinity.MechaMorph.MyAsset.Scripts.SaveManager;
 using TrippleTrinity.MechaMorph.SaveManager; // Needed for Coroutine
 
 namespace TrippleTrinity.MechaMorph.MyAsset.Scripts.Ui
