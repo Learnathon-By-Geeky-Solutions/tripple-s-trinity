@@ -9,6 +9,7 @@ namespace TrippleTrinity.MechaMorph.MyAsset.Scripts.SaveManager
         public int tokenCount;
         public int highScore;
 
-       
+        public int boosterUpgradeLevel;
+        public int areaDamageUpgradeLevel;
     }
 }

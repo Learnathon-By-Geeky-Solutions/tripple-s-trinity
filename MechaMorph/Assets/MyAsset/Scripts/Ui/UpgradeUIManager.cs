@@ -1,5 +1,5 @@
 using TMPro;
-using TrippleTrinity.MechaMorph.Ability;
+using TrippleTrinity.MechaMorph.MyAsset.Scripts.Ability;
 using TrippleTrinity.MechaMorph.Token;
 using UnityEngine;
 using UnityEngine.UI;
@@ -20,7 +20,7 @@ namespace TrippleTrinity.MechaMorph.MyAsset.Scripts.Ui
             boosterUpgradeButton?.onClick.AddListener(UpgradeBoosterCooldown);
             areaDamageUpgradeButton?.onClick.AddListener(UpgradeAreaDamage);
 
-            _areaDamageAbility = FindObjectOfType<AreaDamageAbility>();
+            _areaDamageAbility = AreaDamageAbility.Instance;
 
             UpdateUI();
         }
@@ -32,7 +32,7 @@ namespace TrippleTrinity.MechaMorph.MyAsset.Scripts.Ui
                 int newUpgradeCost = UpgradeManager.Instance.GetBoosterUpgradeCost();
                 Debug.Log($"Booster cooldown upgrade purchased! Next upgrade cost: {newUpgradeCost}");
 
-                UpdateUI(); // Refresh UI after upgrade
+                UpdateUI(); 
             }
             else
             {
@@ -47,23 +47,20 @@ namespace TrippleTrinity.MechaMorph.MyAsset.Scripts.Ui
                 int newUpgradeCost = UpgradeManager.Instance.GetAreaDamageUpgradeCost();
                 Debug.Log($"Area damage upgrade purchased! Next upgrade cost: {newUpgradeCost}");
 
-                if (_areaDamageAbility != null)
-                {
-                    _areaDamageAbility.ApplyUpgrades(newUpgradeCost);
-                }
+                _areaDamageAbility?.ApplyUpgrades(newUpgradeCost);
 
-                UpdateUI(); // Refresh UI after upgrade
+                UpdateUI();
             }
             else
             {
                 Debug.Log("Not enough tokens for area damage upgrade.");
             }
         }
+
         public void UpdateUI()
         {
             areaDamageUpgradeCostText.text = $"Upgrade Cost: {UpgradeManager.Instance.GetAreaDamageUpgradeCost()}";
             coolDownUpgradeCostText.text = $"Upgrade Cost: {UpgradeManager.Instance.GetBoosterUpgradeCost()}";
         }
-
     }
 }

@@ -1,12 +1,14 @@
+using UnityEngine;
 using System.Collections;
 using TrippleTrinity.MechaMorph.InputHandling;
 using TrippleTrinity.MechaMorph.MyAsset.Scripts.Ui;
-using UnityEngine;
 
 namespace TrippleTrinity.MechaMorph.MyAsset.Scripts.Control
 {
     public class NewBallControllerWithDash : MonoBehaviour
     {
+        public static NewBallControllerWithDash Instance { get; private set; } // Singleton Instance
+
         [Header("Movement Settings")]
         [SerializeField] private float movementSpeed = 10f;
 
@@ -18,8 +20,8 @@ namespace TrippleTrinity.MechaMorph.MyAsset.Scripts.Control
         [Header("Effects")]
         [SerializeField] private ParticleSystem dashParticleEffect;
         [SerializeField] private AudioClip dashSound;
-        [SerializeField] private AudioClip ballRollSound;  // Ball roll sound clip
-        [SerializeField] private float rollSoundThreshold = 50f;  // Minimum speed to play sound
+        [SerializeField] private AudioClip ballRollSound;
+        [SerializeField] private float rollSoundThreshold = 50f;
 
         private Rigidbody _rb;
         private AudioSource _audioSource;
@@ -27,11 +29,11 @@ namespace TrippleTrinity.MechaMorph.MyAsset.Scripts.Control
         private bool _isCooldownActive;
         private ParticleSystem _activeDashEffect;
         private Vector3 _dashDirection;
-
-        private bool _isRolling;  // Flag to check if the ball is rolling
+        private bool _isRolling;
 
         void Awake()
         {
+            Instance = this; // Set singleton instance
             InitializeComponents();
         }
 
@@ -39,7 +41,7 @@ namespace TrippleTrinity.MechaMorph.MyAsset.Scripts.Control
         {
             HandleMovementAndDash();
             FollowPlayerWithEffect();
-            ManageRollSound();  // Manage sound based on movement/rotation
+            ManageRollSound();
         }
 
         private void HandleMovementAndDash()
@@ -55,16 +57,12 @@ namespace TrippleTrinity.MechaMorph.MyAsset.Scripts.Control
                 InputHandler.Instance.ResetDash();
             }
 
-            // Check if the ball is moving or rotating, above the threshold
             _isRolling = (movement.sqrMagnitude > rollSoundThreshold || _rb.angularVelocity.sqrMagnitude > rollSoundThreshold);
         }
 
         private bool CanDash(Vector3 movement)
         {
-            return InputHandler.Instance.IsDashPressed()
-                   && !_isDashing
-                   && !_isCooldownActive
-                   && movement.sqrMagnitude > 0.01f;
+            return InputHandler.Instance.IsDashPressed() && !_isDashing && !_isCooldownActive && movement.sqrMagnitude > 0.01f;
         }
 
         private void FollowPlayerWithEffect()
@@ -124,13 +122,6 @@ namespace TrippleTrinity.MechaMorph.MyAsset.Scripts.Control
             }
         }
 
-        public void OnTransformToBall()
-        {
-            _isDashing = false;
-            _isCooldownActive = false;
-            InitializeComponents();
-        }
-
         private void InitializeComponents()
         {
             _rb = GetComponent<Rigidbody>();
@@ -145,18 +136,17 @@ namespace TrippleTrinity.MechaMorph.MyAsset.Scripts.Control
             }
         }
 
-        // Manage ball roll sound (play while moving, stop when stationary)
         private void ManageRollSound()
         {
             if (_isRolling && !_audioSource.isPlaying)
             {
                 _audioSource.clip = ballRollSound;
-                _audioSource.loop = true;  // Loop the sound while moving
+                _audioSource.loop = true;
                 _audioSource.Play();
             }
             else if (!_isRolling && _audioSource.isPlaying)
             {
-                _audioSource.Stop();  // Stop the sound if the ball stops moving
+                _audioSource.Stop();
             }
         }
     }

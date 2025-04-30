@@ -25,9 +25,9 @@ namespace TrippleTrinity.MechaMorph.SaveManager
         {
             SaveSystem.DeleteGame(); // Delete save.json
 
-            if (UpgradeManager.Instance != null)
+           // if (UpgradeManager.Instance != null)
             {
-                UpgradeManager.Instance.ResetAllUpgrades(); // Reset PlayerPrefs and in-memory data
+                //.Instance.ResetAllUpgrades(); // Reset PlayerPrefs and in-memory data
 
                 if (ScoreManager.Instance != null)
                 {
@@ -40,7 +40,7 @@ namespace TrippleTrinity.MechaMorph.SaveManager
 
                 SceneManager.LoadScene(SceneManager.GetActiveScene().name);
             }
-            else
+           // else
             {
                 Debug.LogWarning("UpgradeManager instance is null!");
             }

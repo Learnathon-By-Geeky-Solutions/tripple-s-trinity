@@ -49,10 +49,10 @@ namespace TrippleTrinity.MechaMorph.MyAsset.Scripts.Ui
             }
 
             // Display the collected upgrade tokens for the session
-            if (finalTokenText != null)
-            {
+            //if (finalTokenText != null)
+            /*{
                 finalTokenText.text = $"Token: {UpgradeManager.Instance.GetUpgradeTokenCount()}";
-            }
+            }*/
         }
 
         public  static void RestartGame()

@@ -1,12 +1,14 @@
-using UnityEngine;
 using TrippleTrinity.MechaMorph.Damage;
 using TrippleTrinity.MechaMorph.InputHandling;
 using TrippleTrinity.MechaMorph.MyAsset.Scripts.Ui;
+using UnityEngine;
 
-namespace TrippleTrinity.MechaMorph.Ability
+namespace TrippleTrinity.MechaMorph.MyAsset.Scripts.Ability
 {
     public class AreaDamageAbility : MonoBehaviour
     {
+        public static AreaDamageAbility Instance { get; private set; } // Singleton Instance
+
         [Header("Ability Settings")]
         private float _maxCooldown = 100f;
         private float _currentCooldown;
@@ -30,6 +32,7 @@ namespace TrippleTrinity.MechaMorph.Ability
 
         private void Awake()
         {
+            Instance = this; // Set singleton instance
             _currentCooldown = 0f;
             _cooldownBar = FindObjectOfType<AreaCooldownBar>();
             _hitResults = new Collider[maxTargets];
@@ -46,9 +49,8 @@ namespace TrippleTrinity.MechaMorph.Ability
 
         public void ApplyUpgrades(int upgradeLevel)
         {
-            _maxCooldown -= 5 * upgradeLevel;
-            damageAmount += 10 * upgradeLevel;
-            damageRadius += 0.05f * upgradeLevel;
+            damageAmount += 20 * upgradeLevel;
+            damageRadius += 0.5f * upgradeLevel;
         }
 
         public void CollectToken()

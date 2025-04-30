@@ -1,65 +1,61 @@
 using System.IO;
-using TrippleTrinity.MechaMorph.SaveManager;
 using UnityEngine;
 
 namespace TrippleTrinity.MechaMorph.MyAsset.Scripts.SaveManager
 {
     public static class SaveSystem
     {
-        private static string _savePath = Application.persistentDataPath + "/save.json";
-        private static readonly string upgradePath = Application.persistentDataPath + "/upgrades.json"; 
-        private static readonly string settingsPath = Application.persistentDataPath + "/settings.json";
+        private static readonly string gamePath = Path.Combine(Application.persistentDataPath, "save.json");
+        private static readonly string upgradePath = Path.Combine(Application.persistentDataPath, "upgrades.json");
+        private static readonly string settingsPath = Path.Combine(Application.persistentDataPath, "settings.json");
 
-
-
-
+        // Save and Load Game Data
         public static void SaveGame(GameData data)
         {
-            string json = JsonUtility.ToJson(data);
-            File.WriteAllText(_savePath, json);
-            Debug.Log("Game Saved to: " + _savePath);
+            string json = JsonUtility.ToJson(data, true);
+            File.WriteAllText(gamePath, json);
+            Debug.Log("Game saved to: " + gamePath);
         }
 
         public static GameData LoadGame()
         {
-            if (File.Exists(_savePath))
+            if (File.Exists(gamePath))
             {
-                string json = File.ReadAllText(_savePath);
-                GameData data = JsonUtility.FromJson<GameData>(json);
-                Debug.Log("Game Loaded from: " + _savePath);
-                return data;
+                string json = File.ReadAllText(gamePath);
+                return JsonUtility.FromJson<GameData>(json);
             }
-            else
-            {
-                Debug.LogWarning("Save file not found");
-                return null;
-            }
+
+            Debug.LogWarning("No game save file found at: " + gamePath);
+            return new GameData(); // return default if not found
         }
 
         public static void DeleteGame()
         {
-            if (File.Exists(_savePath))
+            if (File.Exists(gamePath))
             {
-                File.Delete(_savePath);
-                Debug.Log("Game Deleted from: " + _savePath);
+                File.Delete(gamePath);
+                Debug.Log("Game data deleted from: " + gamePath);
             }
         }
 
-        public static void SaveUpgrades(UpgradeData data)
+        // Save and Load Upgrade Data
+        public static void SaveUpgrades(GameData data)
         {
             string json = JsonUtility.ToJson(data, true);
             File.WriteAllText(upgradePath, json);
+            Debug.Log("Upgrade data saved to: " + upgradePath);
         }
 
-        public static UpgradeData LoadUpgrades()
+        public static GameData LoadUpgrades()
         {
             if (File.Exists(upgradePath))
             {
                 string json = File.ReadAllText(upgradePath);
-                return JsonUtility.FromJson<UpgradeData>(json);
+                return JsonUtility.FromJson<GameData>(json);
             }
 
-            return null;
+            Debug.LogWarning("No upgrade data found at: " + upgradePath);
+            return new GameData(); // return default if not found
         }
 
         public static void DeleteUpgradeData()
@@ -67,9 +63,11 @@ namespace TrippleTrinity.MechaMorph.MyAsset.Scripts.SaveManager
             if (File.Exists(upgradePath))
             {
                 File.Delete(upgradePath);
+                Debug.Log("Upgrade data deleted from: " + upgradePath);
             }
         }
 
+        // Save and Load Settings
         public static void SaveSettings(SettingsData data)
         {
             string json = JsonUtility.ToJson(data, true);
@@ -85,7 +83,17 @@ namespace TrippleTrinity.MechaMorph.MyAsset.Scripts.SaveManager
                 return JsonUtility.FromJson<SettingsData>(json);
             }
 
-            return new SettingsData(); // default values
+            Debug.LogWarning("No settings file found at: " + settingsPath);
+            return new SettingsData(); // return default if not found
+        }
+
+        public static void DeleteSettingsData()
+        {
+            if (File.Exists(settingsPath))
+            {
+                File.Delete(settingsPath);
+                Debug.Log("Settings data deleted from: " + settingsPath);
+            }
         }
     }
 }

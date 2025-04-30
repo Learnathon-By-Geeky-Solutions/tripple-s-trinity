@@ -1,5 +1,5 @@
-using TrippleTrinity.MechaMorph.Ability;
 using TrippleTrinity.MechaMorph.Damage;
+using TrippleTrinity.MechaMorph.MyAsset.Scripts.Ability;
 using UnityEngine;
 
 namespace TrippleTrinity.MechaMorph.Token

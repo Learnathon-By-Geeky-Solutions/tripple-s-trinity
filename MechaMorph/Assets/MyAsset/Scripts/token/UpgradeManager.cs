@@ -7,55 +7,53 @@ namespace TrippleTrinity.MechaMorph.Token
 {
     public class UpgradeManager : MonoBehaviour
     {
-        private static UpgradeManager _instance;
-        public static UpgradeManager Instance => _instance ?? throw new System.Exception("UpgradeManager is null!");
+        public static UpgradeManager Instance { get; private set; }
 
-        private int _upgradePoints;
-        private int _upgradeTokenCount;
+        [Header("Booster Upgrade")]
+        [SerializeField] private int baseBoosterCost = 15;
+        [SerializeField] private float boosterCostMultiplier = 1.4f;
 
-        private int _boosterUpgradeLevel;
-        private int _areaDamageUpgradeLevel;
-        private int _boosterUpgradeCost;
-        private int _areaDamageUpgradeCost;
-        private int _totalTokens;
+        [Header("Area Damage Upgrade")]
+        [SerializeField] private int baseAreaDamageCost = 20;
+        [SerializeField] private float areaDamageCostMultiplier = 1.5f;
+
+        private const int maxUpgradeLevel = 10;
+        private GameData gameData;
 
         private void Awake()
         {
-            if (_instance == null)
+            if (Instance == null)
             {
-                _instance = this;
-                DontDestroyOnLoad(gameObject);
-                LoadData();
-                _upgradeTokenCount = 0; // reset session tokens
+                Instance = this;
+                gameData = SaveSystem.LoadGame() ?? new GameData();
             }
             else
             {
                 Destroy(gameObject);
             }
         }
-        public void AddUpgradePoint()
-        {
-            _upgradePoints++;
-            Debug.Log($"Upgrade Points: {_upgradePoints}");
-        }
 
-        public void AddUpgradeToken()
-        {
-            _upgradeTokenCount++;
-            _totalTokens++;
-            SaveData();
-            TokenUIManager.Instance?.UpdateTokenCount(_upgradeTokenCount);
-        }
+        private void Save() => SaveSystem.SaveGame(gameData);
+
+        public int GetBoosterUpgradeCost() =>
+            Mathf.RoundToInt(baseBoosterCost * Mathf.Pow(boosterCostMultiplier, gameData.boosterUpgradeLevel));
+
+        public int GetAreaDamageUpgradeCost() =>
+            Mathf.RoundToInt(baseAreaDamageCost * Mathf.Pow(areaDamageCostMultiplier, gameData.areaDamageUpgradeLevel));
+
+        public bool CanUpgradeBooster() =>
+            gameData.boosterUpgradeLevel < maxUpgradeLevel && gameData.tokenCount >= GetBoosterUpgradeCost();
+
+        public bool CanUpgradeAreaDamage() =>
+            gameData.areaDamageUpgradeLevel < maxUpgradeLevel && gameData.tokenCount >= GetAreaDamageUpgradeCost();
 
         public bool UpgradeBoosterCooldown()
         {
-            if (_upgradeTokenCount >= _boosterUpgradeCost)
+            if (CanUpgradeBooster())
             {
-                _upgradeTokenCount -= _boosterUpgradeCost;
-                _boosterUpgradeLevel++;
-                _boosterUpgradeCost += 5;
-                SaveData();
-                TokenUIManager.Instance?.UpdateTokenCount(_upgradeTokenCount);
+                gameData.tokenCount -= GetBoosterUpgradeCost();
+                gameData.boosterUpgradeLevel++;
+                Save();
                 return true;
             }
             return false;
@@ -63,63 +61,30 @@ namespace TrippleTrinity.MechaMorph.Token
 
         public bool UpgradeAreaDamage()
         {
-            if (_upgradeTokenCount >= _areaDamageUpgradeCost)
+            if (CanUpgradeAreaDamage())
             {
-                _upgradeTokenCount -= _areaDamageUpgradeCost;
-                _areaDamageUpgradeLevel++;
-                _areaDamageUpgradeCost += 5;
-                SaveData();
-                TokenUIManager.Instance?.UpdateTokenCount(_upgradeTokenCount);
+                gameData.tokenCount -= GetAreaDamageUpgradeCost();
+                gameData.areaDamageUpgradeLevel++;
+                Save();
                 return true;
             }
             return false;
         }
 
-        public int GetUpgradeTokenCount() => _upgradeTokenCount;
-        public int GetTotalUpgradeTokenCount() => _totalTokens;
-        public int GetBoosterUpgradeCost() => _boosterUpgradeCost;
-        public int GetAreaDamageUpgradeCost() => _areaDamageUpgradeCost;
-
-        private void SaveData()
+        public void AddUpgradeToken()
         {
-            UpgradeData data = new UpgradeData
-            {
-                boosterUpgradeLevel = _boosterUpgradeLevel,
-                areaDamageUpgradeLevel = _areaDamageUpgradeLevel,
-                boosterUpgradeCost = _boosterUpgradeCost,
-                areaDamageUpgradeCost = _areaDamageUpgradeCost,
-                totalUpgradeTokens = _totalTokens
-            };
-
-            SaveSystem.SaveUpgrades(data);
+            gameData.tokenCount++;
+            Save();
+            UpgradePanel.Instance?.UpdateTotalTokenDisplay();
         }
 
-        private void LoadData()
+        public void AddUpgradePoint()
         {
-            UpgradeData data = SaveSystem.LoadUpgrades();
-
-            if (data != null)
-            {
-                _boosterUpgradeLevel = data.boosterUpgradeLevel;
-                _areaDamageUpgradeLevel = data.areaDamageUpgradeLevel;
-                _boosterUpgradeCost = data.boosterUpgradeCost;
-                _areaDamageUpgradeCost = data.areaDamageUpgradeCost;
-                _totalTokens = data.totalUpgradeTokens;
-            }
+            // Optional: use for skill points later
         }
 
-        public void ResetAllUpgrades()
-        {
-            _boosterUpgradeLevel = 0;
-            _areaDamageUpgradeLevel = 0;
-            _boosterUpgradeCost = 5;
-            _areaDamageUpgradeCost = 5;
-            _upgradeTokenCount = 0;
-            _totalTokens = 0;
-            SaveSystem.DeleteUpgradeData();
-
-            TokenUIManager.Instance?.UpdateTokenCount(_upgradeTokenCount);
-            Debug.Log("Upgrades reset.");
-        }
+        public int GetTotalUpgradeTokenCount() => gameData.tokenCount;
+        public int GetBoosterLevel() => gameData.boosterUpgradeLevel;
+        public int GetAreaDamageLevel() => gameData.areaDamageUpgradeLevel;
     }
 }

@@ -7204,6 +7204,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5242714a030f6934fa46c1bd4c92d578, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  baseBoosterCost: 1
+  boosterCostMultiplier: 1.4
+  baseAreaDamageCost: 20
+  areaDamageCostMultiplier: 1.5
 --- !u!4 &1504910667
 Transform:
   m_ObjectHideFlags: 0

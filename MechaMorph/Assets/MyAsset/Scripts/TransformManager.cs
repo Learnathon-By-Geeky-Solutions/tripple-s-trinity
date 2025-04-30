@@ -1,6 +1,6 @@
 using System.Collections;
-using TrippleTrinity.MechaMorph.Ability;
 using TrippleTrinity.MechaMorph.Health;
+using TrippleTrinity.MechaMorph.MyAsset.Scripts.Ability;
 using TrippleTrinity.MechaMorph.MyAsset.Scripts.Control;
 using UnityEngine;
 
