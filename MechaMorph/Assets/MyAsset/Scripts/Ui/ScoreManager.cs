@@ -55,9 +55,9 @@ namespace TrippleTrinity.MechaMorph.MyAsset.Scripts.Ui
             _score += points;
 
             // Check if new score is higher than previous high score
-            if (_score > _highScore)
+            if (_score > _highscore)
             {
-                _highScore = _score;
+                _highscore = _score;
                 SaveScore(); //save highscore
             }
 
@@ -73,7 +73,7 @@ namespace TrippleTrinity.MechaMorph.MyAsset.Scripts.Ui
 
             if (highScoreText != null)
             {
-                highScoreText.text = $"Highest Score: {_highScore:D2}</color>";
+                highScoreText.text = $"Highest Score: {_highscore:D2}</color>";
             }
         }
 
@@ -92,12 +92,12 @@ namespace TrippleTrinity.MechaMorph.MyAsset.Scripts.Ui
 
             if (data != null)
             {
-                _highScore = data.highScore; //Load high score from JSON
+                _highscore = data.highScore; //Load high score from JSON
             }
             else
             {
-                
-                _highScore = 0;
+
+                _highscore = 0;
             }
 
             UpdateScoreUI();
@@ -105,19 +105,24 @@ namespace TrippleTrinity.MechaMorph.MyAsset.Scripts.Ui
 
         public void SaveScore()
         {
-            if(_score > _highScore)
+            if(_score > _highscore)
             {
-                _highScore = _score;
+                _highscore = _score;
             }
 
             GameData data = new GameData
             {
-                highScore = _highScore,
+                highScore = _highscore,
                 tokenCount = TokenUIManager.Instance.CurrentTokenCount()
             };
 
             SaveSystem.SaveGame(data);
             Debug.Log("Score Saved Successfully.");
+        }
+
+        public void ResetScore()
+        {
+            _score = 0;
         }
     }
 }

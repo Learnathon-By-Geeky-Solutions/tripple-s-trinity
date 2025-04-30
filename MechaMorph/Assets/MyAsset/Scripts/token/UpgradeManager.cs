@@ -17,17 +17,7 @@ namespace TrippleTrinity.MechaMorph.Token
         private int _areaDamageUpgradeLevel;
         private int _boosterUpgradeCost;
         private int _areaDamageUpgradeCost;
-        public static UpgradeManager Instance
-        {
-            get
-            {
-                if (_instance == null)
-                {
-                    Debug.LogError("UpgradeManager instance is null.");
-                }
-                return _instance;
-            }
-        }
+        private int _totalTokens;
 
         private void Awake()
         {
