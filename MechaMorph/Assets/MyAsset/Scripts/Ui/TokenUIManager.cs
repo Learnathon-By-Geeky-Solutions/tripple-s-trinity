@@ -1,6 +1,7 @@
 using TMPro;
 using UnityEngine;
-using System.Collections; // Needed for Coroutine
+using System.Collections;
+using TrippleTrinity.MechaMorph.SaveManager; // Needed for Coroutine
 
 namespace TrippleTrinity.MechaMorph.MyAsset.Scripts.Ui
 {
@@ -18,11 +19,12 @@ namespace TrippleTrinity.MechaMorph.MyAsset.Scripts.Ui
             if (Instance == null)
             {
                 Instance = this;
-                // LoadTotalTokens(); // If you plan to load saved tokens later
-                
-                // Initialize the UI with 0 tokens
+                GameData data = SaveSystem.LoadGame();
+                _totalTokens = data?.tokenCount ?? 0; // Load saved tokens or default 0
+
                 _currentGameTokens = 0;
                 UpdateTokenCount(_currentGameTokens);
+
             }
             else
             {
@@ -60,13 +62,20 @@ namespace TrippleTrinity.MechaMorph.MyAsset.Scripts.Ui
 
         public void SaveFinalTokenCount()
         {
-            _totalTokens += _currentGameTokens; // Add session tokens to total
-            PlayerPrefs.SetInt("TotalTokens", _totalTokens);
-            PlayerPrefs.Save();
-            Debug.Log($"Game Over! Total Tokens Saved: {_totalTokens}");
+            GameData data = SaveSystem.LoadGame();
+            if (data == null)
+            {
+                data = new GameData();
+            }
 
-            ResetTokenCount(); // Ensure new game starts from 0
-        }
+            data.tokenCount += _currentGameTokens; // Add session tokens to total
+
+            SaveSystem.SaveGame(data);
+            Debug.Log($"Game Over! Total Tokens Saved: {data.tokenCount}");
+
+            _totalTokens = data.tokenCount; // Update local copy
+            ResetTokenCount();
+        }// Reset for next game}
 
         public int CurrentTokenCount()
         {
