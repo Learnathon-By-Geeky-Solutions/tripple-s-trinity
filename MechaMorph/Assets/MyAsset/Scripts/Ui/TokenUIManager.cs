@@ -98,7 +98,7 @@ namespace TrippleTrinity.MechaMorph.MyAsset.Scripts.Ui
 
             // Wait for a short time
             yield return new WaitForSeconds(0.1f);
-
+ 
             // Scale back to normal
             tokenCountText.transform.localScale = originalScale;
         }
