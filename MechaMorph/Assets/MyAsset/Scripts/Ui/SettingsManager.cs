@@ -1,10 +1,10 @@
-using UnityEngine;
 using TMPro;
+using TrippleTrinity.MechaMorph.MyAsset.Scripts.SaveManager;
+using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;
-using TrippleTrinity.MechaMorph.SaveManager;
 
-namespace TrippleTrinity.MechaMorph.Ui
+namespace TrippleTrinity.MechaMorph.MyAsset.Scripts.Ui
 {
     public class SettingsManager : MonoBehaviour
     {

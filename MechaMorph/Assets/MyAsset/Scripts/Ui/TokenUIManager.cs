@@ -1,6 +1,7 @@
 using TMPro;
 using UnityEngine;
 using System.Collections;
+using TrippleTrinity.MechaMorph.MyAsset.Scripts.SaveManager;
 using TrippleTrinity.MechaMorph.SaveManager; // Needed for Coroutine
 
 namespace TrippleTrinity.MechaMorph.MyAsset.Scripts.Ui
@@ -97,7 +98,7 @@ namespace TrippleTrinity.MechaMorph.MyAsset.Scripts.Ui
 
             // Wait for a short time
             yield return new WaitForSeconds(0.1f);
-
+ 
             // Scale back to normal
             tokenCountText.transform.localScale = originalScale;
         }

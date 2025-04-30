@@ -9,7 +9,13 @@ EditorBuildSettings:
     path: Assets/MyAsset/Scenes/StartManu.unity
     guid: 38c0785c2d18d10468513c4ac4db9393
   - enabled: 1
-    path: Assets/MyAsset/Scenes/MainScene.unity
+    path: Assets/MyAsset/Scenes/EasyModeScene.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
+  - enabled: 1
+    path: Assets/MyAsset/Scenes/MediumModeScene.unity
+    guid: b305d5edd67bb9847984b4aae88819ed
+  - enabled: 1
+    path: Assets/MyAsset/Scenes/HardModeScene.unity
+    guid: 49f2d8b9411ac1444a5c66ced14db5c0
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 79d86ca2c47e56d47949e8dce6f320ba, type: 2}

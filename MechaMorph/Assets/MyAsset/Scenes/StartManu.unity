@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641258, b: 0.5748172, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -637,8 +637,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1182484752}
-        m_TargetAssemblyTypeName: TrippleTrinity.MechaMorph.Ui.MainMenu, com.trippletrinity.mechamorph
+      - m_Target: {fileID: 990959471}
+        m_TargetAssemblyTypeName: TrippleTrinity.MechaMorph.MyAsset.Scripts.Ui.MainMenu,
+          com.trippletrinity.mechamorph
         m_MethodName: QuitGame
         m_Mode: 1
         m_Arguments:
@@ -782,8 +783,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1182484752}
-        m_TargetAssemblyTypeName: TrippleTrinity.MechaMorph.Ui.MainMenu, com.trippletrinity.mechamorph
+      - m_Target: {fileID: 990959471}
+        m_TargetAssemblyTypeName: TrippleTrinity.MechaMorph.MyAsset.Scripts.Ui.MainMenu,
+          com.trippletrinity.mechamorph
         m_MethodName: PlayGame
         m_Mode: 1
         m_Arguments:
@@ -2125,6 +2127,7 @@ GameObject:
   - component: {fileID: 393594682}
   - component: {fileID: 393594681}
   - component: {fileID: 393594683}
+  - component: {fileID: 393594684}
   m_Layer: 5
   m_Name: Setting Panel
   m_TagString: Untagged
@@ -2222,6 +2225,19 @@ MonoBehaviour:
   sfxVol: {fileID: 2073777676}
   lobbyVol: {fileID: 1787973725}
   mainAudioMixer: {fileID: 24100000, guid: 2ac56d62dc57ace4388f822fb44f4b8f, type: 2}
+--- !u!114 &393594684
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 393594679}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ae6c14216aea004196d315ea215a313, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  difficultyDropdown: {fileID: 1865344489}
 --- !u!1 &398176517
 GameObject:
   m_ObjectHideFlags: 0
@@ -2719,7 +2735,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -551, y: -272}
+  m_AnchoredPosition: {x: -328, y: -271}
   m_SizeDelta: {x: 181.549, y: 87.517}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &468460948
@@ -2766,10 +2782,11 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 393594679}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: 
-        m_Mode: 6
+      - m_Target: {fileID: 393594684}
+        m_TargetAssemblyTypeName: TrippleTrinity.MechaMorph.MyAsset.Scripts.Ui.SettingsMenuUI,
+          com.trippletrinity.mechamorph
+        m_MethodName: OnApplySettings
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -5775,6 +5792,7 @@ GameObject:
   - component: {fileID: 990959468}
   - component: {fileID: 990959470}
   - component: {fileID: 990959469}
+  - component: {fileID: 990959471}
   m_Layer: 5
   m_Name: Menu Panel
   m_TagString: Untagged
@@ -5840,6 +5858,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 990959467}
   m_CullTransparentMesh: 1
+--- !u!114 &990959471
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 990959467}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bedfa2819627ac248b7cb6cd67b36ab5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1016892908
 GameObject:
   m_ObjectHideFlags: 0
@@ -6257,7 +6287,6 @@ GameObject:
   - component: {fileID: 1182484751}
   - component: {fileID: 1182484750}
   - component: {fileID: 1182484749}
-  - component: {fileID: 1182484752}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -6339,18 +6368,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1182484752
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1182484748}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bedfa2819627ac248b7cb6cd67b36ab5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1202543973
 GameObject:
   m_ObjectHideFlags: 0

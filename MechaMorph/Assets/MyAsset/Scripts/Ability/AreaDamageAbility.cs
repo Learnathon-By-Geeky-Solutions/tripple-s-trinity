@@ -1,7 +1,7 @@
 using UnityEngine;
 using TrippleTrinity.MechaMorph.Damage;
 using TrippleTrinity.MechaMorph.InputHandling;
-using TrippleTrinity.MechaMorph.Ui;
+using TrippleTrinity.MechaMorph.MyAsset.Scripts.Ui;
 
 namespace TrippleTrinity.MechaMorph.Ability
 {

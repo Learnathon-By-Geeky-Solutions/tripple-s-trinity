@@ -1,6 +1,6 @@
 using System;
 
-namespace TrippleTrinity.MechaMorph.SaveManager
+namespace TrippleTrinity.MechaMorph.MyAsset.Scripts.SaveManager
 {
     [Serializable]
     public class SettingsData
@@ -10,6 +10,7 @@ namespace TrippleTrinity.MechaMorph.SaveManager
         public float sfxVolume;
         public float lobbyVolume;
         public int graphicsQualityIndex;
+
+        public DifficultyMode gameMode = DifficultyMode.Easy; 
     }
 }
-

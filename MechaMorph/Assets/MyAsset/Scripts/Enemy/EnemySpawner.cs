@@ -13,7 +13,7 @@ namespace TrippleTrinity.MechaMorph.Enemy
         [SerializeField]private float spawnDelay = 6f;
         private float timeCounter;
         private float counter;
-        private readonly float xMinVal = -13f, xMaxVal = 13f, zMinVal = -20f, zMaxVal = 20f;
+        private readonly float xMinVal = -40f, xMaxVal = 40f, zMinVal = -40f, zMaxVal = 40f;
         private readonly float spawnHeight = 1f;
         private  bool isBossSpwaned;
         private int phaseLevel=0;

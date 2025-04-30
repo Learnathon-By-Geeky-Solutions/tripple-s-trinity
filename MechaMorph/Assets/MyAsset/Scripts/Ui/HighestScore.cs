@@ -1,8 +1,8 @@
-using UnityEngine;
 using TMPro;
-using TrippleTrinity.MechaMorph.SaveManager;
+using TrippleTrinity.MechaMorph.MyAsset.Scripts.SaveManager;
+using UnityEngine;
 
-namespace TrippleTrinity.MechaMorph.Ui
+namespace TrippleTrinity.MechaMorph.MyAsset.Scripts.Ui
 {
     public class HighestScore : MonoBehaviour
     {

@@ -1,6 +1,6 @@
 using System.Collections;
 using TrippleTrinity.MechaMorph.InputHandling;
-using TrippleTrinity.MechaMorph.Ui;
+using TrippleTrinity.MechaMorph.MyAsset.Scripts.Ui;
 using UnityEngine;
 
 namespace TrippleTrinity.MechaMorph.MyAsset.Scripts.Control
