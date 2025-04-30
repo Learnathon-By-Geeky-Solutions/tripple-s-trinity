@@ -1,17 +1,17 @@
 using System.Collections;
 using TrippleTrinity.MechaMorph.MyAsset.Scripts.Control;
 using TrippleTrinity.MechaMorph.MyAsset.Scripts.Ui;
+using TrippleTrinity.MechaMorph.Weapons;
 using UnityEngine;
 
-namespace TrippleTrinity.MechaMorph.Weapons
+namespace TrippleTrinity.MechaMorph.MyAsset.Scripts.Weapons
 {
     public abstract class BaseGun : MonoBehaviour
     {
         [SerializeField] private GunData gunData;
         protected GunData Gundata => gunData;
 
-
-        [SerializeField] private float currentAmmo; 
+        [SerializeField] private float currentAmmo;
         protected float CurrentAmmo
         {
             get => currentAmmo;
@@ -20,22 +20,21 @@ namespace TrippleTrinity.MechaMorph.Weapons
 
         [SerializeField] private float nextTimeToFire;
 
-        private GunUIManager gunUIManager;
+        private GunUIManager _gunUIManager;
 
         private bool _isReloading;
 
         private void Start()
         {
             currentAmmo = Gundata.MagazineSize;
-            gunUIManager = GunUIManager.Instance;
+            _gunUIManager = GunUIManager.Instance;
 
             transform.root.GetComponent<NewRobotController>();
-
         }
 
         public virtual void Update()
         {
-    
+            // Optional: could add ammo UI or effects here later
         }
 
         protected void TryReloading()
@@ -50,7 +49,8 @@ namespace TrippleTrinity.MechaMorph.Weapons
         {
             _isReloading = true;
 
-            gunUIManager?.UpdateGunStatus(Gundata.GunName + " is reloading....");
+            // Previously showed reload text — now removed
+            // gunUIManager?.UpdateGunStatus(Gundata.GunName + " is reloading....");
 
             yield return new WaitForSeconds(Gundata.ReloadTime);
 
@@ -64,17 +64,17 @@ namespace TrippleTrinity.MechaMorph.Weapons
         {
             if (_isReloading)
             {
-                Debug.Log(Gundata.GunName + " is realoading...");
+                Debug.Log(Gundata.GunName + " is reloading...");
                 return;
             }
-            if(currentAmmo <= 0f)
+            if (currentAmmo <= 0f)
             {
-                Debug.Log(Gundata.GunName + " han no bullets left. Please reload.");
+                Debug.Log(Gundata.GunName + " has no bullets left. Please reload.");
                 return;
             }
-            if(Time.time >= nextTimeToFire)
+            if (Time.time >= nextTimeToFire)
             {
-                nextTimeToFire = Time.time + (1/Gundata.FireRate);
+                nextTimeToFire = Time.time + (1 / Gundata.FireRate);
                 HandleShoot();
             }
         }
@@ -87,7 +87,5 @@ namespace TrippleTrinity.MechaMorph.Weapons
         }
 
         protected abstract void Shoot();
-
-
     }
 }

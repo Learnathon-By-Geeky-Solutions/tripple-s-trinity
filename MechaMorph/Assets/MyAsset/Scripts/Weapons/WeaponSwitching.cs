@@ -1,11 +1,11 @@
 using TrippleTrinity.MechaMorph.MyAsset.Scripts.Ui;
 using UnityEngine;
 
-namespace TrippleTrinity.MechaMorph.Weapons
+namespace TrippleTrinity.MechaMorph.MyAsset.Scripts.Weapons
 {
     public class WeaponSwitching : MonoBehaviour
     {
-        public GameObject[] weapons; 
+        public GameObject[] weapons;
         private int _currentWeaponIndex;
         private GunUIManager _gunUIManager;
 
@@ -45,14 +45,24 @@ namespace TrippleTrinity.MechaMorph.Weapons
 
         void SwitchWeapon(int newWeaponIndex)
         {
-            foreach (var i in weapons)
+            foreach (var weapon in weapons)
             {
-                i.SetActive(false);
+                weapon.SetActive(false);
             }
 
             weapons[newWeaponIndex].SetActive(true);
 
-            _gunUIManager?.UpdateGunName(weapons[newWeaponIndex].name);
+            // Match weapon name to gun image
+            string weaponName = weapons[newWeaponIndex].name.ToLower();
+
+            if (weaponName.Contains("pistol"))
+                _gunUIManager?.UpdateGun("pistol");
+            else if (weaponName.Contains("shotgun"))
+                _gunUIManager?.UpdateGun("shotgun");
+            else if (weaponName.Contains("machine"))
+                _gunUIManager?.UpdateGun("machinegun");
+            else
+                _gunUIManager?.UpdateGun(weaponName); // fallback
         }
     }
 }

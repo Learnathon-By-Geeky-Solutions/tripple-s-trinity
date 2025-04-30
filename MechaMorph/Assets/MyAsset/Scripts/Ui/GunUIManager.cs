@@ -1,5 +1,5 @@
-using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace TrippleTrinity.MechaMorph.MyAsset.Scripts.Ui
 {
@@ -7,8 +7,9 @@ namespace TrippleTrinity.MechaMorph.MyAsset.Scripts.Ui
     {
         private static GunUIManager _instance;
 
-        [SerializeField] private TextMeshProUGUI gunNameText;
-        [SerializeField] private TextMeshProUGUI gunStatusText;
+        [SerializeField] private Image pistolImage;
+        [SerializeField] private Image shotgunImage;
+        [SerializeField] private Image machineGunImage;
 
         public static GunUIManager Instance
         {
@@ -31,21 +32,31 @@ namespace TrippleTrinity.MechaMorph.MyAsset.Scripts.Ui
             }
             else
             {
-                Destroy(gameObject); // Optional safety
+                Destroy(gameObject);
             }
         }
 
-        public void UpdateGunName(string message)
+        public void UpdateGun(string gunName)
         {
-            gunNameText.text = message;
-            gunNameText.alpha = 1f;
+            pistolImage.enabled = false;
+            shotgunImage.enabled = false;
+            machineGunImage.enabled = false;
 
-            
-        }
-
-        public void UpdateGunStatus(string message)
-        {
-            gunStatusText.text = message;
+            switch (gunName.ToLower())
+            {
+                case "pistol":
+                    pistolImage.enabled = true;
+                    break;
+                case "shotgun":
+                    shotgunImage.enabled = true;
+                    break;
+                case "machinegun":
+                    machineGunImage.enabled = true;
+                    break;
+                default:
+                    Debug.LogWarning($"Unknown gun name: {gunName}");
+                    break;
+            }
         }
     }
 }
