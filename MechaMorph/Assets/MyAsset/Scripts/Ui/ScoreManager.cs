@@ -7,19 +7,29 @@ namespace TrippleTrinity.MechaMorph.MyAsset.Scripts.Ui
 {
     public class ScoreManager : MonoBehaviour
     {
-        public static ScoreManager Instance { get; private set; }
-
+        private static ScoreManager _instance;
+       
         private int _score;
-        private int _highScore;
-
+        private const string HighScoreKey = "HighScore";
+        private int _highscore;
         [SerializeField] private TextMeshProUGUI scoreText;
         [SerializeField] private TextMeshProUGUI highScoreText;
-
+        public static ScoreManager Instance
+        {
+        get
+        {
+            if (_instance == null)
+            {
+                Debug.LogError("ScoreManager instance is null.");
+            }
+            return _instance;
+        }
+        }
         private void Awake()
         {
-            if (Instance == null)
+            if (_instance == null)
             {
-                Instance = this;
+                _instance = this;
                 DontDestroyOnLoad(gameObject);
             }
             else

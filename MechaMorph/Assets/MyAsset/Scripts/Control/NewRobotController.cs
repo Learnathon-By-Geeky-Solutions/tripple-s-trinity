@@ -7,6 +7,8 @@ namespace TrippleTrinity.MechaMorph.MyAsset.Scripts.Control
     [RequireComponent(typeof(Rigidbody))]
     public class NewRobotController : MonoBehaviour
     {
+        private static readonly int Jump = Animator.StringToHash("Jump");
+        private static readonly int IsWalking = Animator.StringToHash("isWalking");
         private Animator _animator;
 
         [Header("Movement Settings")]
@@ -21,7 +23,9 @@ namespace TrippleTrinity.MechaMorph.MyAsset.Scripts.Control
 
         [Header("Sound Settings")]
         [SerializeField] private AudioClip walkSound;  // Walking sound
-        private AudioSource _audioSource;  // AudioSource to play the sound
+        [SerializeField] private AudioClip jumpSound;  
+        private AudioSource _audioSource;  // AudioSource for walking
+        private AudioSource _sfxSource;    // AudioSource for jump and other SFX
 
         private Rigidbody _rb;
         private bool _isGrounded;
@@ -30,7 +34,13 @@ namespace TrippleTrinity.MechaMorph.MyAsset.Scripts.Control
         {
             InitializeRigidbody();
             _animator = GetComponentInChildren<Animator>();
-            _audioSource = GetComponent<AudioSource>();  // Initialize AudioSource component
+
+            // Setup walking audio source
+            _audioSource = GetComponent<AudioSource>();
+
+            // Create second audio source for SFX
+            _sfxSource = gameObject.AddComponent<AudioSource>();
+            _sfxSource.playOnAwake = false;
         }
 
         private void FixedUpdate()
@@ -79,23 +89,23 @@ namespace TrippleTrinity.MechaMorph.MyAsset.Scripts.Control
 
             if (_animator != null)
             {
-                _animator.SetBool("isWalking", isWalking);
+                _animator.SetBool(IsWalking, isWalking);
             }
         }
 
         private void PlayWalkingSound()
         {
-            if (!_audioSource.isPlaying && walkSound != null)  // Only play if it's not already playing
+            if (!_audioSource.isPlaying && walkSound != null)  // Only play if not already playing
             {
                 _audioSource.clip = walkSound;
-                _audioSource.loop = true;  // Loop the sound while walking
+                _audioSource.loop = true;  // Loop walking sound
                 _audioSource.Play();
             }
         }
 
         private void StopWalkingSound()
         {
-            if (_audioSource.isPlaying)  // Stop the sound if it is playing
+            if (_audioSource.isPlaying)
             {
                 _audioSource.Stop();
             }
@@ -129,7 +139,17 @@ namespace TrippleTrinity.MechaMorph.MyAsset.Scripts.Control
 
             if (_animator != null)
             {
-                _animator.SetTrigger("Jump");
+                _animator.SetTrigger(Jump);
+            }
+
+            PlayJumpSound();  // Play jump sound
+        }
+
+        private void PlayJumpSound()
+        {
+            if (jumpSound != null && _sfxSource != null)
+            {
+                _sfxSource.PlayOneShot(jumpSound);  // Play jump sound independently
             }
         }
 

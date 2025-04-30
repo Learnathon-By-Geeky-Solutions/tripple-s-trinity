@@ -15,9 +15,19 @@ namespace TrippleTrinity.MechaMorph.Token
 
         private int _boosterUpgradeLevel;
         private int _areaDamageUpgradeLevel;
-        private int _boosterUpgradeCost = 5;
-        private int _areaDamageUpgradeCost = 5;
-        private int _totalTokens;
+        private int _boosterUpgradeCost;
+        private int _areaDamageUpgradeCost;
+        public static UpgradeManager Instance
+        {
+            get
+            {
+                if (_instance == null)
+                {
+                    Debug.LogError("UpgradeManager instance is null.");
+                }
+                return _instance;
+            }
+        }
 
         private void Awake()
         {
@@ -33,8 +43,11 @@ namespace TrippleTrinity.MechaMorph.Token
                 Destroy(gameObject);
             }
         }
-
-        public void AddUpgradePoint() => _upgradePoints++;
+        public void AddUpgradePoint()
+        {
+            _upgradePoints++;
+            Debug.Log($"Upgrade Points: {_upgradePoints}");
+        }
 
         public void AddUpgradeToken()
         {
